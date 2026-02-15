@@ -1,8 +1,116 @@
-# MCLP Discord Bot
+# 🤖 MCLP Discord Bot
 
-A **feature-rich** Discord bot built with [Discord.py](https://discordpy.readthedocs.io/en/stable/), providing  
-Moderation tools, Minigames, Utility commands, and more!  
-Designed for **private server use** with sophisticated permission handling and logging.  
+<div align="center">
+
+### A Feature-Rich Discord Bot for Your Community
+
+A comprehensive Discord bot built with [Discord.py](https://discordpy.readthedocs.io/en/stable/), providing moderation tools, minigames, utility commands, music streaming, and much more!
+
+**Designed for private server use with sophisticated permission handling and logging.**
+
+[![Discord](https://img.shields.io/badge/Discord-Join%20MCLP-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/tssKYweM3h)
+[![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Discord.py](https://img.shields.io/badge/Discord.py-2.6.4-5865F2?style=for-the-badge)](https://discordpy.readthedocs.io/)
+[![License](https://img.shields.io/badge/License-Private-red?style=for-the-badge)](./license.txt)
+
+</div>
+
+---
+
+## 📖 Table of Contents
+
+- [About This Repository](#-about-this-repository)
+- [Features Overview](#-features-overview)
+- [Screenshots](#-screenshots)
+- [Getting Started](#-getting-started)
+- [Tech Stack](#-tech-stack)
+- [Core Functionality](#core-functionality)
+- [Legal & Compliance](#-legal--compliance)
+- [Changelog](#-changelog)
+- [Contact & Support](#-contact--support)
+
+---
+
+## 📚 About This Repository
+
+This is the **public-facing repository** for the MCLP Discord Bot. The actual bot source code is kept private, but this repository serves as:
+
+- 📖 **Documentation Hub** - Comprehensive information about the bot's features and capabilities
+- 📋 **Legal Information** - Privacy Policy, Terms of Service, and Security Policy
+- 🎯 **Feature Showcase** - Demonstrations of what the bot can do
+- 📞 **Contact Point** - How to get in touch for support or inquiries
+
+The bot is an exclusive, privately-operated service running on dedicated hardware. While the code is not open source, this repository provides transparency about the bot's functionality, data handling, and legal compliance.
+
+---
+
+## ✨ Features Overview
+
+### 🎵 Music Streaming
+Stream music directly from YouTube and SoundCloud in voice channels with queue management, playback controls, and volume adjustment.
+
+### 🎮 Interactive Games
+Enjoy text-based minigames including Quiz, Hangman, Rock-Paper-Scissors, Number Guessing, and more!
+
+### 🛠️ Utility Tools
+Access weather information, time zones, reminders, polls, and even an advanced calculator with equation solving.
+
+### 🛡️ Moderation Features
+Comprehensive moderation tools including kick, ban, timeout, reaction roles, and a sophisticated permission system.
+
+### 🌌 Science & Astronomy
+Explore space with NASA's Astronomy Picture of the Day, Mars rover photos, asteroid tracking, and exoplanet data.
+
+### ⚡ System Features
+- Advanced logging with rotation
+- Rate limiting and cooldown protection
+- Emergency lockdown system
+- Status rotation
+- DSGVO/GDPR compliant data handling
+
+---
+
+## 📸 Screenshots
+
+> *Screenshots showcasing the bot's features will be added here*
+
+### Command Examples
+Coming soon: Visual examples of commands in action
+
+### Dashboard & Configuration
+Coming soon: Configuration interface examples
+
+### Game Features
+Coming soon: Interactive game screenshots
+
+---
+
+## 🚀 Getting Started
+
+### Join the MCLP Server
+
+Experience the bot in action by joining the official MCLP Discord server:
+
+[![Join Discord](https://img.shields.io/badge/Join-MCLP%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/tssKYweM3h)
+
+### Bot Invitation
+
+> **Note:** This bot is currently operated as an exclusive, privately-hosted service. It is not available for public invitation at this time.
+> 
+> To inquire about availability or partnerships, please contact the bot owner through the MCLP Discord server.
+
+### Quick Start Commands
+
+Once you have access to the bot:
+
+```
+!help           - Display all available commands
+!weather <city> - Get weather information
+!play <song>    - Play music in voice channel
+!quiz           - Start a quiz game
+!reminder       - Set a reminder
+!status         - Check Discord service status
+```
 
 ---
 
@@ -37,24 +145,89 @@ Designed for **private server use** with sophisticated permission handling and l
 
 ## Features
 
-- Music streaming from YouTube
-- Text-based minigames (Quiz, Hangman, RPS, Number Guess)
-- Utility commands (Weather, Time, Reminders, Polls)
-- Moderation tools (Kick, Ban, Timeout, Reaction Roles)
-- Science & Astronomy features (NASA APOD, Mars Photos, Asteroids, Exoplanets)
-- Advanced calculator with equation solving
-- Permission system with global and server-specific whitelists
-- Global user and server blacklist system with enforcement
-- Comprehensive logging system with rotation
-- Status rotation enables different status messages and durations
-- Emergency-measures system (Global cooldown / bot lockdown)
-- DSGVO/GDPR compliant data handling
-- Rate limiting and cooldowns  
-- **Optional Broadcast System** for announcements and updates
+### 🎵 Music Streaming & Playback
+
+Stream your favorite music directly in Discord voice channels with full playback control.
+
+**Available Commands:**
+- `!play <song>` - Play a song from YouTube or SoundCloud
+- `!pause` / `!resume` - Control playback
+- `!skip` - Skip to next song in queue
+- `!queue` - View the current queue
+- `!nowplaying` - See what's currently playing
+- `!volume <0-100>` - Adjust volume
+
+**Supported Platforms:** YouTube, SoundCloud
 
 ---
 
-## Tech Stack
+### 🎮 Interactive Minigames
+
+Engage your community with fun text-based games.
+
+**Available Games:**
+- 🧠 **Quiz** - Multiple categories with multi-language support
+- 🔤 **Hangman** - Classic word guessing game
+- ✊✋✌️ **Rock Paper Scissors** - `!rps` challenge the bot
+- 🎲 **Number Guess** - `!guess` the right number
+- 🎲 **Dice Rolling** - `!roll` with custom dice notation
+
+---
+
+### 🛠️ Utility Commands
+
+Helpful tools for everyday use.
+
+- 🌤️ **Weather** - Real-time weather data (`!weather <city>`)
+- 🌍 **City Info** - Geographic and timezone information (`!city <name>`)
+- ⏰ **Time** - Local time for any location (`!time <city>`)
+- ⏱️ **Reminders** - Set one-time or scheduled reminders (`!reminder`, `!scheduled-reminder`)
+- 📊 **Polls** - Create interactive polls (`!poll`)
+- 🐱 **Cat Facts** - Random cat facts (`!catfact`)
+- 🔢 **Calculator** - Advanced math calculator with equation solving (`!calc`)
+- 📡 **Discord Status** - Check Discord service status (`!status`)
+
+---
+
+### 🛡️ Moderation Tools
+
+Comprehensive server management features.
+
+- 👢 **User Management** - Kick, ban, unban users
+- 🔇 **Timeout System** - Temporary muting (`!timeout`, `!untimeout`)
+- 🎭 **Reaction Roles** - Auto-assign roles via reactions
+- 🔐 **Permission System** - Global and server-specific whitelists
+- 🚫 **Blacklist System** - Global enforcement of Terms of Service
+- 📝 **Logging Controls** - Configurable command and operational logging
+
+---
+
+### 🌌 Science & Astronomy Features
+
+Explore the cosmos with data from NASA APIs.
+
+- 🌟 **Astronomy Picture of the Day** - `!apod`
+- 🔴 **Mars Photos** - Curiosity & Spirit rover images (`!marsphoto`)
+- ☄️ **Asteroid Tracking** - Near-Earth objects (`!asteroids`)
+- ☀️ **Solar Activity** - Sun data and space weather (`!sun`)
+- 🪐 **Exoplanets** - Search for potentially habitable worlds (`!exoplanet`)
+
+---
+
+### ⚙️ System Features
+
+Advanced bot capabilities for stability and security.
+
+- 📊 **Advanced Logging** - Automatic log rotation with 14-day retention
+- ⏱️ **Rate Limiting** - Per-user and per-command cooldowns
+- 🚨 **Emergency System** - Lockdown and cooldown modes for abuse protection
+- 🔄 **Status Rotation** - Automatic rotating status messages
+- 🔒 **DSGVO/GDPR Compliant** - Full European data protection compliance
+- 🌐 **Multi-API Integration** - NASA, OpenWeatherMap, Dictionary, and more
+
+---
+
+## 💼 Tech Stack
 
 ### Core Packages
 
@@ -91,7 +264,7 @@ Designed for **private server use** with sophisticated permission handling and l
 
 ---
 
-## Legal & Compliance
+## ⚖️ Legal & Compliance
 
 The bot operates under strict [Terms of Service](./TERMS_OF_SERVICE.md) that cover:
 - Usage rights and limitations
@@ -124,14 +297,63 @@ Your data is protected under our [Privacy Policy](./PRIVACY_POLICY.md) compliant
 
 ---
 
-## Setup
+## 🌟 Why Choose MCLP Bot?
 
-**Important!**
-See [`requirements.txt`](./requirements.txt) for full dependencies.
+### 🔒 Privacy First
+- **DSGVO/GDPR Compliant** - Full European data protection standards
+- **Transparent Data Handling** - Clear documentation of what data is collected and why
+- **User Rights Respected** - Easy data access and deletion requests
+- **Germany-Based** - Server located in Germany 🇩🇪
+
+### 🚀 Performance & Reliability
+- **Dedicated Hardware** - Running on Raspberry Pi 5 with 8GB RAM
+- **99%+ Uptime** - Stable and reliable service
+- **Rate Limiting** - Fair usage protection for all users
+- **Error Handling** - Graceful recovery from issues
+
+### 🛡️ Security Focused
+- **Blacklist System** - Automated enforcement against abuse
+- **Permission Hierarchy** - Sophisticated authorization system
+- **Emergency Lockdown** - Protection against attacks and spam
+- **Regular Updates** - Continuous security improvements
+
+### 🎨 Feature Rich
+- **70+ Commands** - Comprehensive command library
+- **Multiple APIs** - Integration with NASA, OpenWeather, YouTube, and more
+- **Active Development** - Regular feature additions and improvements
+- **Community Driven** - Responsive to user feedback
 
 ---
 
-## License
+## 🔧 Technical Requirements
+
+**For hosting (informational - bot is privately hosted):**
+
+This bot requires the following to operate:
+
+- **Python 3.11.2 - 3.13.5** - Python runtime
+- **Discord.py 2.6.4** - Discord API wrapper
+- **FFMPEG** - Audio encoding/decoding for music features
+- **Various Python packages** - See [`requirements.txt`](./requirements.txt)
+
+### Hardware Specifications (Current Setup)
+- **Platform:** Raspberry Pi 5 B
+- **CPU:** Quad-Core 64-Bit 2.4 GHz
+- **RAM:** 8 GB LPDDR4X
+- **Storage:** SSD for fast I/O
+- **Network:** Stable internet connection
+
+### Software Stack
+- **OS:** Linux (Raspberry Pi OS / Debian-based)
+- **Environment:** Python venv for isolated dependencies
+- **Database:** JSON files for configuration storage
+- **Logging:** Automatic rotation with 14-day retention
+
+**Note:** The bot is privately hosted and not available for self-hosting. This information is provided for transparency about the technical infrastructure.
+
+---
+
+## 📄 License
 
 **Private License** - All rights reserved.
 Permission is granted to view the source code for **personal reference and educational purposes only**.
@@ -141,7 +363,7 @@ See [`license.txt`](./license.txt)
 
 ---
 
-## Changelog
+## 📜 Changelog
 
 ### Version 1.6 - Code hardening and stability update
 
@@ -240,7 +462,7 @@ See [`license.txt`](./license.txt)
 
 ---
 
-## Contact & Support
+## 📞 Contact & Support
 
 For privacy-related inquiries or legal questions:
 - Email: dennisplischke755@gmail.com
@@ -251,7 +473,59 @@ For bug reports:
 
 ---
 
-## Authors
+## 👥 Authors & Contributors
 
-- Owner and main developer: Dennis Plischke
-- Co-Developer and team member: Robin Stiller
+### Core Team
+
+**Dennis Plischke** - *Owner & Lead Developer*
+- Discord: @MinecraftLetsPlay2912
+- Email: dennisplischke755@gmail.com
+- Role: Bot development, infrastructure, legal compliance
+
+**Robin Stiller** - *Co-Developer & Team Member*
+- Role: Feature development, testing, code review
+
+### Acknowledgments
+
+Special thanks to:
+- The Discord.py community for the excellent API wrapper
+- All API providers (NASA, OpenWeatherMap, etc.)
+- The MCLP Discord community for feedback and support
+
+---
+
+## 🤝 Contributing
+
+This is a closed-source project. The bot code is private, and contributions are not accepted at this time.
+
+However, you can help by:
+- 🐛 Reporting bugs through Discord
+- 💡 Suggesting features or improvements
+- 📣 Sharing feedback about the bot
+- ⭐ Starring this repository if you find it useful
+
+---
+
+## 📈 Project Status
+
+- **Current Version:** 1.6
+- **Status:** Active Development ✅
+- **Uptime:** 99%+ 
+- **Last Updated:** February 15, 2026
+
+---
+
+<div align="center">
+
+### 💙 Thank you for your interest in MCLP Discord Bot!
+
+[![Join Discord](https://img.shields.io/badge/Join-MCLP%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/tssKYweM3h)
+
+**Made with ❤️ in Germany 🇩🇪**
+
+---
+
+*This is a private, exclusive bot operated by Dennis Plischke.*  
+*For inquiries, please join the MCLP Discord server or send an email.*
+
+</div>
