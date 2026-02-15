@@ -11,29 +11,34 @@ This document showcases the architecture, design patterns, and code examples tha
 ### Project Structure
 
 ```
-Discord-Bot/
-├── main.py                      # Entry point
-├── bot.py                       # Bot initialization and event handling
-├── command_router.py            # Intelligent command routing
-├── command_modules/
-│   ├── moderation_commands.py   # Kick, ban, timeout
-│   ├── minigames.py             # Games: Quiz, Hangman, RPS
-│   ├── utility_commands.py      # Weather, time, reminders
-│   ├── public_commands.py       # Help, info, serverinfo
-│   ├── system_commands.py       # Admin controls
-│   ├── calculator.py            # Advanced calculator
-│   ├── scientific_commands.py   # NASA APIs
-│   └── music/
-│       ├── music_commands.py    # Music control commands
-│       └── player.py            # Music player logic
-├── utils.py                     # Helper functions
-├── logging_setup.py             # Advanced logging
-├── status_cycle.py              # Status rotation
-├── rate_limiter.py              # Rate limiting system
-└── config/                      # Configuration files
-    ├── config.json              # Global configuration
-    └── per_guild/               # Per-server configs
-        └── {guild_id}.json
+Discord-Bot/src/
+├── main.py                             # Entry point
+├── bot.py                              # Bot initialization and event handling
+└── internal/
+   ├── command_router.py                # Intelligent command routing
+   ├── rate_limiter.py                  # Multi-layered rate limiting
+   ├── status_cycle.py                  # Status rotation system
+   ├── utils.py                         # Helper functions & config management
+   ├── command_modules/
+   │   ├── __init__.py                  # Module initialization
+   │   ├── calculator.py                # Advanced calculator
+   │   ├── logging_setup.py             # Custom logging handler
+   │   ├── minigames.py                 # Games: Quiz, Hangman, RPS
+   │   ├── moderation_commands.py       # Kick, ban, timeout
+   │   ├── public_commands.py           # Help, info, serverinfo
+   │   ├── sciencecific_commands.py     # NASA & space APIs
+   │   ├── system_commands.py           # Admin controls
+   │   ├── utility_commands.py          # Weather, time, reminders
+   │   └── music/
+   │       ├── music_commands.py        # Music control commands
+   │       └── player.py                # Music player logic
+   └── data/
+       ├── config.json                  # Global bot configuration
+       ├── hangman.json                 # Hangman word lists
+       ├── quiz.json                    # Quiz questions
+       ├── reactionrole.json            # Reaction role mappings
+       └── servers/
+           └── <guild_id>.json          # Per-server configuration
 ```
 
 ---
