@@ -44,7 +44,8 @@ See [Privacy Policy](./docs/PRIVACY_POLICY.md) and [Terms of Service](./docs/TER
 
 | Version | Status  | Support                    |
 |---------|---------|----------------------------|
-| 1.5.x   | Current | Receiving security updates |
+| 1.6.x   | Current | Receiving security updates |
+| 1.5.x   | EOL     | No longer supported        |
 | 1.4.x   | EOL     | No longer supported        |
 | 1.3.x   | EOL     | No longer supported        |
 | < 1.3   | EOL     | No longer supported        |
@@ -71,5 +72,5 @@ This project operates under strict GDPR/DSGVO compliance. Security vulnerabiliti
 
 ---
 
-**Last Updated:** January 7, 2026  
-**Version:** 1.0
+**Last Updated:** February 15, 2026  
+**Version:** 1.2
