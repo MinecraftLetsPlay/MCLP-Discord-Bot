@@ -36,10 +36,10 @@ A comprehensive Discord bot built with [Discord.py](https://discordpy.readthedoc
 
 This is the **public-facing repository** for the MCLP Discord Bot. The actual bot source code is kept private, but this repository serves as:
 
-- 📖 **Documentation Hub** - Comprehensive information about the bot's features and capabilities
-- 📋 **Legal Information** - Privacy Policy, Terms of Service, and Security Policy
-- 🎯 **Feature Showcase** - Demonstrations of what the bot can do
-- 📞 **Contact Point** - How to get in touch for support or inquiries
+- **Documentation Hub** - Comprehensive information about the bot's features and capabilities
+- **Legal Information** - Privacy Policy, Terms of Service, and Security Policy
+- **Feature Showcase** - Demonstrations of what the bot can do
+- **Contact Point** - How to get in touch for support or inquiries
 
 The bot is an exclusive, privately-operated service running on dedicated hardware. While the code is not open source, this repository provides transparency about the bot's functionality, data handling, and legal compliance.
 
@@ -138,7 +138,7 @@ Learn about:
 
 ### Key Technical Highlights
 
-```python
+"""python
 # Example: Rate Limiting System
 ✅ Token bucket algorithm for fair usage
 ✅ Per-user global limits (15 commands/60s)
@@ -150,7 +150,7 @@ Learn about:
 ✅ Blacklist > Global Whitelist > Guild Whitelist
 ✅ Atomic configuration file operations
 ✅ Safe and consistent authorization
-```
+"""
 
 ---
 
@@ -206,11 +206,11 @@ Stream your favorite music directly in Discord voice channels with full playback
 Engage your community with fun text-based games.
 
 **Available Games:**
-- 🧠 **Quiz** - Multiple categories with multi-language support
-- 🔤 **Hangman** - Classic word guessing game
-- ✊✋✌️ **Rock Paper Scissors** - `!rps` challenge the bot
-- 🎲 **Number Guess** - `!guess` the right number
-- 🎲 **Dice Rolling** - `!roll` with custom dice notation
+- **Quiz** - Multiple categories with multi-language support
+- **Hangman** - Classic word guessing game
+- **Rock Paper Scissors** - `!rps` challenge the bot
+- **Number Guess** - `!guess` the right number
+- **Dice Rolling** - `!roll` with custom dice notation
 
 ---
 
@@ -218,14 +218,14 @@ Engage your community with fun text-based games.
 
 Helpful tools for everyday use.
 
-- 🌤️ **Weather** - Real-time weather data (`!weather <city>`)
-- 🌍 **City Info** - Geographic and timezone information (`!city <name>`)
-- ⏰ **Time** - Local time for any location (`!time <city>`)
-- ⏱️ **Reminders** - Set one-time or scheduled reminders (`!reminder`, `!scheduled-reminder`)
-- 📊 **Polls** - Create interactive polls (`!poll`)
-- 🐱 **Cat Facts** - Random cat facts (`!catfact`)
-- 🔢 **Calculator** - Advanced math calculator with equation solving (`!calc`)
-- 📡 **Discord Status** - Check Discord service status (`!status`)
+- **Weather** - Real-time weather data (`!weather <city>`)
+- **City Info** - Geographic and timezone information (`!city <name>`)
+- **Time** - Local time for any location (`!time <city>`)
+- **Reminders** - Set one-time or scheduled reminders (`!reminder`, `!scheduled-reminder`)
+- **Polls** - Create interactive polls (`!poll`)
+- **Cat Facts** - Random cat facts (`!catfact`)
+- **Calculator** - Advanced math calculator with equation solving (`!calc`)
+- **Discord Status** - Check Discord service status (`!status`)
 
 ---
 
@@ -233,12 +233,12 @@ Helpful tools for everyday use.
 
 Comprehensive server management features.
 
-- 👢 **User Management** - Kick, ban, unban users
-- 🔇 **Timeout System** - Temporary muting (`!timeout`, `!untimeout`)
-- 🎭 **Reaction Roles** - Auto-assign roles via reactions
-- 🔐 **Permission System** - Global and server-specific whitelists
-- 🚫 **Blacklist System** - Global enforcement of Terms of Service
-- 📝 **Logging Controls** - Configurable command and operational logging
+- **User Management** - Kick, ban, unban users
+- **Timeout System** - Temporary muting (`!timeout`, `!untimeout`)
+- **Reaction Roles** - Auto-assign roles via reactions
+- **Permission System** - Global and server-specific whitelists
+- **Blacklist System** - Global enforcement of Terms of Service
+- **Logging Controls** - Configurable command and operational logging
 
 ---
 
@@ -246,11 +246,11 @@ Comprehensive server management features.
 
 Explore the cosmos with data from NASA APIs.
 
-- 🌟 **Astronomy Picture of the Day** - `!apod`
-- 🔴 **Mars Photos** - Curiosity & Spirit rover images (`!marsphoto`)
-- ☄️ **Asteroid Tracking** - Near-Earth objects (`!asteroids`)
-- ☀️ **Solar Activity** - Sun data and space weather (`!sun`)
-- 🪐 **Exoplanets** - Search for potentially habitable worlds (`!exoplanet`)
+- **Astronomy Picture of the Day** - `!apod`
+- **Mars Photos** - Curiosity & Spirit rover images (`!marsphoto`)
+- **Asteroid Tracking** - Near-Earth objects (`!asteroids`)
+- **Solar Activity** - Sun data and space weather (`!sun`)
+- **Exoplanets** - Search for potentially habitable worlds (`!exoplanet`)
 
 ---
 
@@ -258,12 +258,12 @@ Explore the cosmos with data from NASA APIs.
 
 Advanced bot capabilities for stability and security.
 
-- 📊 **Advanced Logging** - Automatic log rotation with 14-day retention
-- ⏱️ **Rate Limiting** - Per-user and per-command cooldowns
-- 🚨 **Emergency System** - Lockdown and cooldown modes for abuse protection
-- 🔄 **Status Rotation** - Automatic rotating status messages
-- 🔒 **DSGVO/GDPR Compliant** - Full European data protection compliance
-- 🌐 **Multi-API Integration** - NASA, OpenWeatherMap, Dictionary, and more
+- **Advanced Logging** - Automatic log rotation with 14-day retention
+- **Rate Limiting** - Per-user and per-command cooldowns
+- **Emergency System** - Lockdown and cooldown modes for abuse protection
+- **Status Rotation** - Automatic rotating status messages
+- **DSGVO/GDPR Compliant** - Full European data protection compliance
+- **Multi-API Integration** - NASA, OpenWeatherMap, Dictionary, and more
 
 ---
 
