@@ -1,0 +1,28 @@
+###################################################
+# Install the required packages listed below.
+# These are the packages required to run the bot.
+###################################################
+# Use the command `pip install -r requirements.txt` to install them.
+###################################################
+# Bot runs on Python 3.11.2 to 3.13.5
+# make sure you have a compatible version installed.
+###################################################
+
+# Core Bot & API
+discord.py==2.6.4
+PyNaCl==1.6.2
+
+# Environment & Configuration
+python-dotenv==1.2.1
+
+# HTTP & Async
+aiohttp==3.13.3
+
+# Music & Streaming
+yt-dlp==2025.12.8
+
+# Advanced Math & Calculator
+sympy==1.14.0
+
+# Timezone Handling
+pytz==2025.2
