@@ -8,9 +8,9 @@ This repository is a **public-facing documentation repository** for a privately-
 
 ## 🚫 What This Means
 
-- ❌ **No code contributions are accepted** - The bot code is proprietary
-- ❌ **No pull requests for features** - Development happens privately
-- ❌ **No direct code access** - Source code is not available
+- **No code contributions are accepted** - The bot code is proprietary
+- **No pull requests for features** - Development happens privately
+- **No direct code access** - Source code is not available
 
 ## ✅ How You CAN Help
 
@@ -27,6 +27,8 @@ If you encounter a bug while using the bot:
    - What you expected to happen
    - What actually happened
    - Any error messages (if visible)
+
+> ⚠️ **Security vulnerabilities** should **not** be reported as regular issues. Please follow the [Security Policy](./SECURITY.md) for responsible disclosure.
 
 ### 💡 Feature Suggestions
 

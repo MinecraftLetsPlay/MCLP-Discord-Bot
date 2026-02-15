@@ -263,7 +263,6 @@ Advanced bot capabilities for stability and security.
 - **Rate Limiting** - Per-user and per-command cooldowns
 - **Emergency System** - Lockdown and cooldown modes for abuse protection
 - **Status Rotation** - Automatic rotating status messages
-- **DSGVO/GDPR Compliant** - Full European data protection compliance
 - **Multi-API Integration** - NASA, OpenWeatherMap, Dictionary, and more
 
 ---
@@ -297,7 +296,7 @@ Advanced Broadcast System for announcing updates, problems, or important news.
 
 ### Runtime Environment
 
-- **Raspberry Pi 5 B** - Quad-Core 64-Bit 2.4 GHz CPU, 8 GB LPDDR4X RAM
+- **Linux infrastructure** - Runs on a dedicated linux infrastructure.
 - **Python venv** - Isolated dependency environment
 - **FFMPEG** - Audio encoding/decoding
 - **JSON** - Data storage (configs, quiz data)
