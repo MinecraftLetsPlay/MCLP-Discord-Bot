@@ -188,12 +188,15 @@ Learn about:
 Stream your favorite music directly in Discord voice channels with full playback control.
 
 **Available Commands:**
+- `!join`- Let the bot join the current voice channel
+- `!leave` - Let the bot leave the current voice channel
 - `!play <song>` - Play a song from YouTube or SoundCloud
 - `!pause` / `!resume` - Control playback
+- `!stop` - Clears the queue and stops the music
 - `!skip` - Skip to next song in queue
 - `!queue` - View the current queue
 - `!nowplaying` - See what's currently playing
-- `!volume <0-100>` - Adjust volume
+- `!repeat` - Lets you repeat a song or the whole queue
 
 **Supported Platforms:** YouTube, SoundCloud
 
@@ -262,6 +265,18 @@ Advanced bot capabilities for stability and security.
 - **Status Rotation** - Automatic rotating status messages
 - **DSGVO/GDPR Compliant** - Full European data protection compliance
 - **Multi-API Integration** - NASA, OpenWeatherMap, Dictionary, and more
+
+---
+
+### External Features
+
+Advanced Broadcast System for announcing updates, problems, or important news.
+
+- **Shared Files** - Broadcast System uses the same server config files as the bot.
+- **Completely Optional** - By setting or not setting the update-channel via the `!update-channel` command you can control if you get the updates.
+- **Dry-Run and Confirmation** - The tool prompts for confirmation of sending and previews the text so that mishaps are prevented.
+- **Supports reading files** - The owner can type text into the console or specify a file to read from.
+- **Isolated from bot** - This tool is executed inside another environment with no connection to the bot (Read-only)
 
 ---
 
