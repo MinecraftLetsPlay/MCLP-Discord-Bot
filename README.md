@@ -268,7 +268,7 @@ Advanced bot capabilities for stability and security.
 
 ---
 
-### External Features
+### 📡 External Features
 
 Advanced Broadcast System for announcing updates, problems, or important news.
 
