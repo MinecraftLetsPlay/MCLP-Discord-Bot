@@ -25,6 +25,7 @@ A comprehensive Discord bot built with [Discord.py](https://discordpy.readthedoc
 - [Getting Started](#-getting-started)
 - [Tech Stack](#-tech-stack)
 - [Core Functionality](#core-functionality)
+- [Code Examples](#-code-examples--architecture)
 - [Legal & Compliance](#-legal--compliance)
 - [Changelog](#-changelog)
 - [Contact & Support](#-contact--support)
@@ -72,16 +73,20 @@ Explore space with NASA's Astronomy Picture of the Day, Mars rover photos, aster
 
 ## 📸 Screenshots
 
-> *Screenshots showcasing the bot's features will be added here*
+> **Note:** This is a showcase repository. Screenshots demonstrating the bot's features will be added progressively.
+> 
+> For detailed screenshot plans and guidelines, see [SCREENSHOTS.md](./SCREENSHOTS.md)
 
-### Command Examples
-Coming soon: Visual examples of commands in action
+### Planned Visual Content
 
-### Dashboard & Configuration
-Coming soon: Configuration interface examples
+- 🎵 **Music Player** - Queue management and playback controls
+- 🎮 **Interactive Games** - Quiz, Hangman, and other minigames in action  
+- 🛠️ **Utility Commands** - Weather, reminders, polls, and status checks
+- 🌌 **Science Features** - NASA imagery and astronomical data displays
+- 🛡️ **Moderation Tools** - Permission systems and configuration interfaces
+- ⚙️ **System Features** - Emergency systems and logging configuration
 
-### Game Features
-Coming soon: Interactive game screenshots
+**Coming Soon:** Visual demonstrations of key features with real Discord UI examples.
 
 ---
 
@@ -110,6 +115,41 @@ Once you have access to the bot:
 !quiz           - Start a quiz game
 !reminder       - Set a reminder
 !status         - Check Discord service status
+```
+
+---
+
+## 💻 Code Examples & Architecture
+
+While the bot's source code is private, we provide detailed examples and architectural insights to demonstrate the design patterns and best practices used in the bot's development.
+
+### 📚 Available Documentation
+
+**[View Code Examples & Architecture →](./CODE_SNIPPETS.md)**
+
+Learn about:
+- 🏗️ **Project Architecture** - Module structure and organization
+- 🎯 **Design Patterns** - Command routing, rate limiting, permissions
+- 🔒 **Security Practices** - Input validation, timeout protection, safe file access
+- 🎵 **Music System** - Player design and queue management
+- 📊 **Logging System** - Structured logging with rotation
+- 🚨 **Emergency System** - Lockdown and cooldown mechanisms
+- 📡 **API Integration** - Working with external APIs (NASA, Weather, etc.)
+
+### Key Technical Highlights
+
+```python
+# Example: Rate Limiting System
+✅ Token bucket algorithm for fair usage
+✅ Per-user global limits (15 commands/60s)
+✅ Per-command cooldowns (2-15 seconds)
+✅ Protection against spam and abuse
+
+# Example: Permission System
+✅ Hierarchical permission checks
+✅ Blacklist > Global Whitelist > Guild Whitelist
+✅ Atomic configuration file operations
+✅ Safe and consistent authorization
 ```
 
 ---
