@@ -22,7 +22,7 @@ Discord-Bot/
 │   ├── public_commands.py       # Help, info, serverinfo
 │   ├── system_commands.py       # Admin controls
 │   ├── calculator.py            # Advanced calculator
-│   ├── sciencecific_commands.py # NASA APIs
+│   ├── scientific_commands.py   # NASA APIs
 │   └── music/
 │       ├── music_commands.py    # Music control commands
 │       └── player.py            # Music player logic
