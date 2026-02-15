@@ -140,8 +140,8 @@ Learn about:
 
 **Example: Rate Limiting System**
 - Token bucket algorithm for fair usage
-- Per-user global limits (15 commands/60s)
-- Per-command cooldowns (2-15 seconds)
+- Per-user global limits
+- Per-command cooldowns
 - Protection against spam and abuse
 
 **Example: Permission System**
@@ -356,7 +356,7 @@ Your data is protected under our [Privacy Policy](./PRIVACY_POLICY.md) compliant
 - **Regular Updates** - Continuous security improvements
 
 ### 🎨 Feature Rich
-- **70+ Commands** - Comprehensive command library
+- **50+ Commands** - Comprehensive command library
 - **Multiple APIs** - Integration with NASA, OpenWeather, YouTube, and more
 - **Active Development** - Regular feature additions and improvements
 - **Community Driven** - Responsive to user feedback
@@ -388,18 +388,6 @@ This bot requires the following to operate:
 - **Logging:** Automatic rotation with 14-day retention
 
 **Note:** The bot is privately hosted and not available for self-hosting. This information is provided for transparency about the technical infrastructure.
-
----
-
-## 📄 License
-
-**Private License** - All rights reserved.
-Permission is granted to view the source code for **personal reference and educational purposes only**.
-Any other use (copy, modify, distribute, commercial) requires prior written consent.
-
-See [`license.txt`](./license.txt)
-
----
 
 ## 📜 Changelog
 
@@ -488,7 +476,7 @@ See [`license.txt`](./license.txt)
 - Added emergency-measure system for protection against spam / dos
 - Updated legal documents accordingly
 
-## Previous Features (v1.4)
+## Previous Features (v1.5)
 
 - Added optional Broadcast System for announcements and updates
 - New command `!update-channel` to enable announcements in a channel
@@ -537,7 +525,7 @@ Special thanks to:
 This is a closed-source project. The bot code is private, and contributions are not accepted at this time.
 
 However, you can help by:
-- 🐛 Reporting bugs through Discord
+- 🐛 Reporting bugs through Discord or Github Issues
 - 💡 Suggesting features or improvements
 - 📣 Sharing feedback about the bot
 - ⭐ Starring this repository if you find it useful
