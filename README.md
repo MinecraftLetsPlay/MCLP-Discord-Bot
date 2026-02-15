@@ -138,18 +138,17 @@ Learn about:
 
 ### Key Technical Highlights
 
-- Example: Rate Limiting System
-✅ Token bucket algorithm for fair usage
-✅ Per-user global limits (15 commands/60s)
-✅ Per-command cooldowns (2-15 seconds)
-✅ Protection against spam and abuse
+**Example: Rate Limiting System**
+- Token bucket algorithm for fair usage
+- Per-user global limits (15 commands/60s)
+- Per-command cooldowns (2-15 seconds)
+- Protection against spam and abuse
 
-- Example: Permission System
-✅ Hierarchical permission checks
-✅ Blacklist > Global Whitelist > Guild Whitelist
-✅ Atomic configuration file operations
-✅ Safe and consistent authorization
-"""
+**Example: Permission System**
+- Hierarchical permission checks
+- Blacklist > Global Whitelist > Guild Whitelist
+- Atomic configuration file operations
+- Safe and consistent authorization
 
 ---
 
