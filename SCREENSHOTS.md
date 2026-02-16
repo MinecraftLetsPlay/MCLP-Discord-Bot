@@ -1,334 +1,201 @@
-# 📸 Screenshots & Visual Showcase
+# 📸 MCLP Discord Bot — Visual Showcase
 
-This document provides placeholders and guidelines for adding screenshots to showcase the MCLP Discord Bot's features.
+<div align="center">
 
----
+A visual overview of the MCLP Discord Bot's features in action.
 
-## 🎨 Screenshot Guidelines
+All screenshots show real bot interactions on the MCLP Discord server.
 
-When adding screenshots to this repository:
-
-### Quality Standards
-- ✅ High resolution (minimum 1920x1080 recommended)
-- ✅ Clear, readable text
-- ✅ Show relevant UI elements
-- ✅ Use Discord's dark or light theme consistently
-- ✅ Blur or remove sensitive information (user IDs, server names if needed)
-
-### Naming Convention
-- Use descriptive names: `music-play-command.png`
-- Use kebab-case: `weather-command-example.png`
-- Include feature name: `quiz-game-in-action.png`
+</div>
 
 ---
 
-## 📷 Needed Screenshots
+## 🎵 Music Streaming
 
-### 1. Command Examples
+Stream music from YouTube and SoundCloud directly in voice channels with full queue management.
 
-#### Music Commands
-- [ ] `!play` command showing song being added to queue
-- [ ] `!queue` command showing multiple songs
-- [ ] `!nowplaying` command showing current song info
-- [ ] Music player in action in voice channel
+### Playing a Song
 
-**Example placeholder:**
-```
-[Screenshot: Music player showing queue with 3 songs]
-```
+<!-- ![Play Command](./screenshots/music-play.png) -->
+*Screenshot coming soon*
 
-#### Game Commands
-- [ ] `!quiz` command with multiple choice questions
-- [ ] `!hangman` game in progress
-- [ ] `!rps` rock-paper-scissors game
-- [ ] `!guess` number guessing game
+> The `!play` command searches YouTube or SoundCloud, adds the song to the queue, and starts playback automatically.
 
-**Example placeholder:**
-```
-[Screenshot: Quiz game showing question and reaction buttons]
-```
+### Queue Management
 
-#### Utility Commands
-- [ ] `!weather` command showing detailed weather info
-- [ ] `!city` command showing city information
-- [ ] `!time` command showing time in different timezone
-- [ ] `!reminder` command confirmation
-- [ ] `!poll` command creating an interactive poll
-- [ ] `!status` command showing Discord service status
+<!-- ![Queue Display](./screenshots/music-queue.png) -->
+*Screenshot coming soon*
 
-**Example placeholder:**
-```
-[Screenshot: Weather command showing temperature, conditions, and forecast]
-```
+> The `!queue` command shows all upcoming tracks with an interactive paginated view (⬅️ / ➡️ buttons).
 
-#### Science Commands
-- [ ] `!apod` command showing NASA's Astronomy Picture of the Day
-- [ ] `!marsphoto` showing Mars rover images
-- [ ] `!asteroids` showing near-Earth objects
-- [ ] `!exoplanet` showing habitable planet data
+### Now Playing
 
-**Example placeholder:**
-```
-[Screenshot: APOD command showing beautiful space image with description]
-```
+<!-- ![Now Playing](./screenshots/music-nowplaying.png) -->
+*Screenshot coming soon*
 
-#### Moderation Commands
-- [ ] `!timeout` command in action
-- [ ] Reaction role setup
-- [ ] Permission denied message
-- [ ] Logging configuration interface
-
-**Example placeholder:**
-```
-[Screenshot: Moderation command showing successful timeout]
-```
+> `!nowplaying` displays the current track with title, duration, and source platform.
 
 ---
 
-### 2. Feature Showcases
+## 🎮 Interactive Minigames
 
-#### Permission System
-- [ ] Global whitelist configuration
-- [ ] Server-specific whitelist setup
-- [ ] Permission hierarchy diagram
-- [ ] Access denied message for unauthorized user
+Text-based games to engage your community.
 
-**Example placeholder:**
-```
-[Screenshot: Permission system showing different access levels]
-```
+### Quiz
 
-#### Logging System
-- [ ] Log output examples (command logging)
-- [ ] Log file structure
-- [ ] `/logging_channel` configuration
-- [ ] Log rotation in action
+<!-- ![Quiz Game](./screenshots/game-quiz.png) -->
+*Screenshot coming soon*
 
-**Example placeholder:**
-```
-[Screenshot: Logging configuration showing enabled/disabled channels]
-```
+> `!quiz` presents multiple-choice questions from various categories. Players react with 🅰️ 🅱️ 🅲️ 🅳️ to answer within the time limit.
 
-#### Emergency System
-- [ ] Emergency lockdown activation
-- [ ] Emergency cooldown message
-- [ ] Bot status during emergency
-- [ ] Emergency reset confirmation
+### Hangman
 
-**Example placeholder:**
-```
-[Screenshot: Emergency lockdown message with bot status indicator]
-```
+<!-- ![Hangman Game](./screenshots/game-hangman.png) -->
+*Screenshot coming soon*
 
-#### Rate Limiting
-- [ ] Rate limit exceeded message
-- [ ] Cooldown remaining notification
-- [ ] Normal command execution
+> `!hangman` starts a classic word guessing game. The bot tracks guessed letters and remaining attempts.
 
-**Example placeholder:**
-```
-[Screenshot: Rate limit message showing remaining cooldown time]
-```
+### Rock Paper Scissors
+
+<!-- ![RPS Game](./screenshots/game-rps.png) -->
+*Screenshot coming soon*
+
+> `!rps` lets you challenge the bot to a quick round of Rock Paper Scissors.
 
 ---
 
-### 3. UI Elements
+## 🛠️ Utility Commands
 
-#### Help Menu
-- [ ] `!help` command showing all categories
-- [ ] Detailed help for specific command
-- [ ] Command syntax examples
+Helpful everyday tools powered by external APIs.
 
-**Example placeholder:**
-```
-[Screenshot: Help menu with categories (Music, Games, Utility, etc.)]
-```
+### Weather
 
-#### Bot Information
-- [ ] Bot profile/about section
-- [ ] Server list showing bot presence
-- [ ] Bot statistics (uptime, servers, users)
+<!-- ![Weather Command](./screenshots/utility-weather.png) -->
+*Screenshot coming soon*
 
-**Example placeholder:**
-```
-[Screenshot: Bot info showing version, uptime, and statistics]
-```
+> `!weather <city>` displays real-time weather data including temperature, humidity, wind speed, and conditions via OpenWeatherMap.
 
-#### Configuration
-- [ ] Server configuration panel
-- [ ] Setting up logging channels
-- [ ] Music channel configuration
+### Reminders
 
-**Example placeholder:**
-```
-[Screenshot: Configuration menu with various settings]
-```
+<!-- ![Reminder Command](./screenshots/utility-reminder.png) -->
+*Screenshot coming soon*
 
----
+> `!reminder` and `!scheduled-reminder` let users set one-time or recurring reminders. The bot sends a notification when the time is up.
 
-## 🎥 Video Demonstrations
+### Polls
 
-Consider creating short video clips (GIFs or MP4) for:
+<!-- ![Poll Command](./screenshots/utility-poll.png) -->
+*Screenshot coming soon*
 
-### Music Player Demo
-- Playing a song from start to finish
-- Queue management (add, skip, remove)
-- Volume control demonstration
+> `!poll` creates an interactive poll with reaction-based voting.
 
-### Game Interaction
-- Full quiz game round
-- Hangman game completion
-- Rock-paper-scissors match
+### Discord Status
 
-### Emergency System
-- Activating emergency lockdown
-- Bot behavior during lockdown
-- Resetting emergency state
+<!-- ![Status Command](./screenshots/utility-status.png) -->
+*Screenshot coming soon*
+
+> `!status` checks the current Discord API and Gateway status in real time.
 
 ---
 
-## 📝 Screenshot Descriptions Template
+## 🌌 Science & Astronomy
 
-When adding screenshots, use this template:
+Explore space with data from NASA APIs and the Exoplanet Archive.
 
-```markdown
-### [Feature Name]
+### Astronomy Picture of the Day
 
-![Feature Screenshot](./screenshots/path/to/image.png)
+<!-- ![APOD Command](./screenshots/science-apod.png) -->
+*Screenshot coming soon*
 
-**Command:** `!command`
+> `!apod` fetches NASA's Astronomy Picture of the Day with its title, explanation, and high-resolution image.
 
-**Description:**
-Brief description of what this screenshot shows and why it's useful.
+### Mars Rover Photos
 
-**Highlights:**
-- ✨ Feature 1 shown in image
-- ✨ Feature 2 shown in image
-- ✨ Feature 3 shown in image
-```
+<!-- ![Mars Photo Command](./screenshots/science-marsphoto.png) -->
+*Screenshot coming soon*
 
----
+> `!marsphoto` displays real photos taken by the Curiosity and Spirit rovers on Mars.
 
-## 🔒 Privacy Considerations
+### Exoplanet Search
 
-When taking screenshots:
+<!-- ![Exoplanet Command](./screenshots/science-exoplanet.png) -->
+*Screenshot coming soon*
 
-### DO Blur/Remove:
-- ❌ Real Discord user IDs (unless public figures)
-- ❌ Real server names (unless you have permission)
-- ❌ Personal information in messages
-- ❌ API keys or tokens
-- ❌ Email addresses
-
-### OK to Show:
-- ✅ Bot's username and avatar
-- ✅ Command syntax and responses
-- ✅ Public information (weather, NASA images, etc.)
-- ✅ Game content and quiz questions
-- ✅ Bot configuration screens
-- ✅ Generic feature demonstrations
+> `!exoplanet` queries the NASA Exoplanet Archive for potentially habitable worlds with detailed planetary data.
 
 ---
 
-## 📊 Screenshot Examples (Placeholders)
+## 🛡️ Moderation & Permissions
 
-### Example 1: Music Command
-```
-┌─────────────────────────────────────────────────┐
-│ MCLP Bot                                   Bot  │
-├─────────────────────────────────────────────────┤
-│ User: !play never gonna give you up             │
-│                                                 │
-│ MCLP Bot:                                       │
-│ 🎵 Added to queue                               │
-│ Title: Rick Astley - Never Gonna Give You Up    │
-│ Duration: 3:33                                  │
-│ Position in queue: #1                           │
-│                                                 │
-│ Now playing in Voice Channel                    │
-└─────────────────────────────────────────────────┘
-```
+Server management tools with a hierarchical permission system.
 
-### Example 2: Weather Command
-```
-┌─────────────────────────────────────────────────┐
-│ MCLP Bot                                   Bot  │
-├─────────────────────────────────────────────────┤
-│ User: !weather Berlin                           │
-│                                                 │
-│ MCLP Bot:                                       │
-│ 🌤️ Weather in Berlin, Germany                   │
-│ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━                   │
-│ Temperature: 18°C (feels like 17°C)             │
-│ Conditions: Partly Cloudy                       │
-│ Humidity: 65%                                   │
-│ Wind: 12 km/h NW                                │
-│ Pressure: 1013 hPa                              │
-└─────────────────────────────────────────────────┘
-```
+### Permission System
 
-### Example 3: Quiz Game
-```
-┌─────────────────────────────────────────────────┐
-│ MCLP Bot                                   Bot  │
-├─────────────────────────────────────────────────┤
-│ User: !quiz                                     │
-│                                                 │
-│ MCLP Bot:                                       │
-│ 📚 Quiz Time! Category: Science                 │
-│ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━                   │
-│ Question: What is the speed of light?           │
-│                                                 │
-│ React with:                                     │
-│ 🅰️ 299,792 km/s                                 │
-│ 🅱️ 300,000 km/s                                 │
-│ 🅲️ 150,000 km/s                                 │
-│ 🅳️ 250,000 km/s                                 │
-│                                                 │
-│ Time remaining: 30 seconds                      │
-└─────────────────────────────────────────────────┘
-```
+<!-- ![Permission Denied](./screenshots/mod-permission-denied.png) -->
+*Screenshot coming soon*
+
+> Unauthorized users receive a clear "Permission denied" message. The bot enforces a strict hierarchy: Blacklist > Global Whitelist > Server Whitelist > Guild Owner.
+
+### Timeout & User Management
+
+<!-- ![Timeout Command](./screenshots/mod-timeout.png) -->
+*Screenshot coming soon*
+
+> `!timeout` temporarily mutes a user with a specified duration and reason. `!kick` and `!ban` provide additional moderation controls.
+
+### Reaction Roles
+
+<!-- ![Reaction Roles](./screenshots/mod-reaction-roles.png) -->
+*Screenshot coming soon*
+
+> Reaction roles allow users to self-assign roles by reacting to a message. Configured per server.
 
 ---
 
-## 📌 Next Steps
+## ⚙️ System & Administration
 
-1. Take screenshots following the guidelines above
-2. Organize them in the `screenshots/` directory
-3. Add them to README.md in appropriate sections
-4. Update this document with actual screenshot references
-5. Consider creating a video showcase/demo
+Advanced features for bot stability and security.
+
+### Help Menu
+
+<!-- ![Help Command](./screenshots/system-help.png) -->
+*Screenshot coming soon*
+
+> `!help` displays all available commands organized by category with usage examples.
+
+### Emergency Lockdown
+
+<!-- ![Emergency Lockdown](./screenshots/system-lockdown.png) -->
+*Screenshot coming soon*
+
+> `/emergency-lockdown` restricts the bot to whitelisted users only. The bot status changes to reflect the emergency state.
+
+### Rate Limiting
+
+<!-- ![Rate Limit](./screenshots/system-ratelimit.png) -->
+*Screenshot coming soon*
+
+> When a user exceeds the rate limit, the bot responds with the remaining cooldown time before they can use commands again.
+
+### Calculator
+
+<!-- ![Calculator](./screenshots/system-calculator.png) -->
+*Screenshot coming soon*
+
+> `!calc` provides an advanced math calculator with equation solving, supporting functions like `sin`, `cos`, `sqrt`, and symbolic algebra.
 
 ---
 
-## 🎯 Priority Screenshots
+## 🔒 Privacy Note
 
-**High Priority (most impactful for users):**
-1. Music player in action
-2. Help menu overview
-3. Quiz or Hangman game
-4. Weather command result
-5. NASA APOD feature
-
-**Medium Priority:**
-1. Permission configuration
-2. Logging setup
-3. Emergency system demo
-4. Reminder creation
-5. Poll creation
-
-**Low Priority (nice to have):**
-1. Configuration details
-2. All individual commands
-3. Error messages
-4. Edge cases
+All screenshots in this document are taken from the official MCLP Discord server. Sensitive information such as user IDs, private messages, and API keys are blurred or removed in compliance with DSGVO/GDPR.
 
 ---
 
 <div align="center">
 
-**Ready to showcase the MCLP Discord Bot! 📸**
+**Made with ❤️ in Germany 🇩🇪**
 
-[Back to README](./README.md) | [See Code Examples](./CODE_SNIPPETS.md)
+[Back to README](./README.md) · [Code Examples](./CODE_SNIPPETS.md)
 
 </div>
