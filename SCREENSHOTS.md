@@ -1,4 +1,4 @@
-                          # 📸 MCLP Discord Bot — Visual Showcase
+# 📸 MCLP Discord Bot — Visual Showcase
 
 <div align="center">
 
