@@ -64,4 +64,8 @@ Only the latest version on the `main` branch is actively maintained and receives
 
 ---
 
+<div align="center">
+
 For non-security-related bug reports or feature suggestions, please see [Contributing](./CONTRIBUTING.md).
+
+</div>

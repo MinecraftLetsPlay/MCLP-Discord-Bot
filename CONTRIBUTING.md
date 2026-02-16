@@ -91,8 +91,10 @@ Even though we can't accept code contributions, your feedback, bug reports, and 
 
 ---
 
+<div align="center">
+
 **Made with ❤️ in Germany 🇩🇪**
 
----
+[Back to README](./README.md) · [Security Policy](./SECURITY.md)
 
-[Back to README](./README.md)
+</div>
