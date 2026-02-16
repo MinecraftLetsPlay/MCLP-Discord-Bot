@@ -61,3 +61,7 @@ Only the latest version on the `main` branch is actively maintained and receives
 |-----------------|-----------|
 | Latest (`main`) |    Yes    |
 | Older versions  |    No     |
+
+---
+
+For non-security-related bug reports or feature suggestions, please see [Contributing](./CONTRIBUTING.md).

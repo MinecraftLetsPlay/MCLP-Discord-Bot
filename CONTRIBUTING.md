@@ -92,3 +92,7 @@ Even though we can't accept code contributions, your feedback, bug reports, and 
 ---
 
 **Made with ❤️ in Germany 🇩🇪**
+
+---
+
+[Back to README](./README.md)

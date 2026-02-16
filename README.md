@@ -544,6 +544,8 @@ However, you can help by:
 - 📣 Sharing feedback about the bot
 - ⭐ Starring this repository if you find it useful
 
+For details, see [Contributing Guidelines](./CONTRIBUTING.md) and [Security Policy](./SECURITY.md).
+
 ---
 
 ## 📈 Project Status
