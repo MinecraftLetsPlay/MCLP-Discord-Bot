@@ -42,7 +42,7 @@ Text-based games to engage your community.
 <!-- ![Quiz Game](./screenshots/game-quiz.png) -->
 *Screenshot coming soon*
 
-> `!quiz` presents multiple-choice questions from various categories. Players react with 🅰️ 🅱️ 🅲️ 🅳️ to answer within the time limit.
+> `!quiz` presents multiple-choice questions from various categories. Players react with A, B, C, D to answer within the time limit.
 
 ### Hangman
 
