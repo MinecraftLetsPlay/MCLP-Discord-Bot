@@ -1,12 +1,8 @@
 # 📸 MCLP Discord Bot — Visual Showcase
 
-<div align="center">
+## A visual overview of the MCLP Discord Bot's features in action.
 
-A visual overview of the MCLP Discord Bot's features in action.
-
-All screenshots show real bot interactions on the MCLP Discord server.
-
-</div>
+## All screenshots show real bot interactions on the MCLP Discord server.
 
 ---
 
