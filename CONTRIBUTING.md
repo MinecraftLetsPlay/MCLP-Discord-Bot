@@ -18,17 +18,17 @@ Even though this is a closed-source project, we still value community input! Her
 
 ### 🐛 Bug Reports
 
-If you encounter a bug while using the bot:
+Found a bug? Please [open a GitHub Issue](../../issues/new) with:
 
-1. Join the [MCLP Discord Server](https://discord.com/invite/tssKYweM3h)
-2. Report the bug in the appropriate channel
-3. Include:
-   - What command you used
-   - What you expected to happen
-   - What actually happened
-   - Any error messages (if visible)
+- A clear, descriptive title
+- Steps to reproduce the behavior
+- Expected vs. actual behavior
+- Bot version or approximate date when the issue occurred
+- Screenshots if applicable
 
 > ⚠️ **Security vulnerabilities** should **not** be reported as regular issues. Please follow the [Security Policy](./SECURITY.md) for responsible disclosure.
+
+> 💬 For quick questions or informal feedback, you can also reach out on [Discord](https://discord.com/invite/tssKYweM3h).
 
 ### 💡 Feature Suggestions
 

@@ -1,76 +1,63 @@
 # Security Policy
 
-## Reporting Security Vulnerabilities
+## Reporting a Vulnerability
 
-We take security seriously, especially regarding data protection and user privacy. If you discover a security vulnerability in this Discord bot, please report it responsibly.
+If you discover a security vulnerability in this project, please report it responsibly. **Do not open a public GitHub Issue for security-related concerns.**
 
 ### How to Report
 
-**DO NOT** create a public GitHub issue for security vulnerabilities.
+1. **GitHub Private Vulnerability Reporting** (preferred)
+   - Go to the [Security tab](../../security/advisories/new) of this repository
+   - Click "Report a vulnerability"
+   - Provide a detailed description
 
-Instead, please report security vulnerabilities by email to:
-- **Primary Contact:** dennisplischke755@gmail.com
-- **Subject:** `[SECURITY] Discord Bot Vulnerability Report`
+2. **Discord**
+   - Contact the maintainer directly via [Discord Server](https://discord.com/invite/tssKYweM3h)
+   - Send a private message — do not post in public channels
+
+3. **E-Mail**
+   - E-Mail: dennisplischke755@gmail.com
+   - Subject: `[SECURITY] Discord Bot Vulnerability Report`
 
 ### What to Include
 
-Please provide:
-1. Description of the vulnerability
-2. Affected component(s) or code section
-3. Steps to reproduce (if applicable)
-4. Potential impact
-5. Suggested fix (if you have one)
+- Description of the vulnerability
+- Steps to reproduce the issue
+- Potential impact or severity
+- Suggested fix (if applicable)
 
-### Response Timeline
+## Scope
 
-- **Initial Response:** Within 48 hours
-- **Assessment & Fix:** Within 7 days
-- **Public Disclosure:** After patch is available and deployed
+The following areas are considered in scope:
 
-## Security Considerations
+- Permission bypass or privilege escalation
+- Command injection or code execution
+- Path traversal or unauthorized file access
+- Rate limiting bypass
+- Data leakage (e.g., token exposure, config data)
+- Denial of service via bot commands
 
-This bot processes user data under **DSGVO/GDPR compliance**. Vulnerabilities affecting the following are especially critical:
+The following are **out of scope**:
 
-- User identification or authentication bypass
-- Command logging or data interception
-- Blacklist/Whitelist system manipulation
-- Unauthorized access to admin commands
-- Data storage or transmission vulnerabilities
-- Privacy policy violations
+- Issues in third-party dependencies (report these upstream)
+- Social engineering attacks
+- Attacks requiring physical access to the host machine
 
-See [Privacy Policy](./docs/PRIVACY_POLICY.md) and [Terms of Service](./docs/TERMS_OF_SERVICE.md) for details.
+## Response
+
+|          Action          |      Timeframe      |
+|--------------------------|---------------------|
+| Acknowledgment of report |   Within 48 hours   |
+| Initial assessment       |    Within 7 days    |
+| Fix or mitigation        | Depends on severity |
+
+Reports will be handled confidentially. Credit will be given to reporters upon request, unless anonymity is preferred.
 
 ## Supported Versions
 
-| Version | Status  | Support                    |
-|---------|---------|----------------------------|
-| 1.6.x   | Current | Receiving security updates |
-| 1.5.x   | EOL     | No longer supported        |
-| 1.4.x   | EOL     | No longer supported        |
-| 1.3.x   | EOL     | No longer supported        |
-| < 1.3   | EOL     | No longer supported        |
+Only the latest version on the `main` branch is actively maintained and receives security updates.
 
-## Security Features
-
-- Global user and server blacklist system with automated enforcement
-- Command execution logging (controllable) + Operational logging (mandatory)
-- Role-based authorization with hierarchy enforcement
-- Atomic file operations for data consistency
-- Error handling and validation on all inputs
-
-## Responsible Disclosure
-
-We commit to:
-- Acknowledging receipt of your report within 48 hours
-- Providing regular updates on our progress
-- Crediting you in the security advisory (if desired)
-- Not pursuing legal action against good-faith researchers
-
-## Compliance
-
-This project operates under strict GDPR/DSGVO compliance. Security vulnerabilities may be reported as data protection incidents if they compromise personal data.
-
----
-
-**Last Updated:** February 15, 2026  
-**Version:** 1.2
+|     Version     | Supported |
+|-----------------|-----------|
+| Latest (`main`) |    Yes    |
+| Older versions  |    No     |
