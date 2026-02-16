@@ -15,24 +15,6 @@ When adding screenshots to this repository:
 - ✅ Use Discord's dark or light theme consistently
 - ✅ Blur or remove sensitive information (user IDs, server names if needed)
 
-### File Organization
-```
-screenshots/
-├── commands/
-│   ├── music/
-│   ├── games/
-│   ├── utility/
-│   ├── moderation/
-│   └── science/
-├── features/
-│   ├── permissions/
-│   ├── logging/
-│   └── emergency/
-└── ui/
-    ├── help-menu/
-    └── configuration/
-```
-
 ### Naming Convention
 - Use descriptive names: `music-play-command.png`
 - Use kebab-case: `weather-command-example.png`
@@ -259,7 +241,7 @@ When taking screenshots:
 │                                                 │
 │ MCLP Bot:                                       │
 │ 🎵 Added to queue                               │
-│ Title: Rick Astley - Never Gonna Give You Up   │
+│ Title: Rick Astley - Never Gonna Give You Up    │
 │ Duration: 3:33                                  │
 │ Position in queue: #1                           │
 │                                                 │
@@ -275,8 +257,8 @@ When taking screenshots:
 │ User: !weather Berlin                           │
 │                                                 │
 │ MCLP Bot:                                       │
-│ 🌤️ Weather in Berlin, Germany                  │
-│ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━                  │
+│ 🌤️ Weather in Berlin, Germany                   │
+│ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━                   │
 │ Temperature: 18°C (feels like 17°C)             │
 │ Conditions: Partly Cloudy                       │
 │ Humidity: 65%                                   │
@@ -294,7 +276,7 @@ When taking screenshots:
 │                                                 │
 │ MCLP Bot:                                       │
 │ 📚 Quiz Time! Category: Science                 │
-│ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━                  │
+│ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━                   │
 │ Question: What is the speed of light?           │
 │                                                 │
 │ React with:                                     │
