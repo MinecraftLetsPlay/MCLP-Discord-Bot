@@ -1,0 +1,16 @@
+Copyright (c) 2025-2026 Dennis Plischke (MinecraftLetsPlay)
+
+All Rights Reserved.
+
+The source code of the MCLP Discord Bot is proprietary and not open source.
+No part of this software may be reproduced, distributed, modified, reverse
+engineered, or used in any form without the prior written permission of the
+copyright holder.
+
+This public repository serves solely as documentation and informational
+reference for the MCLP Discord Bot. The code examples provided in this
+repository are illustrative only and do not constitute a license to use,
+copy, or modify the actual bot software.
+
+For questions regarding licensing or permissions, contact the copyright
+holder via the MCLP Discord Server: https://discord.com/invite/tssKYweM3h
