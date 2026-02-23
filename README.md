@@ -11,7 +11,7 @@ A comprehensive Discord bot built with [Discord.py](https://discordpy.readthedoc
 [![Discord](https://img.shields.io/badge/Discord-Join%20MCLP-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/tssKYweM3h)
 [![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Discord.py](https://img.shields.io/badge/Discord.py-2.6.4-5865F2?style=for-the-badge)](https://discordpy.readthedocs.io/)
-[![License](https://img.shields.io/badge/License-Private-red?style=for-the-badge)](./license.txt)
+[![License](https://img.shields.io/badge/License-Private-red?style=for-the-badge)](./LICENSE.txt)
 
 </div>
 
@@ -571,3 +571,4 @@ For details, see [Contributing Guidelines](./CONTRIBUTING.md) and [Security Poli
 *For inquiries, please join the MCLP Discord server or send an email.*
 
 </div>
+
