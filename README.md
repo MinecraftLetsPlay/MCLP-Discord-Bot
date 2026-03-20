@@ -284,15 +284,16 @@ Advanced Broadcast System for announcing updates, problems, or important news.
 ### Core Packages
 
 - **Python 3.13.5** - Python runtime version
-- **Discord.py 2.6.4** - Discord API Wrapper
+- **Discord.py 2.7.1** - Discord API Wrapper
 - **PyNaCl 1.6.2** - Voice support
+- **Davey 0.1.4** - Audio & Video end-to-end encryption
 - **aiohttp 3.13.3** - HTTP/WebSocket client
 - **asyncio 4.0.0** - Async operations
-- **python-dotenv 1.2.1** - Environment variables
+- **python-dotenv 1.2.2** - Environment variables
 - **sympy 1.14.0** - Advanced math & calculator
 - **DateTime 6.0** - Time-based utilities
-- **pytz 2025.2** - Timezone handling
-- **yt-dlp 2026.2.21** - YouTube music streaming
+- **pytz 2026.1.post1** - Timezone handling
+- **yt-dlp 2026.3.3** - YouTube music streaming
 
 ### Runtime Environment
 
@@ -326,7 +327,7 @@ The bot operates under strict [Terms of Service](./TERMS_OF_SERVICE.md) that cov
 - **Broadcast System (optional announcements)**
 - Data retention and deletion rights
 
-**Current Version:** 1.5 (Last Updated: January 13, 2026)
+**Current Version:** 1.7 (Last Updated: February 15, 2026)
 
 ### Privacy Policy
 
@@ -337,7 +338,7 @@ Your data is protected under our [Privacy Policy](./PRIVACY_POLICY.md) compliant
 - Blacklist data handling
 - Complete data categories with retention periods
 
-**Current Version:** 1.5 (Last Updated: January 13, 2026)
+**Current Version:** 1.6 (Last Updated: February 15, 2026)
 
 ### Data Protection
 
@@ -509,7 +510,7 @@ For privacy-related inquiries or legal questions:
 - Discord: @MinecraftLetsPlay2912
 
 For bug reports:
-- GitHub Issues (if public repository)  
+- GitHub Issues  
 
 ---
 
@@ -553,7 +554,7 @@ For details, see [Contributing Guidelines](./CONTRIBUTING.md) and [Security Poli
 - **Current Version:** 1.6
 - **Status:** Active Development ✅
 - **Uptime:** 99%+ 
-- **Last Updated:** February 15, 2026
+- **Last Updated:** March 20, 2026
 
 ---
 
