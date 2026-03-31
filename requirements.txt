@@ -17,7 +17,7 @@ davey>=0.1.4
 python-dotenv==1.2.2
 
 # HTTP & Async
-aiohttp==3.13.3
+aiohttp==3.13.4
 
 # Music & Streaming
 yt-dlp==2026.13.3
