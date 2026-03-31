@@ -287,7 +287,7 @@ Advanced Broadcast System for announcing updates, problems, or important news.
 - **Discord.py 2.7.1** - Discord API Wrapper
 - **PyNaCl 1.6.2** - Voice support
 - **Davey 0.1.4** - Audio & Video end-to-end encryption
-- **aiohttp 3.13.3** - HTTP/WebSocket client
+- **aiohttp 3.13.4** - HTTP/WebSocket client
 - **asyncio 4.0.0** - Async operations
 - **python-dotenv 1.2.2** - Environment variables
 - **sympy 1.14.0** - Advanced math & calculator
