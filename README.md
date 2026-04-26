@@ -286,14 +286,14 @@ Advanced Broadcast System for announcing updates, problems, or important news.
 - **Python 3.13.5** - Python runtime version
 - **Discord.py 2.7.1** - Discord API Wrapper
 - **PyNaCl 1.6.2** - Voice support
-- **Davey 0.1.4** - Audio & Video end-to-end encryption
-- **aiohttp 3.13.4** - HTTP/WebSocket client
+- **Davey 0.1.5** - Audio & Video end-to-end encryption
+- **aiohttp 3.13.5** - HTTP/WebSocket client
 - **asyncio 4.0.0** - Async operations
 - **python-dotenv 1.2.2** - Environment variables
 - **sympy 1.14.0** - Advanced math & calculator
 - **DateTime 6.0** - Time-based utilities
 - **pytz 2026.1.post1** - Timezone handling
-- **yt-dlp 2026.3.3** - YouTube music streaming
+- **yt-dlp 2026.3.17** - YouTube music streaming
 
 ### Runtime Environment
 
