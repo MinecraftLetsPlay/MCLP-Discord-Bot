@@ -732,7 +732,6 @@ GitHub Issues (if public repository available)
 | Sched. Rem.       | Any           | Anyone    | Basic   | 5 max/user       |
 | Science           | Any           | Anyone    | Basic   | 5/min + 15s      |
 | Moderation        | Guild         | Whitelist | Full    | None             |
-| Music Server      | Guild         | Owner     | Full    | Per-user 5s      |
 
 ---
 
