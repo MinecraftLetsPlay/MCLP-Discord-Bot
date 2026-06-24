@@ -1,8 +1,8 @@
 # Terms of Service - MCLP Discord Bot
 
-**Last Updated:** February 15, 2026  
+**Last Updated:** June 24, 2026  
 **Effective Date:** January 5, 2026  
-**Version:** 1.7 - Added Discord Status API, SoundCloud, scheduled reminders, updated rate limits, status cycle
+**Version:** 1.8 - Added dog facts, game utilities, extended moderation tools, telemetry transparency, service runtime updates
 
 ---
 
@@ -31,22 +31,26 @@ The Bot provides the following comprehensive features:
 - **Rock Paper Scissors:** `!rps` interactive game
 - **Number Guess:** `!guess` the number
 - **Dice Rolling:** `!roll` with custom dice
+- **Game Utilities:** Additional game-focused helper tools (for example Minecraft calculations)
 
 ### 2.3 Utility Commands
 - **Weather:** Real-time weather data (`!weather`)
 - **City Info:** Geographic and timezone info (`!city`)
 - **Time:** Local time for any location (`!time`)
-- **Reminders:** One-time scheduled notifications (`!reminder`) with timezone support
+- **Reminders:** One-time scheduled notifications (`!reminder`) with timezone support and natural-language time parsing
 - **Scheduled Reminders:** Recurring reminders with `every` or `daily` modes (`!scheduled-reminder`)
 - **Reminder management** Delete your reminders with (`!reminders`) by choosing one in the dropdown menu.
 - **Discord Status:** Live Discord API and Gateway status (`!status`)
 - **Polls:** Create interactive polls (`!poll`)
 - **Cat Facts:** Random cat facts (`!catfact`)
+- **Dog Facts:** Random dog facts (`!dogfact`)
 - **File Download:** `/download` specific files (admin-configured)
 
 ### 2.4 Moderation Features
 - **User Management:** Kick, ban, unban
 - **Timeout:** Temporary muting (`!timeout`, `!untimeout`)
+- **Purge:** Bulk message deletion (`!purge`)
+- **Slowmode:** Enable/disable and configure channel slowmode (`!slowmode`)
 - **Reaction Roles:** Auto-assign roles via reactions
 - **Whitelists:** Server and global authorization lists
 - **Permission System:** Global and server-specific auth
@@ -96,6 +100,7 @@ via `/emergency-reset`.
 - **Command Router:** Intelligent command routing
 - **Rate Limiting:** Protection against abuse
 - **Error Handling:** Graceful error recovery
+- **Runtime Monitoring:** Internal telemetry for uptime, latency, error trends, ...
 
 ### 2.9 Broadcast System (Optional)
 
@@ -263,6 +268,7 @@ The Bot automatically logs two categories of data:
 - System events and warnings
 - Security-related activities
 - Application crashes and recovery
+- Aggregated performance telemetry (e.g., uptime/latency/error counters)
 - *This mandatory logging ensures bot stability and security*
 
 ### 6.2 Your Consent
@@ -361,22 +367,49 @@ The Bot enforces rate limits to ensure fair service:
 - OpenWeatherMap: 10 requests/minute
 - Dictionary API: 20 requests/minute
 - CatFact API: 30 requests/minute
-- Discord status API 30 requests/minute
+- DogFact API: 30 requests/minute
+- Discord Status API: 30 requests/minute
 
 **Per-User Spam Protection:**
 - Maximum 15 commands per 60 seconds per user
 
 **Command Cooldowns (per-user, per-command):**
-- Calculator: 2 seconds
-- Cat Fact: 3 seconds
-- Weather/City: 5 seconds
-- Time: 8 seconds
-- RPS/Guess/Roll: 3 seconds
-- Quiz: 10 seconds
-- Hangman: 15 seconds
-- Status: 10 seconds
-- Science commands (APOD, Mars, Asteroids, Sun, Exoplanet): 5 seconds
-- Music commands: 3–5 seconds (varies by command)
+- `calc`: 3 seconds
+- `quiz`: 10 seconds
+- `hangman`: 10 seconds
+- `portal`: 3 seconds
+- `ore`: 2 seconds
+- `potion`: 2 seconds
+- `stronghold`: 3 seconds
+- `enchants`: 2 seconds
+- `xp-cost`: 5 seconds
+- `enchantment-order`: 10 seconds
+- `weather`: 8 seconds
+- `city`: 8 seconds
+- `time`: 8 seconds
+- `rps`: 3 seconds
+- `guess`: 3 seconds
+- `roll`: 3 seconds
+- `apod`: 15 seconds
+- `marsphoto`: 15 seconds
+- `asteroids`: 15 seconds
+- `sun`: 15 seconds
+- `exoplanet`: 15 seconds
+- `catfact`: 3 seconds
+- `dogfact`: 3 seconds
+- `status`: 10 seconds
+- `music-channel`: 5 seconds
+- `join`: 5 seconds
+- `leave`: 5 seconds
+- `play`: 5 seconds
+- `pause`: 3 seconds
+- `resume`: 3 seconds
+- `skip`: 3 seconds
+- `last`: 3 seconds
+- `stop`: 5 seconds
+- `queue`: 3 seconds
+- `nowplaying`: 3 seconds
+- `repeat`: 3 seconds
 
 **Reminder Limits:**
 - Maximum 25 active one-time reminders per user
@@ -428,6 +461,7 @@ The Bot uses these third-party APIs and services:
 | **OpenWeatherMap**          | Weather/city   | openweathermap.org    | See OWM        |
 | **Free Dictionary**         | Definitions    | api.dictionaryapi.dev | Open API       |
 | **CatFact API**             | Cat facts      | catfact.ninja         | See site       |
+| **DogFact API**             | Dog facts      | dogapi.dog            | See site       |
 | **YouTube** (via yt-dlp)    | Music playback | youtube.com           | See YouTube    |
 | **SoundCloud** (via yt-dlp) | Music playback | soundcloud.com        | See SoundCloud |
 | **Discord Status API**      | Service status | discord.com           | Public API     |
@@ -720,8 +754,8 @@ GitHub Issues (if public repository available)
 
 ---
 
-**Version:** 1.7
+**Version:** 1.8
 **Status:** Active  
 **Language:** English (German translation available upon request)  
-**Last Updated:** February 15, 2026  
+**Last Updated:** June 24, 2026  
 **Compliance:** German Law, DSGVO, Discord ToS

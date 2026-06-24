@@ -1,8 +1,8 @@
 # Privacy Policy - MCLP Discord Bot
 
-**Last Updated:** February 15, 2026  
+**Last Updated:** June 24, 2026  
 **Effective Date:** January 5, 2026  
-**Version:** 1.6 - Added Discord Status API, scheduled reminders, SoundCloud, updated rate limits, emergency persistence
+**Version:** 1.7 - Added dog facts, telemetry transparency, moderation extensions, service runtime update
 
 ## 1. Data Controller
 
@@ -17,7 +17,9 @@ Location: Germany 🇩🇪
 The MCLP Discord Bot ("Bot") is a comprehensive Discord application providing:
 - Music streaming and playback (YouTube, SoundCloud)
 - Games and entertainment
+- Game-focused utility commands
 - Utility tools (weather, reminders, scheduled reminders, polls, downloads)
+- Pet fact commands (cat and dog facts)
 - Discord service status monitoring
 - Moderation and server management
 - Science and astronomy data
@@ -53,6 +55,7 @@ The Bot always logs for security and stability purposes:
 - **System Events** (Bot startup, shutdown, crashes)
 - **Security Events** (Permission denials, abuse attempts)
 - **Warnings and Exceptions** (Application issues)
+- **Performance Telemetry** (Aggregated uptime, latency, command/message/error counters, Discord events like last voice connect / disconnect)
 
 These cannot be disabled while using the bot. They are essential for:
 - Detecting bugs and fixing issues
@@ -283,6 +286,27 @@ When using the `!status` command:
 - No status query history
 - No user-specific status data
 
+### 3.11 Runtime Telemetry Data
+
+To monitor reliability and detect issues, the Bot keeps aggregated runtime telemetry.
+
+**What we collect:**
+- Internal latency and websocket latency metrics
+- Aggregated command/message/event counters
+- Error counters and error-rate trends
+- Uptime and availability metrics
+- Discord events (timestamps)
+
+**What we do NOT collect in telemetry:**
+- No message content
+- No user profiling
+- No additional personal identifiers beyond existing operational logging context
+
+**Purpose:**
+- Service health monitoring
+- Stability improvements and incident response
+- Capacity planning and reliability tracking
+
 ---
 
 ## 4. How We Use Your Data
@@ -358,6 +382,7 @@ Under German and EU data protection law (DSGVO), we can only process your person
 
 We protect the server with layered controls (network hardening, restricted accounts, and process isolation). We avoid publishing exact configurations to reduce attack surface.
 Data is never shared with third parties, and remote access is encrypted.
+The bot process is operated as a managed Linux service for stable and controlled runtime behavior.
 
 ### 5.3 Data Retention Schedule
 
@@ -401,21 +426,27 @@ The Bot integrates with these external APIs:
 - **Rate Limit:** 30 requests/minute
 - **Privacy:** See catfact.ninja privacy policy
 
-### 6.5 YouTube/yt-dlp (Music Feature)
+### 6.5 DogFact API
+- **Purpose:** Random dog facts (!dogfact)
+- **Data Sent:** None (generic request)
+- **Rate Limit:** 30 requests/minute
+- **Privacy:** See dogapi.dog privacy policy
+
+### 6.6 YouTube/yt-dlp (Music Feature)
 - **Purpose:** Music streaming and playback (!play, !join, etc.)
 - **Data Sent:** Search queries, video IDs
 - **Privacy:** YouTube can see your searches
 - **Note:** Uses yt-dlp library (open source alternative)
 - **Compliance:** Your responsibility to respect YouTube ToS
 
-### 6.6 SoundCloud (Music Feature)
+### 6.7 SoundCloud (Music Feature)
 - **Purpose:** Music streaming and playback via `!play` with SoundCloud URLs
 - **Data Sent:** Track URLs
 - **Privacy:** SoundCloud can see your requests
 - **Note:** Uses yt-dlp library for extraction
 - **Compliance:** Your responsibility to respect SoundCloud ToS
 
-### 6.7 Discord Status API
+### 6.8 Discord Status API
 - **Purpose:** Display Discord service status (`!status` command)
 - **Data Sent:** None (generic GET request to public API)
 - **URL:** `https://status.discord.com/api/v2/summary.json`
@@ -507,21 +538,49 @@ To prevent abuse and ensure fair service:
 - OpenWeatherMap: 10 requests/minute
 - Dictionary API: 20 requests/minute
 - CatFact API: 30 requests/minute
+- DogFact API: 30 requests/minute
+- Discord Status API: 30 requests/minute
 
 **Per-User Spam Protection:**
 - Maximum 15 commands per 60 seconds per user
 
 **Command Cooldowns (per-user, per-command):**
-- Calculator: 2 seconds
-- Cat Fact: 3 seconds
-- Weather/City: 5 seconds
-- Time: 8 seconds
-- RPS/Guess/Roll: 3 seconds
-- Quiz: 10 seconds
-- Hangman: 15 seconds
-- Status: 10 seconds
-- Science commands (APOD, Mars, Asteroids, Sun, Exoplanet): 5 seconds
-- Music commands: 3–5 seconds (varies by command)
+- `calc`: 3 seconds
+- `quiz`: 10 seconds
+- `hangman`: 10 seconds
+- `portal`: 3 seconds
+- `ore`: 2 seconds
+- `potion`: 2 seconds
+- `stronghold`: 3 seconds
+- `enchants`: 2 seconds
+- `xp-cost`: 5 seconds
+- `enchantment-order`: 10 seconds
+- `weather`: 8 seconds
+- `city`: 8 seconds
+- `time`: 8 seconds
+- `rps`: 3 seconds
+- `guess`: 3 seconds
+- `roll`: 3 seconds
+- `apod`: 15 seconds
+- `marsphoto`: 15 seconds
+- `asteroids`: 15 seconds
+- `sun`: 15 seconds
+- `exoplanet`: 15 seconds
+- `catfact`: 3 seconds
+- `dogfact`: 3 seconds
+- `status`: 10 seconds
+- `music-channel`: 5 seconds
+- `join`: 5 seconds
+- `leave`: 5 seconds
+- `play`: 5 seconds
+- `pause`: 3 seconds
+- `resume`: 3 seconds
+- `skip`: 3 seconds
+- `last`: 3 seconds
+- `stop`: 5 seconds
+- `queue`: 3 seconds
+- `nowplaying`: 3 seconds
+- `repeat`: 3 seconds
 
 **Reminder Limits:**
 - Maximum 25 active one-time reminders per user
@@ -633,6 +692,7 @@ We review and update this policy:
 - **v1.5** → Added emergency lockdown system documentation (January 16, 2026)
 - **v1.6** → Added Discord Status API, SoundCloud, scheduled reminders, reminder data/limits,
   status cycle, per-user cooldowns, emergency persistence, updated data categories (February 14, 2026)
+- **v1.7** → Added DogFact API documentation, telemetry transparency, moderation/service runtime updates (June 24, 2026)
 
 ---
 
@@ -647,6 +707,7 @@ We review and update this policy:
 | Timestamps         |    YES    |  YES (control)  |     YES (always)    |    14 days     | When events occurred      |
 | Error Messages     |    NO     |       NO        |     YES (always)    |    14 days     | Bot stability             |
 | Warnings/Events    |    NO     |       NO        |     YES (always)    |    14 days     | Security monitoring       |
+| Telemetry Counters | Aggregated|       NO        | YES (aggregated)    |    14 days     | Reliability monitoring    |
 | Username           |    NO     | NO (debug: YES) |    NO (debug: YES)  |    14 days     | Usage tracking / Security |
 | Command Args       |    NO     | NO (debug: YES) |    NO (debug: YES)  |    14 days     | Usage tracking / Security |
 | Message Content    |    NO     | NO (debug: YES) |    NO (debug: YES)  |    14 days     | Usage tracking / Security |
@@ -698,10 +759,13 @@ A: Only your User ID (numeric identifier). No personal information like username
 **Q: Who manages the blacklist?**
 A: Only the bot owner (Dennis Plischke) and co-developer (Robin Stiller) can add/remove users or servers from blacklists.
 
+**Q: Does telemetry track personal message content?**
+A: No. Telemetry is aggregated for performance and reliability metrics and does not store message content or user profiling data.
+
 ---
 
-**Version:** 1.6
+**Version:** 1.7
 **Status:** Active  
 **Language:** English (German equivalent available upon request)  
-**Last Updated:** February 15, 2026  
+**Last Updated:** June 24, 2026  
 **Compliance:** DSGVO/GDPR Article 13 & 14

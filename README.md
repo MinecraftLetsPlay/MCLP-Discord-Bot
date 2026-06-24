@@ -53,8 +53,10 @@ Stream music directly from YouTube and SoundCloud in voice channels with queue m
 ### 🎮 Interactive Games
 Enjoy text-based minigames including Quiz, Hangman, Rock-Paper-Scissors, Number Guessing, and more!
 
+Also includes practical game utilities (for example Minecraft-focused helper tools).
+
 ### 🛠️ Utility Tools
-Access weather information, time zones, reminders, polls, and even an advanced calculator with equation solving.
+Access weather information, time zones, reminders, polls, pet facts, and an advanced calculator with equation solving.
 
 ### 🛡️ Moderation Features
 Comprehensive moderation tools including kick, ban, timeout, reaction roles, and a sophisticated permission system.
@@ -225,6 +227,7 @@ Helpful tools for everyday use.
 - **Reminders** - Set one-time or scheduled reminders (`!reminder`, `!scheduled-reminder`)
 - **Polls** - Create interactive polls (`!poll`)
 - **Cat Facts** - Random cat facts (`!catfact`)
+- **Dog Facts** - Random dog facts (`!dogfact`)
 - **Calculator** - Advanced math calculator with equation solving (`!calc`)
 - **Discord Status** - Check Discord service status (`!status`)
 
@@ -236,6 +239,8 @@ Comprehensive server management features.
 
 - **User Management** - Kick, ban, unban users
 - **Timeout System** - Temporary muting (`!timeout`, `!untimeout`)
+- **Message Management** - Bulk message cleanup (`!purge`)
+- **Slowmode Control** - Enable/disable and configure slowmode (`!slowmode`)
 - **Reaction Roles** - Auto-assign roles via reactions
 - **Permission System** - Global and server-specific whitelists
 - **Blacklist System** - Global enforcement of Terms of Service
@@ -283,7 +288,7 @@ Advanced Broadcast System for announcing updates, problems, or important news.
 
 ### Core Packages
 
-- **Python 3.13.5** - Python runtime version
+- **Python 3.13.14** - Python runtime version
 - **Discord.py 2.7.1** - Discord API Wrapper
 - **PyNaCl 1.6.2** - Voice support
 - **Davey 0.1.5** - Audio & Video end-to-end encryption
@@ -310,9 +315,12 @@ Advanced Broadcast System for announcing updates, problems, or important news.
 - **Discord API** - Login, chat, slash commands, events
 - **Discord Voice API** - Voice support (via PyNaCl)
 - **Cat Fact API** - Random cat facts
+- **Dog Fact API** - Random dog facts
 - **Free Dictionary API** - English & German dictionaries
 - **OpenWeatherMap API** - Real-time weather and city data
 - **NASA API** - Mars photos, asteroids, astronomy, space weather, exoplanets
+- **Youtube-Music** - Music playback/search via yt-dlp
+- **SoundCloud** - Music playback/search via yt-dlp
 - **Status Discord API** - Displaying gateway and API status
 
 ---
@@ -327,7 +335,7 @@ The bot operates under strict [Terms of Service](./TERMS_OF_SERVICE.md) that cov
 - **Broadcast System (optional announcements)**
 - Data retention and deletion rights
 
-**Current Version:** 1.7 (Last Updated: February 15, 2026)
+**Current Version:** 1.8 (Last Updated: June 24, 2026)
 
 ### Privacy Policy
 
@@ -338,7 +346,7 @@ Your data is protected under our [Privacy Policy](./PRIVACY_POLICY.md) compliant
 - Blacklist data handling
 - Complete data categories with retention periods
 
-**Current Version:** 1.6 (Last Updated: February 15, 2026)
+**Current Version:** 1.7 (Last Updated: June 24, 2026)
 
 ### Data Protection
 
@@ -384,7 +392,7 @@ Your data is protected under our [Privacy Policy](./PRIVACY_POLICY.md) compliant
 
 This bot requires the following to operate:
 
-- **Python 3.11.2 - 3.13.5** - Python runtime
+- **Python 3.11.2 - 3.13.14** - Python runtime
 - **Discord.py 2.6.4** - Discord API wrapper
 - **FFMPEG** - Audio encoding/decoding for music features
 - **Various Python packages** - See [`requirements.txt`](./requirements.txt)
@@ -405,6 +413,23 @@ This bot requires the following to operate:
 **Note:** The bot is privately hosted and not available for self-hosting. This information is provided for transparency about the technical infrastructure.
 
 ## 📜 Changelog
+
+### Version 1.7 - Service Runtime, Monitoring & Feature Expansion
+
+- Added `!dogfact` command and integrated Dog Fact API handling
+- Expanded moderation tools with `!purge` and `!slowmode`
+- Extended game feature set with dedicated game utility modules
+- Improved reminder parsing with better natural-language support (including German keywords)
+- Enhanced music workflow, including easier SoundCloud search and `!last` playback support
+- Strengthened calculator stability and abuse protection with safer evaluation flow and timeout isolation
+- Added runtime telemetry and a public-facing dashboard with privacy-reduced metrics
+- Migrated bot runtime to a managed Linux service setup for improved operational reliability
+- Improved shutdown/restart behavior and status transitions
+- Updated dependencies and moved runtime to Python 3.13.14
+
+### Public Disclosure Note (Security)
+
+- Internal security hardening details are intentionally summarized and not fully disclosed publicly.
 
 ### Version 1.6 - Code hardening and stability update
 
@@ -481,7 +506,17 @@ This bot requires the following to operate:
 
 ---
 
-## Recent Features (v1.6+)
+## Recent Features (v1.7+)
+
+- Added `!dogfact` command and integrated Dog Fact API handling
+- Added moderation commands `!purge` and `!slowmode`
+- Added game utility module split for better maintainability (`game_commands.py`, `game_commands_core.py`)
+- Improved natural language parsing for reminders and selected game commands
+- Added runtime telemetry and privacy-reduced public dashboard
+- Migrated bot runtime to managed Linux service execution
+- Upgraded runtime to Python 3.13.14
+
+## Previous Features (v1.6)
 
 - Added new rate limits for music commands
 - Added a new per user rate limiting / cooldown system
@@ -551,10 +586,10 @@ For details, see [Contributing Guidelines](./CONTRIBUTING.md) and [Security Poli
 
 ## 📈 Project Status
 
-- **Current Version:** 1.6
+- **Current Version:** 1.7
 - **Status:** Active Development ✅
 - **Uptime:** 99%+ 
-- **Last Updated:** March 20, 2026
+- **Last Updated:** June 24, 2026
 
 ---
 
@@ -572,4 +607,3 @@ For details, see [Contributing Guidelines](./CONTRIBUTING.md) and [Security Poli
 *For inquiries, please join the MCLP Discord server or send an email.*
 
 </div>
-
