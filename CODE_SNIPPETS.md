@@ -22,18 +22,21 @@ Discord-Bot/src/
     ├── command_modules/
     │   ├── __init__.py                  # Module initialization
     │   ├── calculator.py                # Advanced calculator
+    |   ├── game_commands.py             # !portal, !stronghold, !potion, ...
+    |   ├── game_commands_core.py        # Advanced logic and calculation
     │   ├── logging_setup.py             # Custom logging handler
-    │   ├── minigames.py                 # Games: Quiz, Hangman, RPS
-    │   ├── moderation_commands.py       # Kick, ban, timeout
-    │   ├── public_commands.py           # Help, info, serverinfo
-    │   ├── sciencecific_commands.py     # NASA & space APIs
+    │   ├── minigames.py                 # Games: Quiz, Hangman, RPS, ...
+    │   ├── moderation_commands.py       # Kick, ban, timeout, ...
+    │   ├── public_commands.py           # Help, info, serverinfo, ...
+    │   ├── sciencecific_commands.py     # !apod, !sun, !asteroids, ...
     │   ├── system_commands.py           # Admin controls
-    │   ├── utility_commands.py          # Weather, time, reminders
+    │   ├── utility_commands.py          # Weather, time, reminders, ...
     │   └── music/
     │       ├── music_commands.py        # Music control commands
     │       └── player.py                # Music player logic
     └── data/
         ├── config.json                  # Global bot configuration
+        ├── game_commands_data.json      # Ore Dict, potion recipes, ...
         ├── hangman.json                 # Hangman word lists
         ├── quiz.json                    # Quiz questions
         ├── reactionrole.json            # Reaction role mappings
