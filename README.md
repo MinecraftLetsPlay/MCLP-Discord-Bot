@@ -164,22 +164,24 @@ Learn about:
 
 ### Command Modules
 
-- `moderation_commands.py` - Discord moderation - Kick, Ban, Timeout etc.
-- `minigames.py` - Text-based minigames - RPS, Hangman, Quiz, Scrabble etc.
-- `utility_commands.py` - Utility tools - Weather, Time, Reminder etc.
-- `public_commands.py` - Public commands - Help, Info, Serverinfo etc.
-- `system_commands.py` - Admin controls, logging configuration and system commands.
 - `calculator.py` - Advanced text-based calculator with equation solving.
-- `sciencecific_commands.py` - Science commands - Exoplanets, Sun activity etc.
+- `game_commands.py` - Game commands - !portal, !stronghold, !potion etc.
+- `minigames.py` - Text-based minigames - RPS, Hangman, Quiz, Scrabble etc.
+- `moderation_commands.py` - Discord moderation - Kick, Ban, Timeout etc.
 - `music_commands.py` - Music commands / voice channel controls - !join / leave !play etc.
 - `player.py` - Plays the music and houses the code to search for the song
+- `public_commands.py` - Public commands - Help, Info, Serverinfo etc.
+- `sciencecific_commands.py` - Science commands - Exoplanets, Sun activity etc.
+- `system_commands.py` - Admin controls, logging configuration and system commands.
+- `utility_commands.py` - Utility tools - Weather, Time, Reminder etc.
 
 ### Support Modules
 
-- `utils.py` - Helper functions for loading / writing data and authorization.
+- `game-commands_core.py` - Advanced logic and calculations
 - `logging_setup.py` - Advanced logging with rotation.
-- `status_cycle.py` - Cycles through pre-defined status messages in set intervalls
 - `rate_limiter.py` - Handles per user and global cooldowns and rate limits
+- `status_cycle.py` - Cycles through pre-defined status messages in set intervalls
+- `utils.py` - Helper functions for loading / writing data and authorization.
 
 ---
 
@@ -199,6 +201,7 @@ Stream your favorite music directly in Discord voice channels with full playback
 - `!queue` - View the current queue
 - `!nowplaying` - See what's currently playing
 - `!repeat` - Lets you repeat a song or the whole queue
+- `!last` - Lets you play the last played song again
 
 **Supported Platforms:** YouTube, SoundCloud
 
