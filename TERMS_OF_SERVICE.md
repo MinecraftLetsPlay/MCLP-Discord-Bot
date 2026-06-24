@@ -738,10 +738,11 @@ GitHub Issues (if public repository available)
 ## Appendix C: Emergency Procedures
 
 **Bot Not Responding?**
-1. Check Discord status
-2. Check bot permissions
-3. Wait for automatic restart
-4. Contact owner if persistent
+1. Check Bot dashboard ([Here](https://rd-code-forge.net/mclp/dashboard/))
+2. Check Discord status
+3. Check bot permissions
+4. Wait for automatic restart
+5. Contact owner if persistent
 
 **Data Loss?**
 1. Check if logs still exist (14-day window)
