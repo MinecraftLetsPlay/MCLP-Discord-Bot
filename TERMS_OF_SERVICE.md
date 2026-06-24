@@ -720,17 +720,19 @@ GitHub Issues (if public repository available)
 
 ## Appendix B: Feature Comparison Table
 
-| Feature      | Availability  | Auth      | Logging | Rate Limit       |
-|--------------|---------------|-----------|---------|------------------|
-| Music        | Voice channel | Anyone    | Basic   | Per-user 3-5s    |
-| Games        | Any           | Anyone    | Basic   | Per-user 3-15s   |
-| Weather      | Any           | Anyone    | Basic   | 10/min + 5s      |
-| Status       | Any           | Anyone    | Basic   | 30/min + 10s     |
-| Reminders    | Any           | Anyone    | Basic   | 25 max/user      |
-| Sched. Rem.  | Any           | Anyone    | Basic   | 5 max/user       |
-| Science      | Any           | Anyone    | Basic   | 5/min + 5s       |
-| Moderation   | Guild         | Whitelist | Full    | None             |
-| Music Server | Guild         | Owner     | Full    | None             |
+| Feature           | Availability  | Auth      | Logging | Rate Limit       |
+|-------------------|---------------|-----------|---------|------------------|
+| Music             | Voice channel | Anyone    | Basic   | Per-user 3-5s    |
+| Games             | Any           | Anyone    | Basic   | Per-user 3-10s   |
+| Game Utilities    | Any           | Anyone    | Basic   | Per-user 2-10s   |
+| Weather/City/Time | Any           | Anyone    | Basic   | 10/min + 8s      |
+| Status            | Any           | Anyone    | Basic   | 30/min + 10s     |
+| Cat/Dog Facts     | Any           | Anyone    | Basic   | 30/min + 3s      |
+| Reminders         | Any           | Anyone    | Basic   | 25 max/user      |
+| Sched. Rem.       | Any           | Anyone    | Basic   | 5 max/user       |
+| Science           | Any           | Anyone    | Basic   | 5/min + 15s      |
+| Moderation        | Guild         | Whitelist | Full    | None             |
+| Music Server      | Guild         | Owner     | Full    | Per-user 5s      |
 
 ---
 
