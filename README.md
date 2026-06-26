@@ -507,40 +507,6 @@ This bot requires the following to operate:
 - Per-server config.json files
 - Optimized file access and authorization logic
 
----
-
-## Recent Features (v1.7+)
-
-- Added `!dogfact` command and integrated Dog Fact API handling
-- Added moderation commands `!purge` and `!slowmode`
-- Added game utility module split for better maintainability (`game_commands.py`, `game_commands_core.py`)
-- Improved natural language parsing for reminders and selected game commands
-- Added runtime telemetry and privacy-reduced public dashboard
-- Migrated bot runtime to managed Linux service execution
-- Upgraded runtime to Python 3.13.14
-
-## Previous Features (v1.6)
-
-- Added new rate limits for music commands
-- Added a new per user rate limiting / cooldown system
-- Moved to a command-token based command matching for better performance
-- Added new module status_cycle.py for status rotation
-- Added new commands `!status`, `!scheduled-reminder`, `!reminders`
-- Added emergency-measure system for protection against spam / dos
-- Updated legal documents accordingly
-
-## Previous Features (v1.5)
-
-- Added optional Broadcast System for announcements and updates
-- New command `!update-channel` to enable announcements in a channel
-- Broadcast tool (`tools/broadcast-system/`) with message loading and delivery
-- Configuration stored in server configs (`announcements` setting)
-- Detailed error messages for missing announcement files
-- Updated Terms of Service to document Broadcast System
-- Updated documentation regarding notification methods
-
----
-
 ## 📞 Contact & Support
 
 For privacy-related inquiries or legal questions:
