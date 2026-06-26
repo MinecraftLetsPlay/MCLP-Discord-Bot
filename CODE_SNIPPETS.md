@@ -108,11 +108,11 @@ async def handle_command(client, message):
 ```
 
 **Benefits:**
-- 📖 Centralized command management via dictionaries
-- 📦 Grouped handlers for modular code organization
-- 🚫 DM-aware command blocking
-- 🛡️ Built-in spam protection before routing
-- ⚠️ Consistent error handling across all command groups
+- Centralized command management via dictionaries
+- Grouped handlers for modular code organization
+- DM-aware command blocking
+- Built-in spam protection before routing
+- Consistent error handling across all command groups
 
 ---
 
@@ -198,11 +198,11 @@ if not allowed:
 ```
 
 **Features:**
-- 👤 Per-user rate limiting (15 commands/60s)
-- ⏱️ Per-command cooldowns (configurable per command)
-- 🪣 Token bucket algorithm for fair usage
-- 🚨 Global emergency cooldown for attack protection
-- 🛡️ Separate API rate limiters per external service
+- Per-user rate limiting (15 commands/60s)
+- Per-command cooldowns (configurable per command)
+- Token bucket algorithm for fair usage
+- Global emergency cooldown for attack protection
+- Separate API rate limiters per external service
 
 ---
 
@@ -269,12 +269,12 @@ if not is_authorized_server(interaction.user, guild_id=interaction.guild.id):
 ```
 
 **Hierarchy:**
-1. 🚫 **User Blacklist** (highest priority) - Absolute block, overrides all whitelists
-2. 🏴 **Server Blacklist** - Blocks entire servers from using the bot
-3. 🔑 **Global Whitelist** - Full bot access including owner-only commands
-4. 📋 **Server Whitelist** - Server-specific access for moderation commands
-5. 👑 **Guild Owner** - Auto-trusted when server whitelist is empty
-6. 🌍 **Public Commands** - Available to all non-blacklisted users
+1. **User Blacklist** (highest priority) - Absolute block, overrides all whitelists
+2. **Server Blacklist** - Blocks entire servers from using the bot
+3. **Global Whitelist** - Full bot access including owner-only commands
+4. **Server Whitelist** - Server-specific access for moderation commands
+5. **Guild Owner** - Auto-trusted when server whitelist is empty
+6. **Public Commands** - Available to all non-blacklisted users
 
 ---
 
@@ -344,12 +344,12 @@ def _default_server_config() -> dict:
 ```
 
 **Safety Features:**
-- 🔐 Per-file thread locks prevent race conditions
-- ⚛️ Atomic writes via `tempfile` + `os.replace()`
-- 💾 `fsync()` ensures data reaches disk
-- 🗂️ Corrupt file backup instead of silent data loss
-- 🏗️ Auto-creation of server configs with sensible defaults
-- 🧹 Periodic lock cleanup for unused file locks
+- Per-file thread locks prevent race conditions
+- Atomic writes via `tempfile` + `os.replace()`
+- `fsync()` ensures data reaches disk
+- Corrupt file backup instead of silent data loss
+- Auto-creation of server configs with sensible defaults
+- Periodic lock cleanup for unused file locks
 ---
 
 ## 🎵 Music System Architecture
@@ -545,14 +545,14 @@ class QueueView(ui.View):
 ```
 
 **Features:**
-- 🎵 YouTube & SoundCloud support with source-specific configurations
-- 📋 Per-guild queue management with size limits (20 on Pi, 50 on desktop)
-- 🔁 Three repeat modes: off, one, all
-- 🛡️ Consecutive error tracking with auto-stop after 5 failures
-- 🖥️ Cross-platform FFmpeg detection (Windows, Linux, Raspberry Pi)
-- 📺 Paginated queue display with interactive Discord UI buttons
-- 🔒 Music channel enforcement and URL domain whitelist
-- 🧹 Graceful shutdown with FFmpeg cleanup across all guilds
+- YouTube & SoundCloud support with source-specific configurations
+- Per-guild queue management with size limits (20 on Pi, 50 on desktop)
+- Three repeat modes: off, one, all
+- Consecutive error tracking with auto-stop after 5 failures
+- Cross-platform FFmpeg detection (Windows, Linux, Raspberry Pi)
+- Paginated queue display with interactive Discord UI buttons
+- Music channel enforcement and URL domain whitelist
+- Graceful shutdown with FFmpeg cleanup across all guilds
 
 ---
 
@@ -679,11 +679,11 @@ def validate_variable_names(expression: str) -> Tuple[bool, str]:
 ```
 
 **Security Layers:**
-- 🚫 **Layer 1:** Blacklist — blocks dangerous keywords (`eval`, `exec`, `import`, `__dunder__`, ...)
-- 📐 **Layer 2:** Complexity — limits nesting depth (10) and operation count (50)
-- ✅ **Layer 3:** Function whitelist — only safe math functions allowed
-- ✅ **Layer 4:** Variable whitelist — only known identifiers permitted
-- ⚖️ **Layer 5:** Bracket balancing — rejects malformed expressions
+- **Layer 1:** Blacklist — blocks dangerous keywords (`eval`, `exec`, `import`, `__dunder__`, ...)
+- **Layer 2:** Complexity — limits nesting depth (10) and operation count (50)
+- **Layer 3:** Function whitelist — only safe math functions allowed
+- **Layer 4:** Variable whitelist — only known identifiers permitted
+- **Layer 5:** Bracket balancing — rejects malformed expressions
 
 ---
 
@@ -710,9 +710,9 @@ def save_json_file(data: dict, rel_path: str):
 ```
 
 **Protection:**
-- 🛤️ Rejects absolute paths (`/etc/passwd`)
-- 🔙 Blocks `..` traversal in all path components
-- 📁 Resolves paths only within the data directory
+- Rejects absolute paths (`/etc/passwd`)
+- Blocks `..` traversal in all path components
+- Resolves paths only within the data directory
 
 ---
 
@@ -754,10 +754,10 @@ except asyncio.TimeoutError:
 ```
 
 **Protection:**
-- ⏱️ Hard timeout prevents resource exhaustion
-- 🧵 Runs in executor to avoid blocking the event loop
-- 🎯 Specific exception handling for each failure mode
-- 🎮 Also used for minigame input timeouts (`asyncio.wait_for`)
+- Hard timeout prevents resource exhaustion
+- Runs in executor to avoid blocking the event loop
+- Specific exception handling for each failure mode
+- Also used for minigame input timeouts (`asyncio.wait_for`)
 ---
 
 ## 📊 Logging System
@@ -891,13 +891,13 @@ logging.debug(f"User {user.id} not in global whitelist")
 ```
 
 **Features:**
-- 📅 Daily rotation with timestamped filenames (`bot.log-15.02.2026_08-30-00.txt`)
-- 🗑️ Automatic cleanup after 14 days (`backupCount=14`)
-- 🕐 Timezone-aware timestamps (`Europe/Berlin`, fallback to UTC)
-- 🔒 Thread-safe rollover with double-checked locking
-- 🐛 Config-driven debug mode (`DebugModeActivated`)
-- 🔇 Discord.py logger reduced to `WARNING` to minimize noise
-- 🖥️ Dual output: file + console with identical formatting
+- Daily rotation with timestamped filenames (`bot.log-15.02.2026_08-30-00.txt`)
+- Automatic cleanup after 14 days (`backupCount=14`)
+- Timezone-aware timestamps (`Europe/Berlin`, fallback to UTC)
+- Thread-safe rollover with double-checked locking
+- Config-driven debug mode (`DebugModeActivated`)
+- Discord.py logger reduced to `WARNING` to minimize noise
+- Dual output: file + console with identical formatting
 ---
 
 ## 🚨 Emergency System
@@ -964,12 +964,12 @@ if global_cooldown.is_active:
 ```
 
 **Features:**
-- 🚨 **Lockdown** — restricts bot to whitelisted users only, blocks all guild messages
-- ⏸️ **Cooldown** — enforces per-user delay on all commands (1-300s configurable)
-- 💾 State persisted to config (survives bot restarts)
-- 🔄 Automatic state restoration on startup
-- 🎭 Bot presence reflects active emergency measures
-- 🔓 `/emergency-reset` deactivates both and restores original status
+- **Lockdown** — restricts bot to whitelisted users only, blocks all guild messages
+- **Cooldown** — enforces per-user delay on all commands (1-300s configurable)
+- State persisted to config (survives bot restarts)
+- Automatic state restoration on startup
+- Bot presence reflects active emergency measures
+- `/emergency-reset` deactivates both and restores original status
 
 ---
 
@@ -1082,13 +1082,13 @@ async def _run_status_cycle(bot: commands.Bot, stop_event: asyncio.Event) -> Non
 ```
 
 **Features:**
-- 🔄 Configurable cycle with per-status durations and activity types
-- 🛡️ Safety limits: min 2.5min per status, min 30min cycle interval, max 10 entries
-- 📝 Placeholder support (`{uptime}`, `{uptime_duration}`)
-- 📨 `from_message` — parse statuses directly from a Discord message
-- ⏹️ Graceful stop via `asyncio.Event` (no task cancellation)
-- 🎭 Restores default `BotStatus` between cycles and on stop
-- 🔇 Duplicate detection — skips API call if status unchanged
+- Configurable cycle with per-status durations and activity types
+- Safety limits: min 2.5min per status, min 30min cycle interval, max 10 entries
+- Placeholder support (`{uptime}`, `{uptime_duration}`)
+- `from_message` — parse statuses directly from a Discord message
+- Graceful stop via `asyncio.Event` (no task cancellation)
+- Restores default `BotStatus` between cycles and on stop
+- Duplicate detection — skips API call if status unchanged
 ---
 
 ## 📚 API Integration Patterns
@@ -1161,11 +1161,11 @@ if data:
 - OpenWeatherMap
 
 **Pattern:**
-- 🔑 API keys from environment variables (`.env`)
-- 🪣 Rate limit check before every request
-- ⏱️ Per-API timeout configuration
-- 🔄 Consistent error handling (`TimeoutError`, `ClientError`, non-200 status)
-- 📊 Response data transformed into Discord embeds
+- API keys from environment variables (`.env`)
+- Rate limit check before every request
+- Per-API timeout configuration
+- Consistent error handling (`TimeoutError`, `ClientError`, non-200 status)
+- Response data transformed into Discord embeds
 ---
 
 ## 💡 Practices Used
