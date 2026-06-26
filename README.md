@@ -415,6 +415,8 @@ This bot requires the following to operate:
 
 **Note:** The bot is privately hosted and not available for self-hosting. This information is provided for transparency about the technical infrastructure.
 
+---
+
 ## 📜 Changelog
 
 ### Version 1.7 - Service Runtime, Monitoring & Feature Expansion
@@ -506,6 +508,8 @@ This bot requires the following to operate:
 - Configurable logging with channel inclusion/exclusion
 - Per-server config.json files
 - Optimized file access and authorization logic
+
+---
 
 ## 📞 Contact & Support
 
