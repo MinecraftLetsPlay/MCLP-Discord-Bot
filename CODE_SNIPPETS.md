@@ -362,8 +362,10 @@ The music system uses a per-guild state dictionary with platform-aware configura
 # Simplified music player example
 
 # Platform detection for cross-platform support
-IS_PI = ARCH in ["armv7l", "armv6l", "aarch64"]
-IS_WINDOWS = platform.system() == "Windows"
+PLATFORM = platform.system()
+ARCH = platform.machine()
+IS_PI = ARCH in ["armv7l", "armv6l", "aarch64"] or os.path.exists("/boot/firmware/config.txt")
+IS_WINDOWS = PLATFORM == "Windows"
 
 music_state = {}
 max_queue_size = 20 if IS_PI else 50
