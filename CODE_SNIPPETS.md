@@ -62,6 +62,7 @@ command_groups = {
     'public': ['!help', '!info', '!rules', '!userinfo', ...],
     'moderation': ['!kick', '!ban', '!unban', '!timeout', ...],
     'sciencecific': ['!apod', '!marsphoto', '!asteroids', ...],
+    'game': ['!portal', '!ore', '!potion', '!stronghold', ...],
     'music': ['!join', '!leave', '!play', '!pause', ...],
 }
 
@@ -72,6 +73,7 @@ command_handlers = {
     'public': handle_public_commands,
     'moderation': handle_moderation_commands,
     'sciencecific': handle_sciencecific_commands,
+    'game': handle_game_commands,
     'music': handle_music_commands,
 }
 
@@ -148,12 +150,13 @@ class CommandCooldown:
         ...
 
     def is_on_cooldown(self, command: str, cooldown_seconds: int, user_id: int) -> Tuple[bool, float]:
+        ...
 
-        def set_cooldown(self, command: str, user_id: int):
-            ...
-        
-        def get_remaining(self, command: str, cooldown_seconds: int, user_id: int) -> float:
-            ...
+    def set_cooldown(self, command: str, user_id: int):
+        ...
+    
+    def get_remaining(self, command: str, cooldown_seconds: int, user_id: int) -> float:
+        ...
     
     ...
 
@@ -178,11 +181,11 @@ class GlobalCooldown:
         if user_id in self.last_command_time:
             ...
 
-# API-specific rate limiters
+# API-specific rate limiters (Example values)
 api_limiter_nasa = RateLimiter(max_requests=5, time_window=60)
 api_limiter_openweather = RateLimiter(max_requests=10, time_window=60)
 
-# Per-user spam protection (separate from API limits)
+# Per-user spam protection (separate from API limits | Example values)
 user_spam_limiter = RateLimiter(max_requests=15, time_window=60)
 
 # Usage in commands:
@@ -362,10 +365,8 @@ The music system uses a per-guild state dictionary with platform-aware configura
 # Simplified music player example
 
 # Platform detection for cross-platform support
-PLATFORM = platform.system()
-ARCH = platform.machine()
-IS_PI = ARCH in ["armv7l", "armv6l", "aarch64"] or os.path.exists("/boot/firmware/config.txt")
-IS_WINDOWS = PLATFORM == "Windows"
+IS_PI = ARCH in ["armv7l", "armv6l", "aarch64"]
+IS_WINDOWS = platform.system() == "Windows"
 
 music_state = {}
 max_queue_size = 20 if IS_PI else 50
@@ -376,10 +377,12 @@ def get_guild_state(guild_id: int) -> dict:
         music_state[guild_id] = {
             "queue": [],
             "current": None,
+            "last": None,           # previous track used by !last
             "voice_client": None,
             "playing": False,
             "repeat_mode": "off",
             "error_count": 0,
+            "last_error_time": None,
         }
     return music_state[guild_id]
 ```
@@ -397,7 +400,7 @@ YTDLP_OPTIONS_YT = {
 
 YTDLP_OPTIONS_SC = {
     **_YTDLP_BASE,
-    "format": "http_mp3/hls_mp3/hls_opus/hls_aac/best",
+    "format": "hls_mp3/hls_opus/hls_aac/best",
 }
 
 # Source-specific ffmpeg options
@@ -411,9 +414,13 @@ FFMPEG_OPTIONS_SC = {
     "options": "-vn",
 }
 
+def _is_soundcloud(query: str) -> bool:
+    q = query.lower()
+    return "soundcloud.com" in q or q.startswith("scsearch:")
+
 def get_ytdlp_options(query: str) -> dict:
     # Return appropriate yt-dlp options based on query source.
-    if "soundcloud.com" in query.lower():
+    if _is_soundcloud(query):
         return YTDLP_OPTIONS_SC
     return YTDLP_OPTIONS_YT
 ```
@@ -440,7 +447,9 @@ async def add_to_queue(guild: discord.Guild, query: str):
     if len(state["queue"]) >= max_queue_size:
         raise PlayerError(f"Queue limit reached ({max_queue_size} tracks).")
 
-    song = extract_audio(query)
+    # Run yt-dlp extraction in executor so playback loop stays responsive.
+    loop = asyncio.get_event_loop()
+    song = await loop.run_in_executor(None, extract_audio, query)
     state["queue"].append(song)
 
     if not state["playing"]:
@@ -461,10 +470,15 @@ async def play_next(guild: discord.Guild):
         song = current
     else:
         if not state["queue"]:
+            if current:
+                state["last"] = current
             state["playing"] = False
             state["current"] = None
             return
         song = state["queue"].pop(0)
+
+    if current and song is not current:
+        state["last"] = current
 
     source = discord.FFmpegPCMAudio(song["url"], **get_ffmpeg_options(song.get("source")))
 
@@ -473,9 +487,33 @@ async def play_next(guild: discord.Guild):
             ...
         else:
             state["error_count"] = 0
-        loop.call_soon_threadsafe(asyncio.create_task, play_next(guild))
+        loop.call_soon_threadsafe(lambda: asyncio.create_task(play_next(guild)))
 
     voice_client.play(source, after=after_play)
+```
+
+### Previous Track (!last)
+
+```python
+# !last support: preserve previous song and allow rewinding playback.
+if command_token == "!last":
+    state = player.get_guild_state(message.guild.id)
+    last_song = state.get("last")
+    current = state.get("current")
+    queue = state.get("queue", [])
+
+    if not last_song:
+        await message.channel.send("ℹ️ **No previous track available.**")
+        return
+
+    # Put current back first, then play previous track next.
+    if current is not None:
+        queue.insert(0, current)
+    queue.insert(0, last_song)
+
+    vc = state.get("voice_client")
+    if vc and (vc.is_playing() or vc.is_paused()):
+        vc.stop()  # after-callback starts queue[0]
 ```
 
 ### Graceful Shutdown
@@ -485,6 +523,9 @@ async def disconnect(guild_id: int):
     # Graceful disconnect: stop playback, wait for FFmpeg, then disconnect.
     state = get_guild_state(guild_id)
     vc = state.get("voice_client")
+    current = state.get("current")
+    if current:
+        state["last"] = current
     if vc:
         if vc.is_playing() or vc.is_paused():
             vc.stop()
@@ -931,7 +972,7 @@ global_cooldown = GlobalCooldown()
 
 
 # Slash commands (owner-only, global scope)
-# /emergency-lockdown  — Bot responds only to whitelisted users, all guild messages and / or DM messages ignored
+# /emergency-lockdown  — Blocks all guild interactions; only authorized users can interact via DM
 # /emergency-cooldown  — Enforces N-second cooldown on all commands for all users (1-300s)
 # /emergency-reset     — Deactivates both measures, restores normal bot status
 
@@ -958,7 +999,7 @@ if emergency_lockdown_mode:
     if not is_authorized_global(message.author):
         return  # Only whitelisted users in DMs
 
-if global_cooldown.is_active:
+if global_cooldown.is_active and message.content.startswith('!'):
     allowed, remaining = global_cooldown.check_allowed(message.author.id)
     if not allowed:
         await message.reply(f"⏸️ Global cooldown active. Wait {remaining:.0f}s")
