@@ -81,12 +81,12 @@ Explore space with NASA's Astronomy Picture of the Day, Mars rover photos, aster
 
 ### Planned Visual Content
 
-- 🎵 **Music Player** - Queue management and playback controls
-- 🎮 **Interactive Games** - Quiz, Hangman, and other minigames in action  
-- 🛠️ **Utility Commands** - Weather, reminders, polls, and status checks
-- 🌌 **Science Features** - NASA imagery and astronomical data displays
-- 🛡️ **Moderation Tools** - Permission systems and configuration interfaces
-- ⚙️ **System Features** - Emergency systems and logging configuration
+- **Music Player** - Queue management and playback controls
+- **Interactive Games** - Quiz, Hangman, and other minigames in action  
+- **Utility Commands** - Weather, reminders, polls, and status checks
+- **Science Features** - NASA imagery and astronomical data displays
+- **Moderation Tools** - Permission systems and configuration interfaces
+- **System Features** - Emergency systems and logging configuration
 
 **Coming Soon:** Visual demonstrations of key features with real Discord UI examples.
 
