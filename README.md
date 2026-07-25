@@ -154,7 +154,7 @@ Learn about:
 
 ---
 
-## Core Functionality
+## ⚙️ Core Functionality
 
 ### Source Files
 
