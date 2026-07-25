@@ -24,7 +24,7 @@ A comprehensive Discord bot built with [Discord.py](https://discordpy.readthedoc
 - [Screenshots](#-screenshots)
 - [Getting Started](#-getting-started)
 - [Tech Stack](#-tech-stack)
-- [Core Functionality](#-core-functionality)
+- [Core Functionality](#core-functionality)
 - [Code Examples](#-code-examples--architecture)
 - [Legal & Compliance](#-legal--compliance)
 - [Changelog](#-changelog)
@@ -154,7 +154,7 @@ Learn about:
 
 ---
 
-## ⚙️ Core Functionality
+## Core Functionality
 
 ### Source Files
 
@@ -328,7 +328,7 @@ Advanced Broadcast System for announcing updates, problems, or important news.
 
 ---
 
-## ⚖️ Legal & Compliance
+## 📖 Legal & Compliance
 
 The bot operates under strict [Terms of Service](./TERMS_OF_SERVICE.md) that cover:
 - Usage rights and limitations
