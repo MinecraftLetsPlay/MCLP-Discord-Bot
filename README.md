@@ -24,7 +24,7 @@ A comprehensive Discord bot built with [Discord.py](https://discordpy.readthedoc
 - [Screenshots](#-screenshots)
 - [Getting Started](#-getting-started)
 - [Tech Stack](#-tech-stack)
-- [Core Functionality](#core-functionality)
+- [Core Functionality](#-core-functionality)
 - [Code Examples](#-code-examples--architecture)
 - [Legal & Compliance](#-legal--compliance)
 - [Changelog](#-changelog)
