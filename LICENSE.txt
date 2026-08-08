@@ -13,4 +13,5 @@ repository are illustrative only and do not constitute a license to use,
 copy, or modify the actual bot software.
 
 For questions regarding licensing or permissions, contact the copyright
-holder via the MCLP Discord Server: https://discord.com/invite/tssKYweM3h
+holder via mail: dennisplischke755@gmail.com
+or join the MCLP Discord Server: https://discord.com/invite/tssKYweM3h
