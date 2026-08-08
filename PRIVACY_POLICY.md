@@ -18,7 +18,7 @@ The MCLP Discord Bot ("Bot") is a comprehensive Discord application providing:
 - Music streaming and playback (YouTube, SoundCloud)
 - Games and entertainment
 - Game-focused utility commands
-- Utility tools (weather, reminders, scheduled reminders, polls, downloads)
+- Utility tools (weather, reminders, scheduled reminders, polls, calculator)
 - Pet fact commands (cat and dog facts)
 - Discord service status monitoring
 - Moderation and server management
@@ -109,7 +109,6 @@ The Bot stores local configuration files:
 - Global whitelist (User IDs)
 - Global blacklist (User IDs) - for enforcement purposes
 - Global server blacklist (Server IDs) - for enforcement purposes
-- Download folder paths
 - Log file location
 - Logging activation status
 - Command cooldown values (per-user, per-command)

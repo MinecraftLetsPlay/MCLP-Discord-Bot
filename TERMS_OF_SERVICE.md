@@ -44,7 +44,6 @@ The Bot provides the following comprehensive features:
 - **Polls:** Create interactive polls (`!poll`)
 - **Cat Facts:** Random cat facts (`!catfact`)
 - **Dog Facts:** Random dog facts (`!dogfact`)
-- **File Download:** `/download` specific files (admin-configured)
 
 ### 2.4 Moderation Features
 - **User Management:** Kick, ban, unban
