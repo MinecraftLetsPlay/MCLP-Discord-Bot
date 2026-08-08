@@ -419,6 +419,17 @@ This bot requires the following to operate:
 
 ## 📜 Changelog
 
+### Version 1.8 - Code efficiency refactoring & Feature expansion
+
+- Complete reafactoring of all command modules (Moved from if command_token== system to sub-router / dispatcher system)
+- New module: game_commands with commands like `!portal`, `!stronghold` and `!potion`
+- Enhanced !last command from music command to remember last song even if !stop or !skip was used
+- Enhanced stability and capability of the Broadcast system
+- Added new !warn command to moderation with configurable automatic action if a user hits 3 active warnings
+- Added new Flood Protection command that can take configurable actions per guild to defend against DoS attacks
+- Patched multiple errors and improved code stability
+- Updated Legal Documents and Readme + Opened discussion for MCLP Bot
+
 ### Version 1.7 - Service Runtime, Monitoring & Feature Expansion
 
 - Added `!dogfact` command and integrated Dog Fact API handling
