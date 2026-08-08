@@ -76,9 +76,9 @@ Explore space with NASA's Astronomy Picture of the Day, Mars rover photos, aster
 
 ## 📸 Screenshots
 
-> **Note:** This repository includes a collection of screenshots showcasing the MCLP Discord Bot's features and user interface.
->
-> For the complete screenshot gallery, see [SCREENSHOTS.md](https://github.com/MinecraftLetsPlay/MCLP-Discord-Bot/blob/main/SCREENSHOTS.md).
+**Note:** This repository includes a collection of screenshots showcasing the MCLP Discord Bot's features and user interface.
+
+For the complete screenshot gallery, see [SCREENSHOTS.md](https://github.com/MinecraftLetsPlay/MCLP-Discord-Bot/blob/main/SCREENSHOTS.md).
 
 ### Featured Categories
 
