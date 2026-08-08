@@ -324,7 +324,7 @@ When using the `!status` command:
 **What we do:**
 - Query the public Discord Status API (`status.discord.com/api/v2/summary.json`)
 - Display Discord API and Gateway component status
-- Show bot uptime, ping, and server/user counts
+- Show bot uptime, ping, and server counts
 
 **What we send to Discord Status API:**
 - No personal data is sent
