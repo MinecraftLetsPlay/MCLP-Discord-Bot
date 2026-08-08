@@ -76,20 +76,22 @@ Explore space with NASA's Astronomy Picture of the Day, Mars rover photos, aster
 
 ## 📸 Screenshots
 
-> **Note:** This is a showcase repository. Screenshots demonstrating the bot's features will be added progressively.
-> 
-> For detailed screenshot plans and guidelines, see [SCREENSHOTS.md](./SCREENSHOTS.md)
+> **Note:** This repository includes a collection of screenshots showcasing the MCLP Discord Bot's features and user interface.
+>
+> For the complete screenshot gallery, see [SCREENSHOTS.md](https://github.com/MinecraftLetsPlay/MCLP-Discord-Bot/blob/main/SCREENSHOTS.md).
 
-### Planned Visual Content
+### Featured Categories
 
-- **Music Player** - Queue management and playback controls
-- **Interactive Games** - Quiz, Hangman, and other minigames in action  
-- **Utility Commands** - Weather, reminders, polls, and status checks
-- **Science Features** - NASA imagery and astronomical data displays
-- **Moderation Tools** - Permission systems and configuration interfaces
-- **System Features** - Emergency systems and logging configuration
+- **🎵 Music Player** — Queue management, playback controls, and music-related interactions
+- **🎮 Interactive Games** — Quiz, Hangman, and other minigames
+- **🛠️ Utility Commands** — Weather, reminders, polls, status checks, and other utilities
+- **🌌 Science Features** — NASA imagery, astronomical data, and scientific information
+- **🛡️ Moderation Tools** — Moderation commands, warnings, permissions, and server management
+- **⚙️ System Features** — System controls, security features, emergency systems, and operational tools
 
-**Coming Soon:** Visual demonstrations of key features with real Discord UI examples.
+Each category currently contains selected examples of the bot in action, with additional screenshots added as new features are developed.
+
+**📷 View the complete gallery:** [SCREENSHOTS.md](https://github.com/MinecraftLetsPlay/MCLP-Discord-Bot/blob/main/SCREENSHOTS.md)
 
 ---
 
