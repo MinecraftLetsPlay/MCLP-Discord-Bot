@@ -91,8 +91,6 @@ For the complete screenshot gallery, see [SCREENSHOTS.md](https://github.com/Min
 
 Each category currently contains selected examples of the bot in action, with additional screenshots added as new features are developed.
 
-**📷 View the complete gallery:** [SCREENSHOTS.md](https://github.com/MinecraftLetsPlay/MCLP-Discord-Bot/blob/main/SCREENSHOTS.md)
-
 ---
 
 ## 🚀 Getting Started
