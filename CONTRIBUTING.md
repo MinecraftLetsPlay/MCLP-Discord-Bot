@@ -34,12 +34,14 @@ Found a bug? Please [open a GitHub Issue](../../issues/new) with:
 
 Have an idea for a new feature or improvement?
 
-1. Join the [MCLP Discord Server](https://discord.com/invite/tssKYweM3h)
+1. Talk about it in the [Discussions](https://github.com/MinecraftLetsPlay/Discord-Bot/discussions)
 2. Share your suggestion
 3. Explain:
    - What the feature would do
    - Why it would be useful
    - How it might work
+
+Or you can just talk about it on the Discord Server.
 
 ### 📖 Documentation Improvements
 

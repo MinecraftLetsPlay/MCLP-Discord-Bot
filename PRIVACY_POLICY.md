@@ -697,8 +697,8 @@ You can reach out for:
 
 **Alternative Contacts:**
 - E-Mail: dennisplischke755@gmail.com
-- GitHub Issues: https://github.com/MinecraftLetsPlay/Discord-Bot/issues
-- GitHub Discussion: https://github.com/MinecraftLetsPlay/Discord-Bot/discussions
+- GitHub Issues: https://github.com/MinecraftLetsPlay/MCLP-Discord-Bot/issuess
+- GitHub Discussion: https://github.com/MinecraftLetsPlay/MCLP-Discord-Bot/discussions
 - Response time: Within 30 days (DSGVO legal requirement)
 
 **Data Subject Access:**
