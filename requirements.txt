@@ -24,7 +24,3 @@ yt-dlp==2026.13.3
 
 # Advanced Math & Calculator
 sympy==1.14.0
-
-# Timezone Handling
-pytz==2026.1.post1
-

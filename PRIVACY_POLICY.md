@@ -1,8 +1,8 @@
 # Privacy Policy - MCLP Discord Bot
 
-**Last Updated:** June 24, 2026  
+**Last Updated:** August 8, 2026  
 **Effective Date:** January 5, 2026  
-**Version:** 1.7 - Added dog facts, telemetry transparency, moderation extensions, service runtime update
+**Version:** 1.8 - Added warning moderation data handling, per-guild flood-protection data handling, and music last-track state clarification
 
 ## 1. Data Controller
 
@@ -22,6 +22,8 @@ The MCLP Discord Bot ("Bot") is a comprehensive Discord application providing:
 - Pet fact commands (cat and dog facts)
 - Discord service status monitoring
 - Moderation and server management
+- Warning moderation with configurable follow-up actions
+- Per-guild flood protection and anti-spam mitigation
 - Science and astronomy data
 - System administration (including status cycling)
 
@@ -55,6 +57,7 @@ The Bot always logs for security and stability purposes:
 - **System Events** (Bot startup, shutdown, crashes)
 - **Security Events** (Permission denials, abuse attempts)
 - **Warnings and Exceptions** (Application issues)
+- **Flood-protection events** (trigger detections, mitigation activations)
 - **Performance Telemetry** (Aggregated uptime, latency, command/message/error counters, Discord events like last voice connect / disconnect)
 
 These cannot be disabled while using the bot. They are essential for:
@@ -95,7 +98,7 @@ When Debug Mode is activated (Global Whitelist Only):
 - Only used in controlled environment
 - Gets disabled after debugging
 
-### 3.4 Configuration Data Stored
+### 3.5 Configuration Data Stored
 
 The Bot stores local configuration files:
 
@@ -127,6 +130,9 @@ The Bot stores local configuration files:
 - Rules channel name
 - Music channel ID
 - Announcement/update channel ID
+- Warning policy settings (threshold action: timeout/kick/ban)
+- Warn role ID (if configured)
+- Flood-protection settings (user/channel/guild thresholds, time window, mitigation mode)
 - Repeat mode settings
 - Server-specific bot settings
 
@@ -231,6 +237,7 @@ When using music commands (!play, !pause, etc.):
 - YouTube/SoundCloud video IDs (from search)
 - Video titles and durations
 - Queue order
+- Last played track state for `!last` (including after `!skip` or `!stop`)
 
 **What we don't store:**
 - Your search history
@@ -247,6 +254,48 @@ When using music commands (!play, !pause, etc.):
 - YouTube/SoundCloud receives your search query
 - Your IP may be visible to YouTube/SoundCloud
 - See YouTube's and SoundCloud's Privacy Policies for their practices
+
+### 3.8.1 Warning Moderation Data
+
+When server staff use `!warn`, the Bot may process moderation-related metadata.
+
+**Data processed:**
+- Warned user ID
+- Moderator user ID
+- Guild ID and channel context
+- Warning counter/state for the warned user in that guild
+- Configured follow-up action state (timeout, kick, or ban)
+- Warn role assignment state (if enabled)
+
+**Purpose:**
+- Enforce server moderation rules
+- Notify warned users via DM
+- Apply configured follow-up action when threshold is reached
+- Apply configured warn role in Discord (if configured)
+
+**Retention:**
+- Warning state is retained as part of server moderation configuration until reset/removed by authorized administrators or until bot removal from the guild.
+
+### 3.8.2 Per-Guild Flood Protection Data
+
+When `/flood-protection` is configured, the Bot processes activity counters to detect abuse.
+
+**Data processed:**
+- Per-user activity counters
+- Per-channel activity counters
+- Per-guild activity counters
+- Configured threshold values and time window
+- Configured mitigation mode (alert, cooldown, silent drop/block)
+
+**Purpose:**
+- Detect spam/flood patterns
+- Trigger configured mitigation to protect service availability
+- Support security monitoring and incident response
+
+**Retention:**
+- Counter values are transient runtime data (in-memory).
+- Configuration values persist in guild configuration until changed or deleted.
+- Trigger events may be present in operational logs (14-day retention).
 
 ### 3.9 Reminder Data
 
@@ -296,6 +345,7 @@ To monitor reliability and detect issues, the Bot keeps aggregated runtime telem
 - Error counters and error-rate trends
 - Uptime and availability metrics
 - Discord events (timestamps)
+- Security telemetry for anti-spam/flood mitigation effectiveness
 
 **What we do NOT collect in telemetry:**
 - No message content
@@ -544,6 +594,11 @@ To prevent abuse and ensure fair service:
 **Per-User Spam Protection:**
 - Maximum 15 commands per 60 seconds per user
 
+**Per-Guild Flood Protection (Configurable):**
+- User/channel/guild threshold controls via `/flood-protection`
+- Configurable time window for threshold evaluation
+- Mitigation modes: alert, cooldown, silent drop/block
+
 **Command Cooldowns (per-user, per-command):**
 - `calc`: 3 seconds
 - `quiz`: 10 seconds
@@ -693,32 +748,37 @@ We review and update this policy:
 - **v1.6** → Added Discord Status API, SoundCloud, scheduled reminders, reminder data/limits,
   status cycle, per-user cooldowns, emergency persistence, updated data categories (February 14, 2026)
 - **v1.7** → Added DogFact API documentation, telemetry transparency, moderation/service runtime updates (June 24, 2026)
+- **v1.8** → Added warning moderation (`!warn`) data handling, per-guild flood-protection data handling, and clarified in-memory `!last` track state retention (August 8, 2026)
 
 ---
 
 ## Appendix A: Complete Data Categories
 
-| Data Type          | Collected | Command Logging | Operational Logging | Retention      | Purpose                   |
-|--------------------|-----------|-----------------|---------------------|----------------|---------------------------|
-| User ID            |    YES    |  YES (control)  |     YES (always)    |    14 days     | Command tracking          |
-| Guild ID           |    YES    |  YES (control)  |     YES (always)    |    14 days     | Server identification     |
-| Channel ID         |    YES    |  YES (control)  |     Limited         |    14 days     | Context for logs          |
-| Command Name       |    YES    |  YES (control)  |        NO           |    14 days     | Usage tracking            |
-| Timestamps         |    YES    |  YES (control)  |     YES (always)    |    14 days     | When events occurred      |
-| Error Messages     |    NO     |       NO        |     YES (always)    |    14 days     | Bot stability             |
-| Warnings/Events    |    NO     |       NO        |     YES (always)    |    14 days     | Security monitoring       |
-| Telemetry Counters | Aggregated|       NO        | YES (aggregated)    |    14 days     | Reliability monitoring    |
-| Username           |    NO     | NO (debug: YES) |    NO (debug: YES)  |    14 days     | Usage tracking / Security |
-| Command Args       |    NO     | NO (debug: YES) |    NO (debug: YES)  |    14 days     | Usage tracking / Security |
-| Message Content    |    NO     | NO (debug: YES) |    NO (debug: YES)  |    14 days     | Usage tracking / Security |
-| DM Content         |    NO     |       NO        |        NO           |      N/A       | Never logged              |
-| Config Data        |    YES    |       NO        |        NO           | Until deletion | Server/User settings      |
-| Emergency State    |    YES    |       NO        |   YES (activated)   |  Until reset   | Security enforcement      |
-| Reminder Data      | In-memory |       NO        |        NO           | Until restart  | Command execution         |
-| Music Queue        | In-memory |       NO        |        NO           | Until restart  | Playback functionality    |
-| Status Cycle Config|    YES    |       NO        |        NO           | Until deletion | Bot status rotation       |
-| Blacklist User ID  |    YES    |       NO        |        NO           |  Until appeal  | Enforcement of ToS        |
-| Blacklist Server ID|    YES    |       NO        |        NO           |  Until appeal  | Enforcement of ToS        |
+| Data Type          | Collected | Command Logging | Operational Logging | Retention             | Purpose                   |
+|--------------------|-----------|-----------------|---------------------|-----------------------|---------------------------|
+| User ID            |    YES    |  YES (control)  |     YES (always)    |        14 days        | Command tracking          |
+| Guild ID           |    YES    |  YES (control)  |     YES (always)    |        14 days        | Server identification     |
+| Channel ID         |    YES    |  YES (control)  |     Limited         |        14 days        | Context for logs          |
+| Command Name       |    YES    |  YES (control)  |        NO           |        14 days        | Usage tracking            |
+| Timestamps         |    YES    |  YES (control)  |     YES (always)    |        14 days        | When events occurred      |
+| Error Messages     |    NO     |       NO        |     YES (always)    |        14 days        | Bot stability             |
+| Warnings/Events    |    NO     |       NO        |     YES (always)    |        14 days        | Security monitoring       |
+| Telemetry Counters | Aggregated|       NO        |   YES (aggregated)  |        14 days        | Reliability monitoring    |
+| Username           |    NO     | NO (debug: YES) |    NO (debug: YES)  |        14 days        | Usage tracking / Security |
+| Command Args       |    NO     | NO (debug: YES) |    NO (debug: YES)  |        14 days        | Usage tracking / Security |
+| Message Content    |    NO     | NO (debug: YES) |    NO (debug: YES)  |        14 days        | Usage tracking / Security |
+| DM Content         |    NO     |       NO        |        NO           |         N/A           | Never logged              |
+| Config Data        |    YES    |       NO        |        NO           |     Until deletion    | Server/User settings      |
+| Emergency State    |    YES    |       NO        |   YES (activated)   |      Until reset      | Security enforcement      |
+| Reminder Data      | In-memory |       NO        |        NO           |     Until restart     | Command execution         |
+| Music Queue        | In-memory |       NO        |        NO           |     Until restart     | Playback functionality    |
+| Last Track State   | In-memory |       NO        |        NO           |     Until restart     | `!last` playback support  |
+| Warning State      |    YES    |       NO        |        NO           |  Until reset/removal  | Moderation enforcement    |
+| Flood Counters     | In-memory |       NO        | Limited (triggers)  |     Runtime window    | Spam/flood detection      |
+| Flood Config       |    YES    |       NO        |        NO           | Until changed/deleted | Security configuration    |
+| Status Cycle Config|    YES    |       NO        |        NO           |     Until deletion    | Bot status rotation       |
+| Blacklist User ID  |    YES    |       NO        |        NO           |     Until appeal      | Enforcement of ToS        |
+| Blacklist Server ID|    YES    |       NO        |        NO           |     Until appeal      | Enforcement of ToS        |
 
 **Legend:**
 - **Command Logging (Control)**: Can be disabled with `/logging off` or `/logging_channel`
@@ -744,6 +804,12 @@ A: Submit a data deletion request to the bot owner. Command logs are automatical
 **Q: Is my music history logged?**
 A: No. Music playback doesn't create command logs. Only operational logs (errors/warnings) apply. Music queue data is stored in-memory only and lost on restart.
 
+**Q: What data is processed by `!warn`?**
+A: Moderation metadata such as warned user ID, moderator ID, warning counter/state, and configured follow-up action/role state. It is used for moderation enforcement.
+
+**Q: What data is processed by `/flood-protection`?**
+A: Runtime activity counters (user/channel/guild) and configured thresholds/time window/mitigation mode. Counters are transient in-memory data.
+
 **Q: Are my reminders stored permanently?**
 A: No. All reminder data (one-time and scheduled) is stored in-memory only. It is lost when the bot restarts. No reminder content is written to disk or logged.
 
@@ -764,8 +830,8 @@ A: No. Telemetry is aggregated for performance and reliability metrics and does 
 
 ---
 
-**Version:** 1.7
+**Version:** 1.8
 **Status:** Active  
 **Language:** English (German equivalent available upon request)  
-**Last Updated:** June 24, 2026  
+**Last Updated:** August 8, 2026  
 **Compliance:** DSGVO/GDPR Article 13 & 14

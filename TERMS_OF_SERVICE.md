@@ -1,8 +1,8 @@
 # Terms of Service - MCLP Discord Bot
 
-**Last Updated:** June 24, 2026  
+**Last Updated:** August 8, 2026  
 **Effective Date:** January 5, 2026  
-**Version:** 1.8 - Added dog facts, game utilities, extended moderation tools, telemetry transparency, service runtime updates
+**Version:** 1.9 - Added warning moderation system, per-guild flood protection, broadcast improvements, command-routing refactor, and stability fixes
 
 ---
 
@@ -51,6 +51,7 @@ The Bot provides the following comprehensive features:
 - **Timeout:** Temporary muting (`!timeout`, `!untimeout`)
 - **Purge:** Bulk message deletion (`!purge`)
 - **Slowmode:** Enable/disable and configure channel slowmode (`!slowmode`)
+- **Warnings:** `!warn` with configurable action after 3 warnings (timeout, kick, or ban), warning DM notice, and optional warn role assignment
 - **Reaction Roles:** Auto-assign roles via reactions
 - **Whitelists:** Server and global authorization lists
 - **Permission System:** Global and server-specific auth
@@ -64,6 +65,7 @@ The Bot provides the following comprehensive features:
 
 ### 2.6 System & Admin Commands
 - **Logging Control:** Configure logging channel filters (operational logging cannot be disabled)
+- **Flood Protection:** Per-guild `/flood-protection` command with configurable user/channel/guild thresholds, configurable time window, and mitigation mode (alert, cooldown, silent drop/block)
 - **Bot Status:** Set custom bot activity/status
 - **Status Cycle:** Automatic rotating bot status messages (`/status_cycle`) with configurable texts, durations, and dynamic placeholders
 - **Debug Mode:** Advanced debugging (owner only)
@@ -241,7 +243,7 @@ your responsibility.
 
 ### 5.3 Moderation Features
 
-Moderation commands (!kick, !ban, !timeout):
+Moderation commands (!kick, !ban, !timeout, !warn):
 
 - May only be used by whitelisted administrators
 - Must comply with Discord's Community Guidelines
@@ -267,6 +269,7 @@ The Bot automatically logs two categories of data:
 - Error messages and exceptions
 - System events and warnings
 - Security-related activities
+- Flood-protection trigger/mitigation events and automated moderation actions
 - Application crashes and recovery
 - Aggregated performance telemetry (e.g., uptime/latency/error counters)
 - *This mandatory logging ensures bot stability and security*
@@ -415,6 +418,11 @@ The Bot enforces rate limits to ensure fair service:
 - Maximum 25 active one-time reminders per user
 - Maximum 5 active scheduled reminders per user
 - Minimum scheduled reminder interval: 60 minutes
+
+**Per-Guild Flood Protection (configurable):**
+- User, channel, and guild activity thresholds
+- Configurable time window for threshold evaluation
+- Mitigation modes: alert, cooldown, or silent drop/block
 
 Attempting to bypass these limits may result in restrictions.
 
@@ -720,18 +728,20 @@ GitHub Issues (if public repository available)
 
 ## Appendix B: Feature Comparison Table
 
-| Feature           | Availability  | Auth      | Logging | Rate Limit       |
-|-------------------|---------------|-----------|---------|------------------|
-| Music             | Voice channel | Anyone    | Basic   | Per-user 3-5s    |
-| Games             | Any           | Anyone    | Basic   | Per-user 3-10s   |
-| Game Utilities    | Any           | Anyone    | Basic   | Per-user 2-10s   |
-| Weather/City/Time | Any           | Anyone    | Basic   | 10/min + 8s      |
-| Status            | Any           | Anyone    | Basic   | 30/min + 10s     |
-| Cat/Dog Facts     | Any           | Anyone    | Basic   | 30/min + 3s      |
-| Reminders         | Any           | Anyone    | Basic   | 25 max/user      |
-| Sched. Rem.       | Any           | Anyone    | Basic   | 5 max/user       |
-| Science           | Any           | Anyone    | Basic   | 5/min + 15s      |
-| Moderation        | Guild         | Whitelist | Full    | None             |
+| Feature           |  Availability  |    Auth   | Logging | Rate Limit       |
+|-------------------|----------------|-----------|---------|------------------|
+| Music             |  Voice channel |   Anyone  |  Basic  | Per-user 3-5s    |
+| Games             |      Any       |   Anyone  |  Basic  | Per-user 3-10s   |
+| Game Utilities    |      Any       |   Anyone  |  Basic  | Per-user 2-10s   |
+| Weather/City/Time |      Any       |   Anyone  |  Basic  | 10/min + 8s      |
+| Status            |      Any       |   Anyone  |  Basic  | 30/min + 10s     |
+| Cat/Dog Facts     |      Any       |   Anyone  |  Basic  | 30/min + 3s      |
+| Reminders         |      Any       |   Anyone  |  Basic  | 25 max/user      |
+| Sched. Rem.       |      Any       |   Anyone  |  Basic  | 5 max/user       |
+| Science           |      Any       |   Anyone  |  Basic  | 5/min + 15s      |
+| Moderation        |     Guild      | Whitelist |  Full   | None             |
+| Warn System       |     Guild      | Whitelist |  Full   | Configurable     |
+| Flood Protection  |     Guild      | Whitelist |  Full   | Configurable     |
 
 ---
 
@@ -756,8 +766,8 @@ GitHub Issues (if public repository available)
 
 ---
 
-**Version:** 1.8
+**Version:** 1.9
 **Status:** Active  
 **Language:** English (German translation available upon request)  
-**Last Updated:** June 24, 2026  
+**Last Updated:** August 8, 2026  
 **Compliance:** German Law, DSGVO, Discord ToS

@@ -68,6 +68,7 @@ Explore space with NASA's Astronomy Picture of the Day, Mars rover photos, aster
 - Advanced logging with rotation
 - Rate limiting and cooldown protection
 - Emergency lockdown system
+- DoS prevention system
 - Status rotation
 - DSGVO/GDPR compliant data handling
 
@@ -300,7 +301,6 @@ Advanced Broadcast System for announcing updates, problems, or important news.
 - **python-dotenv 1.2.2** - Environment variables
 - **sympy 1.14.0** - Advanced math & calculator
 - **DateTime 6.0** - Time-based utilities
-- **pytz 2026.1.post1** - Timezone handling
 - **yt-dlp 2026.3.17** - YouTube music streaming
 
 ### Runtime Environment
@@ -431,10 +431,6 @@ This bot requires the following to operate:
 - Migrated bot runtime to a managed Linux service setup for improved operational reliability
 - Improved shutdown/restart behavior and status transitions
 - Updated dependencies and moved runtime to Python 3.13.14
-
-### Public Disclosure Note (Security)
-
-- Internal security hardening details are intentionally summarized and not fully disclosed publicly.
 
 ### Version 1.6 - Code hardening and stability update
 
