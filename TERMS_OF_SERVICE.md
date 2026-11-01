@@ -1,8 +1,8 @@
 # Terms of Service - MCLP Discord Bot
 
-**Last Updated:** August 8, 2026  
-**Effective Date:** January 5, 2026  
-**Version:** 1.9 - Added warning moderation system, per-guild flood protection, broadcast improvements, command-routing refactor, and stability fixes
+**Last Updated:** November 1, 2026  
+**Effective Date:** November 1, 2026  
+**Version:** 2.0 - Updated MariaDB persistence, active polls, reminders, reaction roles, hosting and access limits
 
 ---
 
@@ -37,11 +37,11 @@ The Bot provides the following comprehensive features:
 - **Weather:** Real-time weather data (`!weather`)
 - **City Info:** Geographic and timezone info (`!city`)
 - **Time:** Local time for any location (`!time`)
-- **Reminders:** One-time scheduled notifications (`!reminder`) with timezone support and natural-language time parsing
+- **Reminders:** One-time notifications (`!reminder`) with timezone support, stored in the production database while active
 - **Scheduled Reminders:** Recurring reminders with `every` or `daily` modes (`!scheduled-reminder`)
-- **Reminder management** Delete your reminders with (`!reminders`) by choosing one in the dropdown menu.
+- **Reminder management:** View and delete your reminders with `!reminders`; active reminders are restored after restart
 - **Discord Status:** Live Discord API and Gateway status (`!status`)
-- **Polls:** Create interactive polls (`!poll`)
+- **Polls:** Create interactive polls (`!poll`) whose active poll data and votes are stored in the database and restored after restart; delete polls with `!deletepoll`
 - **Cat Facts:** Random cat facts (`!catfact`)
 - **Dog Facts:** Random dog facts (`!dogfact`)
 
@@ -50,7 +50,7 @@ The Bot provides the following comprehensive features:
 - **Timeout:** Temporary muting (`!timeout`, `!untimeout`)
 - **Purge:** Bulk message deletion (`!purge`)
 - **Slowmode:** Enable/disable and configure channel slowmode (`!slowmode`)
-- **Warnings:** `!warn` with configurable action after 3 warnings (timeout, kick, or ban), warning DM notice, and optional warn role assignment
+- **Warnings:** `!warn` with action at three active warnings (timeout, kick, or ban), DM notice, and optional warn role; history and audit events are stored in the database
 - **Reaction Roles:** Auto-assign roles via reactions
 - **Whitelists:** Server and global authorization lists
 - **Permission System:** Global and server-specific auth
@@ -67,34 +67,30 @@ The Bot provides the following comprehensive features:
 - **Flood Protection:** Per-guild `/flood-protection` command with configurable user/channel/guild thresholds, configurable time window, and mitigation mode (alert, cooldown, silent drop/block)
 - **Bot Status:** Set custom bot activity/status
 - **Status Cycle:** Automatic rotating bot status messages (`/status_cycle`) with configurable texts, durations, and dynamic placeholders
-- **Debug Mode:** Advanced debugging (owner only)
-- **System Logs:** Access log files (`/log`)
-- **Shutdown:** Emergency bot shutdown
-- **Restart:** Restart the bot
-- **Blacklist Management:** Global user and server blacklists (owner only)
+- **Debug Mode:** Debug setting managed by a globally authorized operator; It is used only in the Windows development environment
+- **System Logs:** Access the latest log file (`/log`), for globally authorized operators
+- **Shutdown/Restart:** Systemd service controls when a service is configured and the host permits the required command
+- **Access management:** Global and guild allowlists, global blocklists, logging configuration, and emergency controls
+- **Privacy information:** `/privacy`
 
 ### 2.7 Emergency Commands (Global Whitelist Only)
 - **Emergency Lockdown** (`/emergency-lockdown`): Restrict bot to authorized users (global whitelist) only
-  - Blocks ALL guild interactions
-  - Only accepts commands from global whitelist users via DM
+  - Blocks guild messages and application-command interactions
+  - Allows authorized global-whitelist users to use commands through DMs
   - Changes bot status to show "🚨 Emergency Lockdown Active"
   - Used during bot attacks or abuse situations
 - **Emergency Cooldown** (`/emergency-cooldown`): Activate global command cooldown
   - Sets 1-300 second cooldown across ALL commands
-  - Affects all users equally (Special system commnds like `/log` are not rate-limited)
+  - Applies to commands according to the central cooldown check; some maintenance commands are exempt
   - Used to prevent spam or abuse attacks
   - Changes bot status to show cooldown duration
 - **Emergency Reset** (`/emergency-reset`): Deactivate emergency measures
   - Deactivates emergency lockdown and/or global cooldown
   - Restores bot status to normal
-  - Clears persisted emergency state from config
-- **Emergency Status** (`/emergency-status`): Check emergency system status
-  - Shows current lockdown and cooldown state
-  - Displays activation timestamps
-
-**Emergency State Persistence:** Emergency lockdown and cooldown states are persisted in `config.json`
-and automatically restored on bot restart. The emergency remains active until explicitly reset
-via `/emergency-reset`.
+  - Clears active persisted emergency state from MariaDB configuration
+**Emergency State Persistence:** Active emergency settings are stored in MariaDB
+and restored after restart. They remain active until reset or changed by an
+authorized operator.
 
 ### 2.8 Advanced Features
 - **Calculator:** `!calc` with equation solving, sympy integration
@@ -105,19 +101,19 @@ via `/emergency-reset`.
 
 ### 2.9 Broadcast System (Optional)
 
-The Bot includes an **optional Broadcast System** for announcing updates and changes:
+The operator can run a separate, optional broadcast utility for announcements:
 
 **How It Works:**
 - Server administrators can enable announcements via `!update-channel` command
-- Stores announcement channel in server configuration (`announcements` data)
-- Runs as an external tool (`tools/broadcast-system/broadcast.py`)
-- Requires the bot token to operate (outside of Discord Bot)
+- Stores enabled state and announcement channel ID in MariaDB guild settings
+- Runs as an external tool in `tools/broadcast_system/`
+- Requires the bot token and database connection settings
 - Sends messages to all configured announcement channels
 
 **Configuration:**
 - **Enabling:** Server admin uses `!update-channel` in desired channel
-- **Storage:** Announcement channel ID stored in server config
-- **Optional:** Servers can disable by not running the `!update-channel` command.
+- **Storage:** Announcement channel ID and enabled state stored in MariaDB
+- **Opt-out:** Only enabled guilds with a configured channel are targeted. The command enables/configures announcements; disabling requires an authorized database change.
 - **Data:** Uses existing server configuration architecture
 
 **Important Notes:**
@@ -125,7 +121,7 @@ The Bot includes an **optional Broadcast System** for announcing updates and cha
 - Servers must explicitly enable announcements to receive broadcasts
 - Bot-Owner must actively run the broadcast tool (not automatic)
 - Only reaches servers that have announcements enabled
-- Respects server configurations and authorization settings
+- The tool creates local JSON reports containing an announcement preview, target IDs and send results; it does not automatically delete those reports
 
 **Use Cases:**
 - Announcing bot updates and new features
@@ -135,7 +131,9 @@ The Bot includes an **optional Broadcast System** for announcing updates and cha
 
 ### 2.10 Feature Availability Disclaimer
 
-The features listed above are provided as currently available. **Features may be added, modified, removed, or suspended at any time** without prior notice.
+The features listed above describe the current service and may change. Subject
+to applicable law and any required notice, features may be added, modified,
+suspended, or discontinued.
 While we strive to maintain stability, no feature is guaranteed to remain available indefinitely. Changes may occur due to:
 - Technical limitations or compatibility issues
 - Third-party API changes or discontinuation
@@ -175,13 +173,21 @@ If you add the Bot to your server, you are responsible for:
 - Not using the Bot to violate Discord ToS
 - Respecting rate limits and cooldowns
 
-**Global Administrative Commands (Owner Only):**
+**Administrative Access:**
 
-The following commands are restricted to the bot owner (Dennis Plischke) and co-developer (Robin Stiller):
+Global administrative commands check the configured global whitelist.
+Dennis Plischke and Robin Stiller are the authorized operators for production.
+Guild-level commands use the configured guildauthorization list or,
+for some commands, Discord administrator/server-owner
+permissions. Actual access depends on the relevant command and deployment
+configuration.
+
+Global whitelist commands include:
 - `/shutdown` - Emergency bot shutdown
 - `/restart` - Bot restart
 - `/debugmode` - Activate debug logging mode
 - `/log` - Access system logs
+- `/status` - Set bot activity/status
 - `/logging` - Global logging configuration
 - `/blacklist` - Manage global blacklists (users and servers)
 - `/status_cycle` - Configure automatic status rotation
@@ -189,7 +195,10 @@ The following commands are restricted to the bot owner (Dennis Plischke) and co-
 - `/emergency-cooldown` - Activate global command cooldown
 - `/emergency-reset` - Deactivate emergency measures
 
-These commands require server-level access and are used only for maintenance, debugging, and enforcement of these Terms.
+These commands do not all require server-level access. Global whitelist
+commands are authorized by the Bot's global configuration; guild commands use
+their guild-level checks. `/logging` uses the global whitelist for global
+settings and guild authorization for guild settings.
 
 ### 4.2 All Users
 
@@ -244,64 +253,51 @@ your responsibility.
 
 Moderation commands (!kick, !ban, !timeout, !warn):
 
-- May only be used by whitelisted administrators
+- May only be used by users who pass the Bot's guild authorization checks; the required Discord permissions also depend on the action
 - Must comply with Discord's Community Guidelines
 - Abuse may result in blacklisting (see Section 6.5) or a request to remove the bot from your server
-- Appeals (for global blacklist) can be submitted to bot owner
+- A global blacklist decision can be reviewed by contacting the operator
 
 ---
 
 ## 6. Logging and Monitoring
 
-### 6.1 Automatic Logging
+### 6.1 Command logging and operational logs
 
-The Bot automatically logs two categories of data:
+Guild command logging can be controlled with `/logging` and
+`/logging_channel`. When enabled, the Bot's ordinary guild command log records
+the command token and user, guild, and channel IDs, not command arguments.
+Operational logs for errors, warnings, startup/shutdown, and security issues
+are separate and are not disabled by these guild settings. Operational log
+records may include IDs or exception text.
 
-**Category 1: Command Execution Logging (Can be controlled)**
-- Command names only (not parameters or message content)
-- User IDs and Guild IDs
-- Channel IDs for context
-- Timestamps of all command executions
-- *This can be disabled per server via `/logging off` or `/logging_channel`*
+The logger attempts to remove rotated log files older than 14 days. This is not
+a retention promise for database records, broadcast reports, backups, console
+output, or other copies. See the Privacy Policy for the current data categories
+and retention behavior.
 
-**Category 2: Operational Logging (Cannot be disabled)**
-- Error messages and exceptions
-- System events and warnings
-- Security-related activities
-- Flood-protection trigger/mitigation events and automated moderation actions
-- Application crashes and recovery
-- Aggregated performance telemetry (e.g., uptime/latency/error counters)
-- *This mandatory logging ensures bot stability and security*
+### 6.2 Debug mode
 
-### 6.2 Your Consent
+Debug mode is controlled by a globally authorized operator.
+It is used only in the Windows development environment with the
+development database and is not used on the production Raspberry Pi. The
+software can log full guild message content and bot replies in debug mode when
+guild logging is enabled. Operators must keep debug mode disabled in production.
 
-By using the Bot, you consent to:
+### 6.3 Monitoring and persistence
 
-**Mandatory Operational Logging** (Cannot be disabled):
-- Error messages, warnings, and system events
-- These are essential for bot stability and security
-- Will continue to be logged regardless of `/logging` settings
+Operational configuration, active reminders, polls and votes, reaction-role
+mappings, warning records, and telemetry are persisted in the production
+MariaDB database. Some runtime state, such as music queues and limiter windows,
+is held in memory. Active reminders and polls are restored after restart.
+Telemetry samples are pruned after seven days; other database records do not
+all have automatic expiration. See the Privacy Policy for details.
 
-**Command Execution Logging** (Can be controlled):
-- Command names, User IDs, Guild IDs, Channel IDs, Timestamps
-- You can control this with:
-  - `/logging off` - Disables command logging for entire server
-  - `/logging_channel` - Restricts command logging to specific channels only
-
-**Important Clarification:**
-- The `/logging on|off` command only affects **command execution logging**, NOT operational logging
-- Errors and warnings will always be logged for security and stability
-- If you disable command logging, operational logs still provide bot health monitoring
-
-### 6.3 Debug Mode
-
-Debug Mode (Global Whitelist Only):
-- Only bot owner (Dennis Plischke) and Co-developer (Robin Stiller) can activate
-- Temporarily logs message content and usernames
-- Used for technical debugging and troubleshooting
-- Always gets deactivated after debugging session
-- Logs still deleted after 14 days
-- Requires server-level access to activate
+Production uses a MariaDB database on a self-managed Raspberry Pi in Germany.
+Database/server access is limited to Dennis Plischke and Robin Stiller
+and remote access uses an encrypted Cloudflare
+Tunnel. There are no database or log backups.
+Details are in the Privacy Policy.
 
 ---
 
@@ -311,21 +307,21 @@ Debug Mode (Global Whitelist Only):
 
 The Bot maintains global blacklists to enforce compliance with these Terms and protect service integrity:
 
-- **User Blacklist:** Globally blocks specific user IDs from using any Bot features
-- **Server Blacklist:** Globally blocks specific server IDs from using any Bot features
+- **User Blacklist:** Blocks listed user IDs from passing the Bot's command access checks
+- **Server Blacklist:** Blocks listed guild IDs from passing the Bot's command access checks
 
 ### 6.5.2 Blacklist Enforcement
 
 **How Blacklists Work:**
-- Blacklisted users cannot execute any Bot commands (prefix or slash)
-- Blacklisted servers cannot use the Bot in any way
+- Blacklisted users cannot execute prefix commands or application commands covered by the Bot's blacklist checks
+- Blacklisted servers cannot execute commands covered by the Bot's guild blacklist checks
 - Blacklist checks happen before command execution
 - No commands are processed for blacklisted users/servers
 
 **Data Storage:**
 - User IDs and Server IDs in blacklists are stored in global configuration
-- Stored as plaintext IDs (not usernames or server names)
-- DSGVO-compliant storage (IDs only, no personal data)
+- Stored as Discord IDs; these identifiers may be personal data
+- Kept until an authorized operator removes the entry
 
 ### 6.5.3 Blacklist Management
 
@@ -350,13 +346,14 @@ The Bot maintains global blacklists to enforce compliance with these Terms and p
 
 ### 6.5.4 Blacklist Appeals
 
-Users or server administrators who believe they have been blacklisted incorrectly may appeal:
+Users or server administrators who believe they have been blacklisted
+incorrectly may contact the operator for review:
 
 1. **Contact:** Email dennisplischke755@gmail.com with subject "Blacklist Appeal"
 2. **Information:** Include User ID or Server ID, and reason for appeal
-3. **Review:** Owner will review within 14 days
-4. **Decision:** Appeal will be accepted or denied with explanation
-5. **Removal:** If appeal approved, ID will be removed from blacklist
+3. **Review:** The operator will review the request
+4. **Decision:** The operator will communicate the outcome where appropriate
+5. **Removal:** If the appeal is accepted, the relevant entry will be removed
 
 ---
 
@@ -364,7 +361,7 @@ Users or server administrators who believe they have been blacklisted incorrectl
 
 The Bot enforces rate limits to ensure fair service:
 
-**API Rate Limits (global, token-bucket):**
+**Default API Rate Limits (global; configuration may override defaults):**
 - NASA API: 5 requests/minute
 - OpenWeatherMap: 10 requests/minute
 - Dictionary API: 20 requests/minute
@@ -376,6 +373,9 @@ The Bot enforces rate limits to ensure fair service:
 - Maximum 15 commands per 60 seconds per user
 
 **Command Cooldowns (per-user, per-command):**
+The values below are code defaults. Global cooldown settings stored in MariaDB
+may override them.
+
 - `calc`: 3 seconds
 - `quiz`: 10 seconds
 - `hangman`: 10 seconds
@@ -416,7 +416,7 @@ The Bot enforces rate limits to ensure fair service:
 **Reminder Limits:**
 - Maximum 25 active one-time reminders per user
 - Maximum 5 active scheduled reminders per user
-- Minimum scheduled reminder interval: 60 minutes
+- Minimum scheduled reminder interval: 30 minutes
 
 **Per-Guild Flood Protection (configurable):**
 - User, channel, and guild activity thresholds
@@ -433,8 +433,7 @@ Attempting to bypass these limits may result in restrictions.
 
 The Bot code and features are copyrighted:
 - © 2026 Dennis Plischke
-- Licensed under provided license (see LICENSE.txt)
-- All rights reserved
+- No additional code license is granted by these Terms. This does not override permissions or exceptions required by applicable law.
 
 ### 7.2 Your Content
 
@@ -473,17 +472,38 @@ The Bot uses these third-party APIs and services:
 | **SoundCloud** (via yt-dlp) | Music playback | soundcloud.com        | See SoundCloud |
 | **Discord Status API**      | Service status | discord.com           | Public API     |
 
-### 8.2 Our Responsibility
+### 8.2 Pterodactyl Server Panel
 
-We are NOT responsible for:
+Pterodactyl controls apply only to guilds configured in the Bot's dedicated
+server allowlist. This is limited to the operator's and
+co-developer's Discord servers. Some server power commands additionally
+require a globally authorized operator. When the optional chat bridge is
+enabled, messages from its configured channel may be relayed to or from the
+game server.
+
+### 8.3 Cloudflare Tunnel
+
+The production Raspberry Pi is accessed remotely through a Cloudflare Tunnel
+with encrypted connections. Cloudflare may process connection/service
+metadata under its own terms and privacy notice.
+
+### 8.4 Third-Party Service Availability
+
+The Bot operator does not control third-party services, their availability,
+terms, privacy practices, or returned content. Use of a service is also
+subject to that provider's terms. This section does not exclude any liability
+that cannot lawfully be excluded.
+
+### 8.5 Our Responsibility
+
+The Bot operator cannot guarantee or control:
 
 - Third-party API availability or downtime
 - Changes to third-party API terms or pricing
-- Data breaches at third-party services
-- Third-party privacy policy changes
 - Quality or accuracy of third-party data
 
-You must review each service's privacy policy and ToS independently.
+Review each service's terms and privacy notice independently. The Privacy
+Policy lists services and describes the data sent for Bot features.
 
 ---
 
@@ -519,7 +539,8 @@ Music playback may be unavailable due to:
 - Service provider changes
 - Bot maintenance or updates
 
-We are not liable for music unavailability. Use at your own risk.
+The operator does not guarantee uninterrupted music playback. This statement
+does not exclude liability that cannot lawfully be excluded.
 
 ---
 
@@ -527,7 +548,8 @@ We are not liable for music unavailability. Use at your own risk.
 
 ### 10.1 "AS-IS" Service
 
-The Bot is provided "AS-IS" without warranties:
+The Bot is provided as available. To the extent permitted by applicable law,
+the operator does not warrant:
 
 - No guarantee of availability
 - No guarantee of accuracy of data
@@ -537,7 +559,8 @@ The Bot is provided "AS-IS" without warranties:
 
 ### 10.2 No Liability for Damages
 
-We are NOT liable for:
+To the extent permitted by applicable law, the operator does not guarantee
+against:
 
 - Lost data or configurations
 - Missed reminders or scheduled tasks
@@ -552,15 +575,11 @@ We are NOT liable for:
 
 ## 11. Limitation of Liability
 
-**Maximum Liability:**  
-To the maximum extent permitted by applicable law, our total liability shall not exceed zero (0 USD).
-This limitation does not apply to liabilities that cannot be limited under applicable law, including but not limited to:
-- Gross negligence or wilful misconduct
-- Liability for death or personal injury
-- Mandatory statutory consumer rights
-- Liabilities under German law (DSGVO violations, etc.)
-
-**In summary:** You use this Bot at your own risk. We accept no liability except where required by law.
+Nothing in these Terms excludes or limits liability or user rights where such
+exclusion or limitation is not permitted by applicable law. Any limitation of
+liability must be interpreted subject to mandatory German and EU law,
+including applicable consumer-protection rules. This draft requires legal
+review before publication.
 
 ---
 
@@ -577,7 +596,9 @@ We reserve the right to ask you to remove the Bot or to manually block further u
 - Servers attempt unauthorized access
 
 **Enforcement Mechanism:**
-Automated blacklisting system is now implemented. Users and servers in violation may be added to global blacklists, resulting in immediate and complete blocking from all Bot features.
+Authorized operators can add a user or guild ID to the global blacklist. A
+blacklisted user or guild is blocked by the Bot's access checks. Blacklisting is
+not automatic; an operator decides whether to add an entry.
 
 ### 12.2 Immediate Termination
 
@@ -592,26 +613,26 @@ We may immediately request removal or apply a manual block for:
 
 You can:
 - Remove the Bot from your server at any time
-- Delete your configurations
-- Request data deletion (see Privacy Policy)
+- Request review or deletion of data as described in the Privacy Policy
 - Stop using the Bot without notice
 
 **Effect of Termination:**
 - Bot access ends once the bot is removed or a manual block is applied
-- Server configurations are deleted
-- Other server-realated data like reactionroles are deleted
-- Logs follow the standard 14-day retention policy
+- Removal does not currently cause automatic deletion of guild settings, warning/audit history, or reaction-role mappings
+- Data remains subject to the retention behavior in the Privacy Policy; a separate deletion request may be needed
+- Rotated application log files have an attempted 14-day cleanup; this does not cover database records or broadcast reports
 
 ---
 
 ## 13. Modifications to Terms
 
-We may modify these Terms at any time. Changes become effective upon posting.
+We may update these Terms. The updated text will show its effective date.
+Changes take effect subject to applicable law and any required notice or
+consent.
 
-**Your Rights:**
-- Continued use constitutes acceptance
-- Right to stop using the Bot
-- Right to request account deletion before changes apply
+**Your Options:**
+- You may stop using the Bot or remove it from your server
+- Data requests are handled as described in the Privacy Policy
 
 **Notification Methods (in order of preference):**
 1. **Broadcast System:** Significant changes announced via Bot's optional Broadcast System to servers that have enabled announcements
@@ -620,11 +641,9 @@ We may modify these Terms at any time. Changes become effective upon posting.
 4. **Documentation:** Check back regularly for updates in Terms/Privacy Policy
 
 **Important Notes:**
-- Significant changes will be announced using **at least one method above**
-- If you have enabled announcements (`!update-channel`), you'll receive broadcasts directly
-- If you haven't enabled announcements, check Discord or GitHub regularly
-- Minor clarifications may be made without formal notice
-- Servers without announcements enabled may not receive notifications—opt-in via `!update-channel` to stay informed
+- The optional broadcast tool only reaches guilds with announcements enabled and configured in MariaDB
+- Broadcasts are operator-triggered, not automatic
+- Other announcement methods may be used where appropriate
 
 ---
 
@@ -640,17 +659,12 @@ The Bot is NOT:
 
 ## 15. Governing Law and Jurisdiction
 
-These Terms are governed by:
-- **Primary Law:** German Law (Deutsches Recht)
-- **Data Protection:** DSGVO (German/EU Data Protection Regulation)
-- **Jurisdiction:** German courts
-- **Language:** English version is official; German translation available
-
-**For EU Users:**  
-EU/DSGVO consumer protection laws apply.
-
-**For Non-EU Users:**  
-By using this Bot, you agree to be bound by German law.
+These Terms are intended to be governed by German law, subject to mandatory
+consumer-protection rules and other mandatory law applicable to the user.
+Nothing in this clause removes rights that cannot legally be waived or
+restricts access to a court where applicable law provides otherwise. The
+English text is the version currently provided; a translation, if made
+available, does not replace mandatory rights under applicable law.
 
 ---
 
@@ -661,16 +675,13 @@ By using this Bot, you agree to be bound by German law.
 For disputes:
 1. Contact bot owner via Discord or E-mail
 2. Provide detailed description of issue
-3. Allow 14 days for response
+3. Allow a reasonable time for a response
 4. Attempt good-faith resolution
 
 ### 16.2 Formal Dispute Resolution
 
-If informal resolution fails:
-- German courts have jurisdiction
-- Applicable law is German law
-- Both parties agree to submit to jurisdiction
-- Location of dispute: Germany
+If informal resolution fails, applicable law and jurisdiction are determined
+under Section 15 and any mandatory legal rules that apply.
 
 ---
 
@@ -678,15 +689,15 @@ If informal resolution fails:
 
 If any provision is unenforceable:
 - The remaining provisions stay in full effect
-- The unenforceable provision is modified minimally to be valid
-- The intent and spirit of these Terms are preserved
-- Courts interpret ambiguities against the drafter
+- The provision is applied only to the extent permitted by applicable law
 
 ---
 
 ## 18. Entire Agreement
 
-These Terms constitute the entire agreement between you and the Bot operator regarding the Bot's use, services, and features. Any prior communications, negotiations, or understandings are completely superseded.
+These Terms describe the conditions for using the Bot and should be read with
+the Privacy Policy and applicable Discord terms. They do not override
+mandatory legal rights or separate agreements.
 
 ---
 
@@ -697,7 +708,8 @@ These Terms constitute the entire agreement between you and the Bot operator reg
 - **Discord:** Message the bot owner (Dennis Plischke)
 - **Server:** MCLP (MinecraftLetsPlay Discord) [Invite](https://discord.com/invite/tssKYweM3h)
 - **E-Mail:** Dennisplischke755@gmail.com
-- **Response Time:** 14 days
+Privacy requests are handled within applicable statutory time limits. Other
+enquiries are answered as reasonably practicable.
 
 **For Data Subject Rights (DSGVO):**  
 See Privacy Policy ([`PRIVACY_POLICY.md`](./PRIVACY_POLICY.md)) for detailed information.
@@ -716,7 +728,7 @@ GitHub Issues (if public repository available)
 | Report bugs responsibly              | Abuse rate limits              |
 | Play music you own                   | Pirate copyrighted music       |
 | Configure per server                 | Modify Bot code                |
-| Delete your data                     | Steal other's data             |
+| Request review/deletion of your data | Steal other's data             |
 | Request data deletion                | Circumvent operational logging |
 | Use moderation tools (if authorized) | Abuse moderation commands      |
 | Create polls/reminders               | Use for harassment             |
@@ -725,38 +737,37 @@ GitHub Issues (if public repository available)
 
 ---
 
-## Appendix B: Feature Comparison Table
+## Appendix B: Feature Access Summary
 
-| Feature           |  Availability  |    Auth   | Logging | Rate Limit       |
-|-------------------|----------------|-----------|---------|------------------|
-| Music             |  Voice channel |   Anyone  |  Basic  | Per-user 3-5s    |
-| Games             |      Any       |   Anyone  |  Basic  | Per-user 3-10s   |
-| Game Utilities    |      Any       |   Anyone  |  Basic  | Per-user 2-10s   |
-| Weather/City/Time |      Any       |   Anyone  |  Basic  | 10/min + 8s      |
-| Status            |      Any       |   Anyone  |  Basic  | 30/min + 10s     |
-| Cat/Dog Facts     |      Any       |   Anyone  |  Basic  | 30/min + 3s      |
-| Reminders         |      Any       |   Anyone  |  Basic  | 25 max/user      |
-| Sched. Rem.       |      Any       |   Anyone  |  Basic  | 5 max/user       |
-| Science           |      Any       |   Anyone  |  Basic  | 5/min + 15s      |
-| Moderation        |     Guild      | Whitelist |  Full   | None             |
-| Warn System       |     Guild      | Whitelist |  Full   | Configurable     |
-| Flood Protection  |     Guild      | Whitelist |  Full   | Configurable     |
+| Feature | Access and limits | Persistence |
+|---|---|---|
+| Music | Guild voice channel and configured music-channel rules | Playback state is in memory; music channel setting is in MariaDB |
+| Games and calculator | Commands subject to rate limits | Active game state is temporary; static game data is read-only |
+| Reminders | 25 active reminders and five scheduled per user; 30-minute minimum recurrence | Active reminder records in MariaDB; restored after restart |
+| Polls | 2-10 options; duration from 10 seconds to 7 days; `!deletepoll` requires Manage Messages | Active polls and votes in MariaDB; removed when closed/deleted |
+| Moderation and reaction roles | Guild authorization; some actions also require Discord permissions | Warnings/audit history and mappings in MariaDB |
+| Flood protection | Guild owner/admin for settings; runtime counters are transient | Settings in MariaDB; counters in memory |
+| Dedicated server controls | Guild allowlist; power commands require global authorization | Allowlist in MariaDB; requests go to configured Pterodactyl server |
+| Broadcast tool | Operator-triggered; only opted-in announcement guilds | Guild targets in MariaDB; local JSON result reports |
+
+Rate limits and command cooldowns may be changed through database-backed
+configuration. Default values can change between releases.
 
 ---
 
 ## Appendix C: Emergency Procedures
 
 **Bot Not Responding?**
-1. Check Bot dashboard ([Here](https://rd-code-forge.net/mclp/dashboard/))
+1. Check the [Bot status dashboard](https://rd-code-forge.net/mclp/dashboard/)
 2. Check Discord status
 3. Check bot permissions
 4. Wait for automatic restart
 5. Contact owner if persistent
 
 **Data Loss?**
-1. Check if logs still exist (14-day window)
-2. Contact owner within 14 days
-3. Provide evidence and affected Guild ID
+1. Production database and log files are not currently backed up
+2. Contact the operator with the affected guild and feature details
+3. Recovery may not be possible if the live record is lost
 
 **Security Incident?**
 1. Change any exposed API keys immediately
@@ -765,8 +776,7 @@ GitHub Issues (if public repository available)
 
 ---
 
-**Version:** 1.9
+**Version:** 2.0
 **Status:** Active  
 **Language:** English (German translation available upon request)  
-**Last Updated:** August 8, 2026  
-**Compliance:** German Law, DSGVO, Discord ToS
+**Last Updated:** November 1, 2026
