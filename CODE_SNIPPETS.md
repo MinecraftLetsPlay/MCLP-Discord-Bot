@@ -35,13 +35,9 @@ Discord-Bot/src/
     │       ├── music_commands.py        # Music control commands
     │       └── player.py                # Music player logic
     └── data/
-        ├── config.json                  # Global bot configuration
         ├── game_commands_data.json      # Ore Dict, potion recipes, ...
         ├── hangman.json                 # Hangman word lists
-        ├── quiz.json                    # Quiz questions
-        ├── reactionrole.json            # Reaction role mappings
-        └── servers/
-            └── <guild_id>.json          # Per-server configuration
+        └── quiz.json                    # Quiz questions
 ```
 
 ---
