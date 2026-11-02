@@ -304,7 +304,7 @@ For the authoritative list, see [`requirements.txt`](./requirements.txt).
 - **Free Dictionary API** - English & German dictionaries
 - **OpenWeatherMap API** - Real-time weather and city data
 - **NASA API** - Mars photos, asteroids, astronomy, space weather, exoplanets
-- **Youtube-Music** - Music playback/search via yt-dlp
+- **YouTube Music** - Music playback/search via yt-dlp
 - **SoundCloud** - Music playback/search via yt-dlp
 - **Status Discord API** - Displaying gateway and API status
 
@@ -405,26 +405,26 @@ This bot requires the following to operate:
 
 The entries below describe earlier development milestones and are not the current feature or version list.
 
-### Version 2.0 - Migration from JSON-Based atomic read / write to SQL-Databse
+### Version 2.0 - Migration from JSON-based atomic reads/writes to an SQL database
 
-- Migrated all Production Data to an SQL-Database
+- Migrated all production data to an SQL database
 - Completely reworked data access across all command modules
 - Deleted all old JSON write code and only kept JSON read code
 - Changed the reading logic of the Bot-Dashboard to now read directly from DB
-- Addes several error handeling and edgde-case checks
+- Added several error-handling and edge-case checks
 - Added new `!purge` command to quickly delete many messages from a channel
 - Updated legal documents and `/privacy` command
-- Updated Readme and Code-Snippets.
+- Updated README and code snippets.
 - Repaired `!apod` command. Due to changes of NASA deactivating the old endpoint and moving to a new one.
 - Updated the Broadcast-Tool to use the DB to read if servers have set up the announcement channel and enabled it
 - Rephrased warning and error messages, added comments and docstrings
 
 ### Version 1.9 - Code hardening and stability & Feature updates
 
-- Fixed some erros in the telemetry and dashboard modules and updated shown data for better insights
-- Recalibrated penalities for the health score on the dashboard
-- Added many docstrings and somments for readability and explaination
-- The `!poll` command got a huge update. Now enableing for finite voates and timeed polls
+- Fixed some errors in the telemetry and dashboard modules and updated shown data for better insights
+- Recalibrated penalties for the health score on the dashboard
+- Added many docstrings and comments for readability and explanation
+- The `!poll` command got a huge update, now enabling finite votes and timed polls
 - Fixed the `!untimeout` command not finding the wanted person in some cases
 - Removed some deprecated code and package imports
 - Fixed uptime-tracking of the bot and now counting / tracking downtime from reconnects & internet / connection outages
@@ -433,7 +433,7 @@ The entries below describe earlier development milestones and are not the curren
 
 ### Version 1.8 - Code efficiency refactoring & Feature expansion
 
-- Complete reafactoring of all command modules (Moved from if command_token== system to sub-router / dispatcher system)
+- Complete refactoring of all command modules (moved from an `if command_token ==` system to a sub-router/dispatcher system)
 - New module: game_commands with commands like `!portal`, `!stronghold` and `!potion`
 - Enhanced !last command from music command to remember last song even if !stop or !skip was used
 - Enhanced stability and capability of the Broadcast system
@@ -567,7 +567,7 @@ Special thanks to:
 This is a closed-source project. The bot code is private, and contributions are not accepted at this time.
 
 However, you can help by:
-- 🐛 Reporting bugs through Discord or Github Issues
+- 🐛 Reporting bugs through Discord or GitHub Issues
 - 💡 Suggesting features or improvements
 - 📣 Sharing feedback about the bot
 - ⭐ Starring this repository if you find it useful

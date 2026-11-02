@@ -84,7 +84,7 @@ Helpful everyday tools powered by external APIs.
 <!-- ![Poll Command](./screenshots/utility-poll.png) -->
 ![Poll](/screenshots/poll.png)
 
-> `!poll` creates an interactive poll with reaction-based voting. Uses Discord.ui elements and edits the message so its live.
+> `!poll` creates an interactive poll with reaction-based voting. Uses Discord.ui elements and edits the message so it's live.
 
 ### Discord Status
 

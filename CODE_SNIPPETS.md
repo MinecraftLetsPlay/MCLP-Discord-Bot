@@ -42,7 +42,7 @@ Discord-Bot/
 │       │   ├── game_commands_core.py            # Advanced logic and calculation for game commands
 │       │   ├── logging_setup.py                 # Custom logging handler and file rotation setup
 │       │   ├── minigames.py                     # Games: !Quiz, !Hangman, !RPS, ...
-│       │   ├── moderation_commands.py           # !kick, !ban, !timeout, !untimemout, ...
+│       │   ├── moderation_commands.py           # !kick, !ban, !timeout, !untimeout, ...
 │       │   ├── public_commands.py               # !help, !info, !serverinfo, ...
 │       │   ├── scientific_commands.py           # !apod, !sun, !asteroids, ...
 │       │   ├── system_commands.py               # Bot-Maintainer & Server-Admin controls
@@ -629,7 +629,7 @@ def initialize_quiz() -> dict:
         raise RuntimeError("Quiz data is missing, invalid, or empty")
     return quiz_data
 
-# The quiz data is then loaded with the utils.py module using a atomic read system.
+# The quiz data is then loaded with the utils.py module using an atomic read system.
 def load_quiz() -> dict:
     return _atomic_read(_abs_path("quiz.json")) or {}
 ```
