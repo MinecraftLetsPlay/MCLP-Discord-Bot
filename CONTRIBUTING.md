@@ -2,17 +2,17 @@
 
 Thank you for your interest in the MCLP Discord Bot! 🎉
 
-## 📋 Important Notice
+## Important Notice
 
 This repository is a **public-facing documentation repository** for a privately-operated Discord bot. The actual bot source code is kept in a private repository and is not open source.
 
-## 🚫 What This Means
+## What This Means
 
 - **No code contributions are accepted** - The bot code is proprietary
 - **No pull requests for features** - Development happens privately
 - **No direct code access** - Source code is not available
 
-## ✅ How You CAN Help
+## How You CAN Help
 
 Even though this is a closed-source project, we still value community input! Here's how you can contribute:
 
@@ -27,6 +27,8 @@ Found a bug? Please [open a GitHub Issue](../../issues/new) with:
 - Screenshots if applicable
 
 > ⚠️ **Security vulnerabilities** should **not** be reported as regular issues. Please follow the [Security Policy](./SECURITY.md) for responsible disclosure.
+
+<!-- Separate notices -->
 
 > 💬 For quick questions or informal feedback, you can also reach out on [Discord](https://discord.com/invite/tssKYweM3h).
 
@@ -55,11 +57,11 @@ If you notice typos, unclear documentation, or have suggestions for improving th
 
 ### Spread the Word
 
-- Star this repository 
+- Star this repository
 - Share the bot with friends who might find it useful
 - Provide feedback about your experience using the bot
 
-## 🔒 Privacy & Security
+## Privacy & Security
 
 ### Security Vulnerabilities
 
@@ -71,7 +73,7 @@ Instead, report them privately:
 
 See [SECURITY.md](./SECURITY.md) for details.
 
-## 📞 Contact
+## Contact
 
 ### Bot Owner
 - **Name:** Dennis Plischke
@@ -81,13 +83,13 @@ See [SECURITY.md](./SECURITY.md) for details.
 ### Community
 - **Discord Server:** [Join MCLP](https://discord.com/invite/tssKYweM3h)
 
-## ⚖️ Legal
+## Legal
 
 By using the bot or providing feedback, you agree to:
 - The [Terms of Service](./TERMS_OF_SERVICE.md)
 - The [Privacy Policy](./PRIVACY_POLICY.md)
 
-## 🙏 Thank You
+## Thank You
 
 Even though we can't accept code contributions, your feedback, bug reports, and suggestions are incredibly valuable for improving the bot. Thank you for being part of the MCLP community!
 

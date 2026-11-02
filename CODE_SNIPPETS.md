@@ -1,8 +1,11 @@
 # 🔧 Code Examples & Architecture
 
-This document showcases the architecture, design patterns, and code examples that power the MCLP Discord Bot.
+This document gives a public overview of the MCLP Discord Bot's architecture and selected programming patterns.
 
-> **Note:** The actual bot source code is private. The examples below are illustrative and demonstrate the general patterns and approaches used in the bot's development.
+> **Note:** The full bot source code is private. The examples include simplified extracts and illustrative pseudocode;
+> they may omit imports, dependencies, and application-specific details and are not intended as standalone implementations.
+> The architecture and persistence notes describe the current service; consult the [Terms of Service](./Legal/TERMS_OF_SERVICE.md)
+> and [Privacy Policy](./Legal/PRIVACY_POLICY.md) for user-facing feature and data-handling details.
 
 ---
 
@@ -11,34 +14,101 @@ This document showcases the architecture, design patterns, and code examples tha
 ### Project Structure
 
 ```
-Discord-Bot/src/
-├── main.py                              # Entry point
-├── bot.py                               # Bot initialization and event handling
-└── internal/
-    ├── command_router.py                # Intelligent command routing
-    ├── rate_limiter.py                  # Multi-layered rate limiting
-    ├── status_cycle.py                  # Status rotation system
-    ├── utils.py                         # Helper functions & config management
-    ├── command_modules/
-    │   ├── __init__.py                  # Module initialization
-    │   ├── calculator.py                # Advanced calculator
-    |   ├── game_commands.py             # !portal, !stronghold, !potion, ...
-    |   ├── game_commands_core.py        # Advanced logic and calculation
-    │   ├── logging_setup.py             # Custom logging handler
-    │   ├── minigames.py                 # Games: Quiz, Hangman, RPS, ...
-    │   ├── moderation_commands.py       # Kick, ban, timeout, ...
-    │   ├── public_commands.py           # Help, info, serverinfo, ...
-    │   ├── sciencecific_commands.py     # !apod, !sun, !asteroids, ...
-    │   ├── system_commands.py           # Admin controls
-    │   ├── utility_commands.py          # Weather, time, reminders, ...
-    │   └── music/
-    │       ├── music_commands.py        # Music control commands
-    │       └── player.py                # Music player logic
-    └── data/
-        ├── game_commands_data.json      # Ore Dict, potion recipes, ...
-        ├── hangman.json                 # Hangman word lists
-        └── quiz.json                    # Quiz questions
+Discord-Bot/
+├── src/
+│   ├── main.py                                  # Entry point
+│   ├── bot.py                                   # Bot lifecycle and Discord events
+│   └── internal/
+│       ├── command_router.py                    # Prefix-command routing
+│       ├── rate_limiter.py                      # Limits, cooldowns, and flood protection
+│       ├── status_cycle.py                      # Status rotation
+│       ├── utils.py                             # Configuration, authorization, and helpers
+│       ├── database/
+│       │   ├── config.py                        # Database connection settings
+│       │   ├── config_cache.py                  # Global and guild configuration cache
+│       │   ├── pool.py                          # Connection pool and transactions
+│       │   └── repositories/
+│       │       ├── config_repository.py         # transactional storage for global and per-guild configuration
+│       │       ├── moderation_repository.py     # Transactional storage for moderation data
+│       │       ├── poll_repository.py           # Transactional storage for active polls
+│       │       ├── reaction_role_repository.py  # Transactional storage for emoji-to-role mappings
+│       │       ├── reminder_repository.py       # Transactional storage for active one-shot and scheduled reminders
+│       │       └── telemetry_repository.py      # Transactional storage for bot-instance telemetry
+│       ├── command_modules/
+│       │   ├── calculator.py                    # High capability calculator
+│       │   ├── dedicated_server_chat.py         # Message bridge to send MC message to DC and vise versa
+│       │   ├── dedicated_server_commands.py     # !server-start, !server-restart, !server-stop, ...
+│       │   ├── game_commands.py                 # !portal, !stronghold, !potion, ...
+│       │   ├── game_commands_core.py            # Advanced logic and calculation for game commands
+│       │   ├── logging_setup.py                 # Custom logging handler and file rotation setup
+│       │   ├── minigames.py                     # Games: !Quiz, !Hangman, !RPS, ...
+│       │   ├── moderation_commands.py           # !kick, !ban, !timeout, !untinemout, ...
+│       │   ├── public_commands.py               # !help, !info, !serverinfo, ...
+│       │   ├── scientific_commands.py           # !apod, !sun, !asteroids, ...
+│       │   ├── system_commands.py               # Bot-Maintainer & Server-Admin controls
+│       │   ├── utility_commands.py              # !weather, time, reminders, polls, ...
+│       │   └── music/
+│       │       ├── music_commands.py            # !play, !pause, !resume, !skip, ...
+│       │       └── player.py                    # Music player logic
+│       └── data/
+│           ├── game_commands_data.json          # Ore Dict, potion recipes, ...
+│           ├── hangman.json                     # Hangman word lists
+│           └── quiz.json                        # Quiz questions
+├── monitoring/
+│   ├── collectors/                              # Runtime event and metric collectors
+│   ├── console/                                 # Monitoring console
+│   ├── dashboard/                               # Web dashboard
+│   ├── models/                                  # Monitoring data models
+│   └── telemetry_manager.py                     # Central telemetry handler
+└── tools/
+    ├── broadcast_system/                        # Optional announcement utility
+    └── preflight_database.py                    # Database readiness checks
 ```
+
+This is a selected overview of the private implementation, not a complete file
+inventory. The database layer is included to show how operational state is
+stored; credentials and connection values are not part of this public tree.
+The JSON files shown above contain static game data, not operational state.
+
+### Component Relationships
+
+The diagram shows the main runtime and storage relationships at a high level.
+
+<!-- mermaid-checked: no \n, no em-dash/en-dash, no {} in labels, unique ids -->
+```mermaid
+flowchart LR
+    Discord["Discord"]
+    Bot["Discord Bot"]
+    Router["Command Router"]
+    Commands["Command Modules"]
+    Cache["Configuration Cache"]
+    Runtime["Runtime State"]
+    Telemetry["Telemetry Manager"]
+    Repositories["Repository Layer"]
+    Pool["Database Connection Pool"]
+    Database[("MariaDB")]
+    Dashboard["Dashboard"]
+    Console["Monitoring Console"]
+
+    Discord -->|"events and commands"| Bot
+    Bot -->|"prefix commands"| Router
+    Router --> Commands
+    Commands --> Cache
+    Commands --> Runtime
+    Commands --> Repositories
+    Cache --> Repositories
+    Bot --> Telemetry
+    Telemetry --> Repositories
+    Repositories --> Pool
+    Pool --> Database
+    Database -->|"telemetry snapshots"| Dashboard
+    Database -->|"telemetry snapshots"| Console
+```
+
+The bot initializes the configuration cache at startup, and command modules use
+it at runtime. Runtime state is held in memory, while selected operational data
+and telemetry are persisted in MariaDB. The dashboard and console read telemetry
+from the database, rather than directly from the telemetry manager.
 
 ---
 
@@ -57,7 +127,7 @@ command_groups = {
     'minigames': ['!rps', '!hangman', '!quiz', '!guess', '!roll'],
     'public': ['!help', '!info', '!rules', '!userinfo', ...],
     'moderation': ['!kick', '!ban', '!unban', '!timeout', ...],
-    'sciencecific': ['!apod', '!marsphoto', '!asteroids', ...],
+    'scientific': ['!apod', '!marsphoto', '!asteroids', ...],
     'game': ['!portal', '!ore', '!potion', '!stronghold', ...],
     'music': ['!join', '!leave', '!play', '!pause', ...],
 }
@@ -68,7 +138,7 @@ command_handlers = {
     'minigames': handle_minigames_commands,
     'public': handle_public_commands,
     'moderation': handle_moderation_commands,
-    'sciencecific': handle_sciencecific_commands,
+    'scientific': handle_scientific_commands,
     'game': handle_game_commands,
     'music': handle_music_commands,
 }
@@ -105,250 +175,154 @@ async def handle_command(client, message):
     return None
 ```
 
-**Benefits:**
-- Centralized command management via dictionaries
-- Grouped handlers for modular code organization
-- DM-aware command blocking
-- Built-in spam protection before routing
-- Consistent error handling across all command groups
+**How routing fits into the current bot:**
+- Prefix messages pass through checks in `src/bot.py` before `command_router` routes them to a command module.
+- Routing includes message-length checks, a per-user spam limit, and restrictions on commands that cannot run in DMs.
+- `!calc` has a dedicated handler; other prefix commands are routed by command group.
+- Slash interactions use a central interaction check for security and rate-limit controls.
+
+The snippet is a simplified illustration; it does not show the full ordering of production checks or slash-command handling.
 
 ---
 
 ### 2. Rate Limiting System
 
-Multi-layered rate limiting with token bucket algorithm, per-command cooldowns, and emergency controls:
+Rate limits and cooldowns help protect commands and external APIs from excessive use:
 
 ```python
-# Simplified rate limiting example
+# Simplified representation of the rate-limiting architecture
 
-class RateLimiter:
-    #Token bucket algorithm for API rate limiting.
-    def __init__(self, max_requests: int, time_window: int):
+class RateLimitPolicy:
+    def __init__(self, max_requests: int, window_seconds: int):
         self.max_requests = max_requests
-        self.time_window = time_window
-        self.requests = defaultdict(list)
+        self.window_seconds = window_seconds
 
-    def is_allowed(self, identifier: str) -> Tuple[bool, float]:
-        # Clean old requests, check limit, return (allowed, retry_after)
-        # Clean old requests outside time window
-        if identifier in self.requests:
-            ...
 
-        # Check if limit exceeded
-        if len(self.requests[identifier]) >= self.max_requests:
-            ...
-
-        ...
-
-class CommandCooldown:
-    #Per-user, per-command cooldown tracking.
+class RateLimitManager:
     def __init__(self):
+        self.policies = {}
+        self.request_history = {}
+
+    def register_policy(self, name: str, policy: RateLimitPolicy):
+        self.policies[name] = policy
+
+    def check_request(self, policy_name: str, identifier: str) -> bool:
+        policy = self.policies.get(policy_name)
+
+        if policy is None:
+            return False
+
+        # Apply the corresponding request-window policy.
+        # Expired entries are cleaned up automatically.
+        # The production implementation includes additional safeguards.
+        return self._evaluate_request(policy, identifier)
+
+    def _evaluate_request(self, policy, identifier) -> bool:
+        # Illustrative policy evaluation.
         ...
 
-    def is_on_cooldown(self, command: str, cooldown_seconds: int, user_id: int) -> Tuple[bool, float]:
-        ...
 
-    def set_cooldown(self, command: str, user_id: int):
-        ...
-    
-    def get_remaining(self, command: str, cooldown_seconds: int, user_id: int) -> float:
-        ...
-    
-    ...
+# Independent protection policies
+rate_limits = RateLimitManager()
 
+rate_limits.register_policy(
+    "user_commands",
+    RateLimitPolicy(max_requests=..., window_seconds=...)
+)
 
-class GlobalCooldown:
-    #Global emergency cooldown for all commands (spam/attack protection).
-
-    def __init__(self):
-        ...
-
-    def activate(self, cooldown_seconds: int = 60, reason: str = "..."):
-        ...
-
-    def deactivate(self):
-        ...
-
-    def check_allowed(self, user_id: int) -> Tuple[bool, float]:
-        
-        if len(self.last_command_time) > 10000:
-            ...
-
-        if user_id in self.last_command_time:
-            ...
-
-# API-specific rate limiters (Example values)
-api_limiter_nasa = RateLimiter(max_requests=5, time_window=60)
-api_limiter_openweather = RateLimiter(max_requests=10, time_window=60)
-
-# Per-user spam protection (separate from API limits | Example values)
-user_spam_limiter = RateLimiter(max_requests=15, time_window=60)
-
-# Usage in commands:
-allowed, error_msg = await check_command_cooldown('apod', message.author.id)
-if not allowed:
-    await safe_send(message, content=error_msg)
-    return
-
-allowed, error_msg = await check_api_limit(api_limiter_nasa, "NASA API")
-if not allowed:
-    await safe_send(message, content=error_msg)
-    return
+rate_limits.register_policy(
+    "external_api",
+    RateLimitPolicy(max_requests=..., window_seconds=...)
+)
 ```
 
 **Features:**
-- Per-user rate limiting (15 commands/60s)
-- Per-command cooldowns (configurable per command)
-- Token bucket algorithm for fair usage
-- Global emergency cooldown for attack protection
-- Separate API rate limiters per external service
+- Independent rate-limit policies for different request categories
+- Per-user command protection
+- Configurable external API request limits
+- Global emergency cooldown functionality
+- Runtime tracking separated from persistent configuration
+
+The production implementation contains additional validation, cleanup, and exception-handling mechanisms.
 
 ---
 
 ### 3. Permission System
 
-Hierarchical permission checking with two authorization levels:
+Authorization combines global and guild-level access controls with Discord permissions where required:
 
 ```python
-# Simplified permission system example
-
-def is_authorized_global(user):
-    # Check if user has global (owner-level) access.
-    # Hierarchy: Blacklist > Global Whitelist
-    
-    # 1. Blacklist check (overrides everything)
-    if is_user_blacklisted(user.id):
+# Illustrative authorization flow; names and signatures are not production APIs.
+async def may_run_admin_action(interaction) -> bool:
+    # Must be used in a guild
+    if interaction.guild is None:
+        await interaction.response.send_message("❌ **This command can only be used in a server.**", ephemeral=True)
         return False
-    
-    # 2. Check global whitelist
-    cfg = load_config()
-    whitelist = cfg.get("whitelist", []) or []
-    return str(user.id) in whitelist
 
-
-def is_authorized_server(user, guild_id):
-    # Check if user has server-level access.
-    # Hierarchy: User Blacklist > Server Blacklist > Server Whitelist > Guild Owner
-    
-    # 1. User blacklist (overrides everything)
-    if is_user_blacklisted(user.id):
+    # Emergency and blacklist helpers handle rejected interactions.
+    if await check_emergency_measures(interaction):
         return False
-    
-    # 2. Server blacklist
-    if is_server_blacklisted(guild_id):
+    if await check_blacklist(interaction):
         return False
-    
-    # 3. Check server-specific whitelist
-    server_config = load_server_config(guild_id)
-    whitelist = server_config.get("whitelist", []) or []
-    
-    if whitelist:
-        return str(user.id) in whitelist
-    
-    # 4. Whitelist empty -> auto-trust only the guild owner
-    if hasattr(user, 'guild') and user.guild is not None:
-        if user.id == user.guild.owner_id:
-            return True
-    
-    return False
 
-
-# Usage in commands:
-
-# Owner-only commands (e.g. shutdown)
-if is_authorized_global(interaction.user):
-    await interaction.response.send_message("Shutting down the bot...")
-
-# Server-level commands (e.g. moderation)
-if await check_blacklist(interaction):  # Early blacklist rejection
-    return
-if not is_authorized_server(interaction.user, guild_id=interaction.guild.id):
-    await interaction.response.send_message("❌ **Permission denied.**", ephemeral=True)
-    return
+    if not is_authorized_server(interaction.user, guild_id=interaction.guild.id):
+        await interaction.response.send_message("❌ **Permission denied.**", ephemeral=True)
+        return False
+    return True
 ```
 
-**Hierarchy:**
-1. **User Blacklist** (highest priority) - Absolute block, overrides all whitelists
-2. **Server Blacklist** - Blocks entire servers from using the bot
-3. **Global Whitelist** - Full bot access including owner-only commands
-4. **Server Whitelist** - Server-specific access for moderation commands
-5. **Guild Owner** - Auto-trusted when server whitelist is empty
-6. **Public Commands** - Available to all non-blacklisted users
+Global and guild allowlists, global blocklists, and guild-level access settings
+are stored in MariaDB. The guild owner is trusted for guild-level authorization;
+some moderation actions also require the corresponding Discord permission.
+Public commands are available subject to the bot's security and abuse-prevention
+checks. Exact access requirements depend on the command.
 
 ---
 
-### 4. Configuration Management
+### 4. Configuration and Persistence
 
-Thread-safe atomic file operations for safe configuration handling:
+MariaDB is the source of truth for operational configuration and persistent bot
+features. The application uses a database-backed configuration cache and
+repositories; there is no JSON fallback for operational state.
 
 ```python
-# Simplified configuration management example
+from internal import utils
 
-# In-process file locks for thread safety
-_file_locks = {}
-_file_locks_lock = threading.Lock()
+async def update_bot_status(guild_id: int) -> None:
+    if not utils.is_config_ready():
+        raise RuntimeError("Database configuration is not initialized")
 
-def _get_lock(path: str) -> threading.Lock:
-    with _file_locks_lock:
-        return _file_locks.setdefault(path, threading.Lock())
+    # Ensure a guild row exists, then read a snapshot from the cache.
+    await utils.ensure_guild_config(guild_id)
+    guild_settings = utils.load_server_config(guild_id)
+    print("Guild command logging:", guild_settings.get("LoggingActivated"))
 
-
-def _atomic_write(file_path: str, data: dict):
-    # Atomically write data using temp file + os.replace().
-    lock = _get_lock(file_path)
-    with lock:
-        # Generate a temporary file to write data from temp into target and clean up afterwards
-
-
-def _atomic_read(file_path: str) -> dict:
-    # Thread-safe read with automatic corrupt file backup.
-    lock = _get_lock(file_path)
-    with lock:
-        # Read the data from the file
-
-            # Backup corrupt file instead of losing data
-            shutil.copy2(file_path, file_path + ".corrupt")
-            return {}
-
-
-# Global config helpers
-def load_config() -> dict:
-    return _atomic_read(_abs_path("..."))
-
-def set_config_value(key: str, value):
-    # Read-modify-write under a single lock.
-    path = _abs_path("...")
-    lock = _get_lock(path)
-    with lock:
-        cfg = _atomic_read(path) if os.path.exists(path) else {}
-        cfg[key] = value
-        _atomic_write(path, cfg)
-
-
-# Per-server config with auto-creation
-def load_server_config(guild_id: int) -> dict:
-    path = _abs_path("...")
-    data = _atomic_read(path)
-    if not data:
-        return create_server_config(guild_id)
-    return data
-
-def save_server_config(guild_id: int, data: dict):
-    _atomic_write(_abs_path("..."), data)
-
-def _default_server_config() -> dict:
-    return {
-        ...
-    }
+    # The cache is updated immediately; persistence runs in the background.
+    utils.set_config_value("BotStatus", {"type": "playing", "text": "with MCLP"})
 ```
 
-**Safety Features:**
-- Per-file thread locks prevent race conditions
-- Atomic writes via `tempfile` + `os.replace()`
-- `fsync()` ensures data reaches disk
-- Corrupt file backup instead of silent data loss
-- Auto-creation of server configs with sensible defaults
-- Periodic lock cleanup for unused file locks
+This illustrative example uses configuration helper names from the bot. It
+assumes database initialization has completed and runs inside an event loop.
+Guild rows are normally ensured during startup and when a guild joins.
+
+Reads use in-memory snapshots. Configuration updates change the cache first and
+schedule persistence to MariaDB; returning from `set_config_value` does not
+confirm that the database write has completed. Persistence errors are logged
+and idempotent configuration writes are retried. `load_config()` returns an
+empty dictionary before the cache is initialized, while writes and guild
+configuration access raise an error. There is no local JSON fallback for
+operational configuration.
+
+**Persistence boundaries:**
+- **MariaDB:** Global and guild configuration, access lists, warnings and audit
+  events, reaction-role mappings, active reminders, polls and votes, and telemetry.
+- **Read-only JSON:** Static game content such as quiz and hangman data.
+- **Runtime memory:** Music queues, active game state, temporary limiter windows,
+  and flood-protection counters.
+- **Environment:** Runtime credentials and API keys.
+
+Active reminders, polls, and emergency settings are restored after a restart.
+
 ---
 
 ## 🎵 Music System Architecture
@@ -360,14 +334,7 @@ The music system uses a per-guild state dictionary with platform-aware configura
 ```python
 # Simplified music player example
 
-# Platform detection for cross-platform support
-PLATFORM = platform.system()
-ARCH = platform.machine()
-IS_PI = ARCH in ["armv7l", "armv6l", "aarch64"] or os.path.exists("/boot/firmware/config.txt")
-IS_WINDOWS = PLATFORM == "Windows"
-
 music_state = {}
-max_queue_size = 20 if IS_PI else 50
 
 def get_guild_state(guild_id: int) -> dict:
     # Get or create per-guild music state.
@@ -427,11 +394,8 @@ def get_ytdlp_options(query: str) -> dict:
 
 ```python
 def resolve_ffmpeg_executable() -> str:
-    # Resolve ffmpeg path with platform-specific search.
-    # 1. Check FFMPEG_PATH environment variable
-    # 2. Check platform-specific paths (Pi / Windows)
-    # 3. Fall back to PATH lookup via shutil.which()
-    # 4. Raise PlayerError with platform-specific install instructions
+    # Resolve FFmpeg for the host environment.
+    # The production service requires FFmpeg for voice playback.
     ...
 ```
 
@@ -441,9 +405,6 @@ def resolve_ffmpeg_executable() -> str:
 async def add_to_queue(guild: discord.Guild, query: str):
     # Add a song to the queue with queue size limits.
     state = get_guild_state(guild.id)
-
-    if len(state["queue"]) >= max_queue_size:
-        raise PlayerError(f"Queue limit reached ({max_queue_size} tracks).")
 
     # Run yt-dlp extraction in executor so playback loop stays responsive.
     loop = asyncio.get_event_loop()
@@ -494,7 +455,7 @@ async def play_next(guild: discord.Guild):
 
 ```python
 # !last support: preserve previous song and allow rewinding playback.
-if command_token == "!last":
+async def replay_last(message):
     state = player.get_guild_state(message.guild.id)
     last_song = state.get("last")
     current = state.get("current")
@@ -587,13 +548,15 @@ class QueueView(ui.View):
 
 **Features:**
 - YouTube & SoundCloud support with source-specific configurations
-- Per-guild queue management with size limits (20 on Pi, 50 on desktop)
+- Per-guild queue and playback state held in memory
 - Three repeat modes: off, one, all
-- Consecutive error tracking with auto-stop after 5 failures
-- Cross-platform FFmpeg detection (Windows, Linux, Raspberry Pi)
+- FFmpeg-based voice playback
 - Paginated queue display with interactive Discord UI buttons
-- Music channel enforcement and URL domain whitelist
+- Music channel configuration is stored with guild settings; accepted URLs are limited to YouTube and SoundCloud
 - Graceful shutdown with FFmpeg cleanup across all guilds
+
+The playback queue and `!last` state are runtime-only and normally disappear
+when the bot process stops. The music-channel setting is persistent.
 
 ---
 
@@ -601,344 +564,181 @@ class QueueView(ui.View):
 
 ### 1. Calculator Input Validation
 
-Multi-layered security for safe expression evaluation with code injection prevention:
+An illustration of input-validation layers used before expression evaluation:
 
 ```python
-# Simplified calculator security example
-
-# Constants
-MAX_EXPRESSION_LENGTH
-CALCULATION_TIMEOUT
-MAX_NESTING_DEPTH
-MAX_OPERATIONS
-
-class CalculatorError(Exception):
-    pass
-
-class SecurityError(CalculatorError):
-    pass
-
-
-def is_safe_expression(expression: str) -> Tuple[bool, str]:
-    # Main validation entry point - 5 security layers.
-    if not expression or len(expression) > MAX_EXPRESSION_LENGTH:
-        return False, f"Expression too long (max {MAX_EXPRESSION_LENGTH} chars)"
-
-    if '\x00' in expression:
+# Simplified sketch; pattern checks and bracket checks are omitted.
+def is_safe_expression(expression: str) -> tuple[bool, str]:
+    if not expression:
+        return False, "Expression cannot be empty"
+    if len(expression) > MAX_EXPRESSION_LENGTH:
+        return False, "Expression is too long"
+    if "\x00" in expression:
         return False, "Expression contains null bytes"
 
-    # ===== LAYER 1: BLACKLIST DANGEROUS PATTERNS =====
-    dangerous_patterns = [
-        # Code execution
-        r'\b__import__\b', r'\beval\b', ...
-        # Module imports
-        r'\bimport\s', r'\bfrom\s',
-        # File/System operations
-        r'\bopen\b', r'\bos\.', ...
-        # Object/Class manipulation
-        r'__[a-z]+__',  # Dunder methods
-        r'\.__bases__', r'\.__class__', ...
-        # Lambda abuse
-        r'lambda\s+.*:.*import',
-    ]
+    # Check forbidden patterns and suspicious escape sequences.
+    ...
 
-    normalized = ' '.join(expression.split()).lower()
-    for pattern in dangerous_patterns:
-        if re.search(pattern, normalized):
-            return False, "Expression contains forbidden keywords or patterns"
+    for check in (
+        check_expression_complexity,
+        validate_function_calls,
+        validate_variable_names,
+    ):
+        is_valid, error_message = check(expression)
+        if not is_valid:
+            return False, error_message
 
-    # Suspicious escape sequences
-    for seq in ['\\\\', '\\x', '\\u']:
-        if seq in expression:
-            return False, "Expression contains suspicious escape sequences"
-
-    # ===== LAYER 2: CHECK COMPLEXITY =====
-    is_valid, error_msg = check_expression_complexity(expression)
-    if not is_valid:
-        return False, error_msg
-
-    # ===== LAYER 3: VALIDATE FUNCTION CALLS (WHITELIST) =====
-    is_valid, error_msg = validate_function_calls(expression)
-    if not is_valid:
-        return False, error_msg
-
-    # ===== LAYER 4: VALIDATE VARIABLE NAMES (WHITELIST) =====
-    is_valid, error_msg = validate_variable_names(expression)
-    if not is_valid:
-        return False, error_msg
-
-    # ===== LAYER 5: CHECK BALANCED BRACKETS =====
-    for open_b, close_b, name in [('(', ')', 'parentheses'),
-                                    ('[', ']', 'brackets'),
-                                    ('{', '}', 'braces')]:
-        if expression.count(open_b) != expression.count(close_b):
-            return False, f"Unbalanced {name}"
-
-    return True, ""
-
-
-def check_expression_complexity(expression: str) -> Tuple[bool, str]:
-    # Prevent DoS via deeply nested or overly complex expressions.
-    # Check nesting depth
-    max_depth = 0
-    current_depth = 0
-    for char in expression:
-        if char in '([{':
-            current_depth += 1
-            max_depth = max(max_depth, current_depth)
-        elif char in ')]}':
-            current_depth -= 1
-
-    if max_depth > MAX_NESTING_DEPTH:
-        return False, f"Expression nesting too deep (max {MAX_NESTING_DEPTH} levels)"
-
-    # Count operations
-    operation_count = sum(expression.count(op) for op in ['+', '-', '*', ...])
-    if operation_count > MAX_OPERATIONS:
-        return False, f"Expression too complex (max {MAX_OPERATIONS} operations)"
-
-    return True, ""
-
-
-def validate_function_calls(expression: str) -> Tuple[bool, str]:
-    # Only allow whitelisted math functions (e.g. sin, cos, sqrt, log).
-    found_functions = set(re.findall(r'([a-zA-Z_]\w*)\s*\(', expression))
-    disallowed = found_functions - set(SAFE_FUNCTIONS.keys())
-    if disallowed:
-        return False, f"Function(s) not allowed: {', '.join(list(disallowed)[:3])}"
-    return True, ""
-
-
-def validate_variable_names(expression: str) -> Tuple[bool, str]:
-    # Only allow whitelisted variable names (e.g. x, y, z, ans).
-    found = set(re.findall(r'\b([a-zA-Z_]\w*)\b', expression))
-    safe = set(SAFE_FUNCTIONS.keys()) | {'ans', 'x', 'y', 'z', ...}
-    unknown = found - safe
-    if unknown:
-        return False, f"Unknown identifiers: {', '.join(list(unknown)[:3])}"
+    # Check brackets before accepting the expression.
+    if expression.count...
+    ...
     return True, ""
 ```
 
-**Security Layers:**
-- **Layer 1:** Blacklist — blocks dangerous keywords (`eval`, `exec`, `import`, `__dunder__`, ...)
-- **Layer 2:** Complexity — limits nesting depth (10) and operation count (50)
-- **Layer 3:** Function whitelist — only safe math functions allowed
-- **Layer 4:** Variable whitelist — only known identifiers permitted
-- **Layer 5:** Bracket balancing — rejects malformed expressions
+**Security layers illustrated above:**
+- Reject empty or oversized expressions and null bytes.
+- Detect forbidden patterns and suspicious escape sequences.
+- Limit expression complexity, including nesting depth and operation count.
+- Allow only approved functions and variable names.
+- Check bracket structure before evaluation.
+
+Ordinary calculator expressions use a separate process with a timeout, as
+described under **Timeout Protection** below. This does not cover every
+calculation path.
+
+This sketch shows the validation order and `(valid, error message)` return
+shape. It omits pattern and bracket checks and is not an executable security
+validator or a complete description of production safeguards.
+Pattern matching alone does not make evaluating untrusted expressions safe.
 
 ---
 
-### 2. Path Traversal Prevention
+### 2. Safe Access to Static Files
+
+The bot reads fixed game-data files through dedicated helpers. This simplified
+example shows how a caller can check the result before using quiz data:
 
 ```python
-# Simplified example of the path traversal guards
+from internal import utils
 
-def save_json_file(data: dict, rel_path: str):
-    # Save JSON file with path traversal protection.
-    # Block absolute paths and directory traversal
-    if rel_path.startswith("/") or ".." in rel_path:
-        raise ValueError(f"Invalid path: {rel_path} (path traversal not allowed)")
+def initialize_quiz() -> dict:
+    quiz_data = utils.load_quiz()
+    if not quiz_data:
+        raise RuntimeError("Quiz data is missing, invalid, or empty")
+    return quiz_data
 
-    parts = rel_path.split("/")
-
-    # Validate every path component
-    for part in parts:
-        if part in ("..", "."):
-            raise ValueError(f"Invalid path component: {part}")
-
-    path = _abs_path(*parts)
-    _atomic_write(path, data)
+# The quiz data is then loaded with the utils.py module using a atomic read system.
+def load_quiz() -> dict:
+    return _atomic_read(_abs_path("quiz.json")) or {}
 ```
 
-**Protection:**
-- Rejects absolute paths (`/etc/passwd`)
-- Blocks `..` traversal in all path components
-- Resolves paths only within the data directory
+The real helpers load the fixed quiz, hangman, and game-utility JSON files
+from the data directory. They return an empty dictionary when content cannot
+be loaded; malformed JSON and other read errors are logged. The caller-side
+exception above illustrates one way to handle an empty result and is not the
+bot's production initialization code.
+
+A separate relative-path JSON loader rejects absolute paths, `..` and
+non-JSON filenames. These files are read-only game content; operational
+configuration and persistent feature data are stored in MariaDB.
 
 ---
 
-### 3. Timeout Protection
+### 3. Database Access with a Repository
+
+Persistent feature data is managed by dedicated repositories. This simplified
+example illustrates how the reminder repository deletes a user's reminder:
 
 ```python
-# Simplified example of the timeout protections
+class ReminderRepository:
+    def __init__(self, database: DatabasePool) -> None:
+        self._database = database
 
+    async def delete(self, reminder_id: str, user_id: int) -> bool:
+        async with self._database.transaction() as connection:
+            async with connection.cursor() as cursor:
+                await cursor.execute(
+                    "DELETE FROM reminders WHERE reminder_id = %s AND user_id = %s",
+                    (reminder_id, user_id),
+                )
+                return cursor.rowcount == 1
+```
+
+- The repository encapsulates the database operation; its connection pool is
+  supplied by the application, not configured with credentials in the code.
+- The parameterized query passes values separately from the SQL statement, and
+  matches both the reminder ID and its creator's user ID.
+- The transaction commits on success and rolls back on errors. Database errors
+  propagate to the caller rather than being reported as a successful deletion.
+- The result is `True` if one matching row was deleted, or `False` if none was
+  deleted. The caller is responsible for handling the result and any errors.
+
+This is an illustrative extract, not a complete repository or a replacement for
+the bot's command-level permission checks and reminder lifecycle.
+
+---
+
+### 4. Timeout Protection
+
+Ordinary calculator expressions run in a separate process, allowing work that
+exceeds its timeout to be terminated. This does not apply to every calculator
+path. The following illustrates the control flow without reproducing the
+process-management implementation:
+
+```python
+# Pseudocode: process lifecycle and result handling are omitted.
 async def calculate_with_timeout(expression: str) -> str:
-    # Execute calculation with timeout to prevent DoS.
-    try:
-        loop = asyncio.get_event_loop()
-        result = await asyncio.wait_for(
-            loop.run_in_executor(
-                None,
-                lambda: sympify(expression, locals=SAFE_FUNCTIONS)
-            ),
-            timeout=CALCULATION_TIMEOUT
-        )
-
-        if isinstance(result, (int, float, Number)):
-            return format_number(float(result))
-        return str(result)
-
-    except asyncio.TimeoutError:
-        raise CalculatorError(f"Calculation timed out (exceeded {CALCULATION_TIMEOUT}s)")
-    except ZeroDivisionError:
-        raise CalculatorError("Cannot divide by zero")
-    except OverflowError:
-        raise CalculatorError("Result exceeds allowed range")
-    except sympy.SympifyError as e:
-        raise CalculatorError(f"Invalid mathematical expression: {str(e)}")
-
-# In other places like minigames
-
-except asyncio.TimeoutError:
-    await safe_send(message, content="⚠️ Timeout - Game cancelled!")
-    logging.warning("Timeout - Game cancelled!")
+    process = start_calculation_process(expression)
+    await wait_for_process(process, CALCULATION_TIMEOUT)
+    if process.is_alive():
+        terminate_process(process)
+        raise CalculatorError("Calculation timed out")
+    return read_calculation_result(process)
 ```
 
 **Protection:**
-- Hard timeout prevents resource exhaustion
-- Runs in executor to avoid blocking the event loop
-- Specific exception handling for each failure mode
+- Ordinary calculator expressions run in a separate process that can be terminated on timeout
+- The wait is performed without blocking the event loop
+- A timeout limits calculation duration; it does not eliminate all resource-exhaustion risks
 - Also used for minigame input timeouts (`asyncio.wait_for`)
 ---
 
 ## 📊 Logging System
 
-### Custom Timed Rotating File Handler
-
-The bot uses a custom logging handler with daily rotation, timezone-aware timestamps, and automatic cleanup:
+The bot writes operational logs for startup/shutdown, errors, warnings,
+permission denials, command failures, and security or flood-protection events.
+Operational logging cannot be disabled. Guild command logging is separately
+controlled by guild settings and channel rules; it records Discord IDs and the
+command token, not command arguments.
 
 ```python
-# Simplified logging system example
+# Illustrative example: use structured fields and never log credentials.
+logging.warning(
+    "Command rejected: permission check failed (user_id=%s, guild_id=%s)",
+    user_id,
+    guild_id,
+)
 
-# Local timezone
-try:
-    LOCAL_TZ = zoneinfo.ZoneInfo("Europe/Berlin")
-except Exception:
-    LOCAL_TZ = None
+logging.error(
+        "Command execution failed: command=%s error_type=%s",
+        command,
+        error_type
+    )
 
-def now_local():
-    # Get current time in local timezone, fallback to UTC.
-    if LOCAL_TZ:
-        return datetime.now(LOCAL_TZ)
-    return datetime.now(timezone.utc)
-
-
+# A custom configured file handler is used for log writing and rollover / deletion of logs
 class CustomTimedRotatingFileHandler(logging.FileHandler):
-    # Daily log rotation with timestamped filenames and automatic cleanup.
-
-    def __init__(self, filename, when='midnight', interval=1, backupCount=0, encoding=None):
-        ...
-
-        # Create initial log file with timestamp
-        timestamp = now_local().strftime("%d.%m.%Y_%H-%M-%S")
-        current_file = f"{self.base_filename}-{timestamp}.txt"
-        super().__init__(current_file, encoding=encoding)
-        self.last_rollover = now_local().date()
-
-        self._cleanup_old_logs()
-
-    def emit(self, record):
-        # Check for date change before each log entry.
-        current_date = now_local().date()
-        ...
-        super().emit(record)
-
-    def doRollover(self):
-        # Close current file and create new one with fresh timestamp.
-        if self.stream:
-            self.stream.close()
-        timestamp = now_local().strftime("%d.%m.%Y_%H-%M-%S")
-        ...
-
-    def _cleanup_old_logs(self):
-        # Delete old log files exceeding backupCount.
-
-        log_files = sorted(
-            [f for f in os.listdir(log_dir)
-             if f.startswith(log_basename) and f.endswith('.txt')],
-            key=lambda f: os.path.getmtime(os.path.join(log_dir, f))
-        )
-
-        # Never delete the currently active file
-        ...
-
-        current_basename = os.path.basename(self.baseFilename)
-        files_to_consider = [f for f in log_files if f != current_basename]
-
-        files_to_delete = len(files_to_consider) - (self.backupCount - 1)
-        if files_to_delete > 0:
-            for old_file in files_to_consider[:files_to_delete]:
-                os.remove(os.path.join(log_dir, old_file))
+    ...
 ```
+- Centralized operational logging
+- Structured event information
+- Separate handling of command failures and security events
+- Permission-denial and abuse-prevention event tracking
+- Configurable log-file management
 
-### Logging Setup
+Sensitive credentials are excluded from log output
+Log files are written to the configured directory. The application attempts to
+remove files older than 14 days based on modification time and does not remove
+the active file.
 
-```python
-# Simplified overview of the logging setup
-
-def setup_logging():
-    # Setup logging with config-driven debug mode and Discord noise reduction.
-    config = utils.load_config()
-    debug_mode = config.get("DebugModeActivated", False)
-    log_directory = config.get("log_file_location", "Logs")
-
-    root_logger = logging.getLogger()
-
-    # Remove old handlers on reload
-    for handler in root_logger.handlers[:]:
-        root_logger.removeHandler(handler)
-
-    formatter = logging.Formatter(
-        '%(asctime)s - %(module)s : %(levelname)s - %(message)s',
-        datefmt="%Y-%m-%d %H:%M:%S"
-    )
-
-    # File handler with daily rotation and 14-day retention
-    file_handler = CustomTimedRotatingFileHandler(
-        os.path.join(log_directory, "bot.log"),
-        when="midnight",
-        interval=1,
-        backupCount=14,
-        encoding="utf-8"
-    )
-    file_handler.setFormatter(formatter)
-    file_handler.setLevel(logging.DEBUG if debug_mode else logging.INFO)
-
-    # Console handler
-    console_handler = logging.StreamHandler(sys.stdout)
-    console_handler.setFormatter(formatter)
-    console_handler.setLevel(logging.DEBUG if debug_mode else logging.INFO)
-
-    root_logger.addHandler(file_handler)
-    root_logger.addHandler(console_handler)
-    root_logger.setLevel(logging.DEBUG if debug_mode else logging.INFO)
-
-    # Reduce Discord.py noise
-    logging.getLogger('discord').setLevel(logging.WARNING)
-
-    return root_logger
-```
-
-### Usage Throughout the Bot
-
-```python
-# Standard Python logging used everywhere — no custom logger needed
-
-logging.info(f"System: Bot started successfully on {len(bot.guilds)} servers")
-logging.warning("No letters could be drawn because the pool is empty.")
-logging.error(f"Failed to create directory {path}: {e}")
-logging.critical(f"EMERGENCY LOCKDOWN activated by {user_id}")
-logging.debug(f"User {user.id} not in global whitelist")
-```
-
-**Features:**
-- Daily rotation with timestamped filenames (`bot.log-15.02.2026_08-30-00.txt`)
-- Automatic cleanup after 14 days (`backupCount=14`)
-- Timezone-aware timestamps (`Europe/Berlin`, fallback to UTC)
-- Thread-safe rollover with double-checked locking
-- Config-driven debug mode (`DebugModeActivated`)
-- Discord.py logger reduced to `WARNING` to minimize noise
-- Dual output: file + console with identical formatting
 ---
 
 ## 🚨 Emergency System
@@ -948,7 +748,7 @@ Two emergency measures controlled via slash commands, with state persistence acr
 ```python
 # Simplified emergency system example
 
-# Emergency state stored in rate_limiter module (not a class)
+# Illustrative in-memory view of state that is persisted in MariaDB.
 emergency_lockdown_mode = False
 emergency_lockdown_owner_id = None
 emergency_lockdown_time = None
@@ -969,20 +769,21 @@ class GlobalCooldown:
 global_cooldown = GlobalCooldown()
 
 
-# Slash commands (owner-only, global scope)
-# /emergency-lockdown  — Blocks all guild interactions; only authorized users can interact via DM
-# /emergency-cooldown  — Enforces N-second cooldown on all commands for all users (1-300s)
-# /emergency-reset     — Deactivates both measures, restores normal bot status
+# Slash commands (available to globally authorized operators)
+# /emergency-lockdown  — Blocks guild messages and application-command interactions;
+#                         globally authorized users can use commands through DMs
+# /emergency-cooldown  — Activates a 1-300 second global command cooldown
+# /emergency-reset     — Deactivates emergency measures and restores normal status
 
 
-# State persisted to config.json (survives restarts)
-utils.set_config_value("EmergencyState", {
-    "lockdown": True,
-    "lockdown_owner_id": str(user_id),
-    "lockdown_time": datetime.now().isoformat(),
-    "cooldown": True,
-    "cooldown_seconds": 60
-})
+# Illustrative persistence call; the exact repository API is private.
+async def save_emergency_state(user_id: int):
+    await persist_emergency_settings(
+        lockdown=True,
+        lockdown_owner_id=user_id,
+        cooldown=True,
+        cooldown_seconds=60,
+    )
 
 # Bot status reflects emergency state
 # Lockdown:  🚨 Emergency Lockdown Active  (DND)
@@ -990,24 +791,23 @@ utils.set_config_value("EmergencyState", {
 # Reset:     Restores original status from BotStatus config
 
 
-# Enforcement in on_message event handler
+# Simplified illustration of the central message/interaction security gate.
 if emergency_lockdown_mode:
-    if message.guild is not None:
-        return  # Ignore all guild messages during lockdown
-    if not is_authorized_global(message.author):
-        return  # Only whitelisted users in DMs
+    if guild_context:
+        reject_request()
+    if not is_authorized_global(user):
+        reject_request()
 
-if global_cooldown.is_active and message.content.startswith('!'):
-    allowed, remaining = global_cooldown.check_allowed(message.author.id)
+if global_cooldown.is_active and not is_maintenance_command(command):
+    allowed, remaining = global_cooldown.check_allowed(user.id)
     if not allowed:
-        await message.reply(f"⏸️ Global cooldown active. Wait {remaining:.0f}s")
-        return
+        reject_with_cooldown(remaining)
 ```
 
 **Features:**
 - **Lockdown** — restricts bot to whitelisted users only, blocks all guild messages
-- **Cooldown** — enforces per-user delay on all commands (1-300s configurable)
-- State persisted to config (survives bot restarts)
+- **Cooldown** — enforces per-user delay on all commands
+- Active state is persisted in MariaDB and restored after a bot restart
 - Automatic state restoration on startup
 - Bot presence reflects active emergency measures
 - `/emergency-reset` deactivates both and restores original status
@@ -1019,7 +819,7 @@ if global_cooldown.is_active and message.content.startswith('!'):
 Config-driven status cycling with safety limits, uptime placeholders, and message parsing:
 
 ```python
-# Simplified status cycle example
+# Simplified status-cycle example; configuration is database-backed.
 
 # Safety constants
 MIN_STATUS_DURATION_MINUTES = 2.5
@@ -1102,30 +902,87 @@ async def _run_status_cycle(bot: commands.Bot, stop_event: asyncio.Event) -> Non
 
 ### Slash Command: `/status_cycle`
 
+The following example outlines the command flow; validation and message
+parsing are omitted for brevity.
+
 ```python
-# /status_cycle action:<start|stop|status|set|from_message>
+# Simplified /status_cycle command
+def setup_status_cycle_commands(bot: StatusCycleBot) -> None:
+    @bot.tree.command(name="status_cycle", description="Start/stop/configure status cycling")
+    @utils.emergency_lockdown_check()
+    async def status_cycle(
+        interaction: discord.Interaction,
+        action: str,
+        every_minutes: Optional[float] = None,
+        statuses_json: Optional[str] = None,
+        message_id: Optional[str] = None,
+        status_type: Optional[str] = None,
+    ):
+        if not utils.is_authorized_global(interaction.user):
+            await interaction.response.send_message("❌ Permission denied.", ephemeral=True)
+            return
 
-# Actions:
-# start        — Start the cycle (persists "enabled" to config)
-# stop         — Stop the cycle, restore default BotStatus
-# status       — Show current config (interval, entry count, on/off)
-# set          — Update interval and/or statuses via JSON parameter
-# from_message — Parse status lines from a Discord message
+        action = action.strip().lower()
+        cfg = utils.get_config_value("StatusCycle", default={}) or {}
 
-# from_message format (one status per line):
-# [playing] "Exploring the cosmos" 5
-# [listening] "to {uptime}" 2.5
-# [watching] "over {servers} servers" 10
+        if action == "status":
+            enabled = bool(cfg.get("enabled", False))
+            interval = cfg.get("every_minutes", 120)
+            count = len(cfg.get("statuses", []) or [])
+            await interaction.response.send_message(
+                f"Status cycle: {'ON' if enabled else 'OFF'} | "
+                f"Interval: {interval} min | Entries: {count}",
+                ephemeral=True,
+            )
+            return
 
-# Lines starting with # are ignored
-# Default type applied if no [tag] prefix
-# Duration in minutes (min 2.5, enforced)
+        if action == "start":
+            cfg["enabled"] = True
+            utils.set_config_value("StatusCycle", cfg)
+            started = await bot.start_status_cycle()
+            ...
+
+        if action == "stop":
+            cfg["enabled"] = False
+            utils.set_config_value("StatusCycle", cfg)
+            stopped = await bot.stop_status_cycle()
+            ...
+
+        if action == "set":
+            # Validate the interval and JSON status entries, then save the configuration.
+            ...
+            return
+
+        if action == "from_message":
+            # Fetch the message, parse its status lines, then save the configuration.
+            ...
+            return
+
+        await interaction.response.send_message(
+            "❌ Invalid action. Use start, stop, status, set, or from_message.",
+            ephemeral=True,
+        )
 ```
+
+The command is limited to globally authorized users. `set` accepts an interval
+and/or a JSON list of status entries; `from_message` reads status lines from a
+message in the current text channel or thread. Both validate their inputs
+before updating the MariaDB-backed configuration. For example:
+
+```text
+[playing] "Exploring the cosmos" 5
+[listening] "to {uptime}" 2.5
+[watching] "over {servers} servers" 10
+```
+
+Each line supplies an optional activity type, status text, and duration in
+minutes. Empty lines and lines beginning with `#` are ignored.
 
 **Features:**
 - Configurable cycle with per-status durations and activity types
 - Safety limits: min 2.5min per status, min 30min cycle interval, max 10 entries
 - Placeholder support (`{uptime}`, `{uptime_duration}`)
+- Cycle settings are stored in MariaDB configuration
 - `from_message` — parse statuses directly from a Discord message
 - Graceful stop via `asyncio.Event` (no task cancellation)
 - Restores default `BotStatus` between cycles and on stop
@@ -1143,48 +1000,44 @@ All external API calls follow the same pattern: rate limit check → request wit
 NASA_API_KEY = os.getenv('NASA_API_KEY')
 OPENWEATHERMAP_API_KEY = os.getenv('OPENWEATHERMAP_API_KEY')
 
-# Rate limiters (defined in rate_limiter.py)
+# Rate-limit settings are configurable and stored in MariaDB.
 api_limiter_nasa = RateLimiter(max_requests=5, time_window=60)
 api_limiter_openweather = RateLimiter(max_requests=10, time_window=60)
 
 
-async def api_request(url: str, params: dict, timeout: int = 10) -> dict | None:
-    # Shared request logic for all external APIs.
-    try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(
-                url,
-                params={k: v for k, v in params.items() if v is not None},
-                timeout=aiohttp.ClientTimeout(total=timeout)
-            ) as response:
-                if response.status == 200:
-                    return await response.json()
-                logging.warning(f"API error: {response.status} for {url}")
-                return None
-    except asyncio.TimeoutError:
-        logging.error(f"API request timed out: {url}")
-        return None
-    except aiohttp.ClientError as e:
-        logging.error(f"API request failed: {e}")
-        return None
+async def api_request(session, url: str, params: dict, timeout: int = 10) -> dict:
+    # Illustrative request helper: callers handle explicit failures.
+    async with session.get(
+        url,
+        params={key: value for key, value in params.items() if value is not None},
+        timeout=aiohttp.ClientTimeout(total=timeout),
+    ) as response:
+        response.raise_for_status()
+        return await response.json()
 
 
 # Usage in commands:
 
-# 1. Check rate limit
-allowed, error_msg = await check_api_limit(api_limiter_nasa, "NASA API")
-if not allowed:
-    await safe_send(message, content=error_msg)
-    return
+async def send_apod(session, message):
+    # 1. Check rate limit
+    allowed, error_msg = await check_api_limit(api_limiter_nasa, "NASA API")
+    if not allowed:
+        await safe_send(message, content=error_msg)
+        return
 
-# 2. Make request
-data = await api_request(
-    "https://api.nasa.gov/planetary/apod",
-    params={"api_key": NASA_API_KEY}
-)
+    # 2. Make the request and handle timeout/HTTP errors.
+    try:
+        data = await api_request(
+            session,
+            "https://api.nasa.gov/planetary/apod",
+            params={"api_key": NASA_API_KEY},
+        )
+    except (asyncio.TimeoutError, aiohttp.ClientError) as error:
+        logging.error("NASA API request failed: %s", error)
+        await safe_send(message, content="The astronomy service is temporarily unavailable.")
+        return
 
-# 3. Build embed from response
-if data:
+    # 3. Build embed from response
     embed = discord.Embed(
         title=data.get('title', 'Astronomy Picture of the Day'),
         description=data.get('explanation', 'No explanation available.'),
@@ -1200,12 +1053,14 @@ if data:
 - NASA Asteroids
 - Exoplanet Archive TAP (IPAC Caltech)
 - OpenWeatherMap
+- Cat Fact and Dog Fact APIs
+- Discord Status API
 
 **Pattern:**
 - API keys from environment variables (`.env`)
 - Rate limit check before every request
 - Per-API timeout configuration
-- Consistent error handling (`TimeoutError`, `ClientError`, non-200 status)
+- HTTP and timeout failures are surfaced and handled at the command boundary
 - Response data transformed into Discord embeds
 ---
 
@@ -1228,14 +1083,13 @@ if data:
 ### Performance
 - ⚡ Async/await for non-blocking I/O
 - ⚡ Efficient data structures (sets for lookups, dicts for routing)
-- ⚡ Platform-aware resource limits (Pi vs. desktop)
 - ⚡ Duplicate detection to avoid unnecessary API calls
 
 ### Maintainability
 - 📦 Modular architecture (separate files per feature)
-- 📦 Centralized configuration management (JSON-based)
-- 📦 Structured logging with daily rotation
-- 📦 Per-server configuration with auto-creation
+- 📦 Centralized, MariaDB-backed configuration
+- 📦 Structured operational logging with configured log-file cleanup
+- 📦 Per-guild settings persisted in MariaDB
 
 ---
 

@@ -2,15 +2,15 @@
 
 <div align="center">
 
-### A Feature-Rich Discord Bot for Your Community
+## A Feature-Rich Discord Bot for Your Community
 
 A comprehensive Discord bot built with [Discord.py](https://discordpy.readthedocs.io/en/stable/), providing moderation tools, minigames, utility commands, music streaming, and much more!
 
-**Designed for private server use with sophisticated permission handling and logging.**
+**A privately operated bot with permission controls, persistent features, and transparent documentation.**
 
 [![Discord](https://img.shields.io/badge/Discord-Join%20MCLP-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/tssKYweM3h)
 [![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Discord.py](https://img.shields.io/badge/Discord.py-2.6.4-5865F2?style=for-the-badge)](https://discordpy.readthedocs.io/)
+[![Discord.py](https://img.shields.io/badge/Discord.py-2.7.1-5865F2?style=for-the-badge)](https://discordpy.readthedocs.io/)
 [![License](https://img.shields.io/badge/License-Private-red?style=for-the-badge)](./LICENSE.txt)
 
 </div>
@@ -24,7 +24,7 @@ A comprehensive Discord bot built with [Discord.py](https://discordpy.readthedoc
 - [Screenshots](#-screenshots)
 - [Getting Started](#-getting-started)
 - [Tech Stack](#-tech-stack)
-- [Core Functionality](#core-functionality)
+- [How the Bot Works](#how-the-bot-works)
 - [Code Examples](#-code-examples--architecture)
 - [Legal & Compliance](#-legal--compliance)
 - [Changelog](#-changelog)
@@ -41,7 +41,9 @@ This is the **public-facing repository** for the MCLP Discord Bot. The actual bo
 - **Feature Showcase** - Demonstrations of what the bot can do
 - **Contact Point** - How to get in touch for support or inquiries
 
-The bot is an exclusive, privately-operated service running on dedicated hardware. While the code is not open source, this repository provides transparency about the bot's functionality, data handling, and legal compliance.
+The bot is a privately operated service; its source code is not public, and the bot is not available for self-hosting or public invitation.
+Production runs on a self-managed Raspberry Pi in Germany, with operational data stored in MariaDB.
+This repository documents the service and its features; it does not contain the bot implementation.
 
 ---
 
@@ -56,21 +58,20 @@ Enjoy text-based minigames including Quiz, Hangman, Rock-Paper-Scissors, Number 
 Also includes practical game utilities (for example Minecraft-focused helper tools).
 
 ### 🛠️ Utility Tools
-Access weather information, time zones, reminders, polls, pet facts, and an advanced calculator with equation solving.
+Access weather information, time zones, persistent one-time and scheduled reminders, persistent polls, pet facts, Discord service status, and an advanced calculator with equation solving.
 
 ### 🛡️ Moderation Features
-Comprehensive moderation tools including kick, ban, timeout, reaction roles, and a sophisticated permission system.
+Moderation tools include kick, ban, timeout, purge, slowmode, configurable warnings, reaction roles, flood protection, and permission controls.
 
 ### 🌌 Science & Astronomy
 Explore space with NASA's Astronomy Picture of the Day, Mars rover photos, asteroid tracking, and exoplanet data.
 
 ### ⚡ System Features
-- Advanced logging with rotation
-- Rate limiting and cooldown protection
-- Emergency lockdown system
-- DoS prevention system
-- Status rotation
-- DSGVO/GDPR compliant data handling
+- MariaDB-backed configuration and persistent reminders, polls, warnings, and reaction-role mappings
+- Operational logging, rate limits, and command cooldowns
+- Emergency lockdown and global cooldown controls
+- Per-server flood protection and rotating bot status
+- Runtime telemetry and monitoring
 
 ---
 
@@ -78,7 +79,7 @@ Explore space with NASA's Astronomy Picture of the Day, Mars rover photos, aster
 
 **Note:** This repository includes a collection of screenshots showcasing the MCLP Discord Bot's features and user interface.
 
-For the complete screenshot gallery, see [SCREENSHOTS.md](https://github.com/MinecraftLetsPlay/MCLP-Discord-Bot/blob/main/SCREENSHOTS.md).
+For the complete screenshot gallery, see [SCREENSHOTS.md](./SCREENSHOTS.md).
 
 ### Featured Categories
 
@@ -104,7 +105,7 @@ Experience the bot in action by joining the official MCLP Discord server:
 ### Bot Invitation
 
 > **Note:** This bot is currently operated as an exclusive, privately-hosted service. It is not available for public invitation at this time.
-> 
+>
 > To inquire about availability or partnerships, please contact the bot owner through the MCLP Discord server.
 
 ### Quick Start Commands
@@ -124,7 +125,7 @@ Once you have access to the bot:
 
 ## 💻 Code Examples & Architecture
 
-While the bot's source code is private, we provide detailed examples and architectural insights to demonstrate the design patterns and best practices used in the bot's development.
+The bot's source code is private. The linked examples are illustrative material, not a source release or a complete description of the current runtime implementation.
 
 ### 📚 Available Documentation
 
@@ -139,50 +140,25 @@ Learn about:
 - 🚨 **Emergency System** - Lockdown and cooldown mechanisms
 - 📡 **API Integration** - Working with external APIs (NASA, Weather, etc.)
 
-### Key Technical Highlights
-
-**Example: Rate Limiting System**
-- Token bucket algorithm for fair usage
-- Per-user global limits
-- Per-command cooldowns
-- Protection against spam and abuse
-
-**Example: Permission System**
-- Hierarchical permission checks
-- Blacklist > Global Whitelist > Guild Whitelist
-- Atomic configuration file operations
-- Safe and consistent authorization
+The examples cover topics such as command routing, rate limits, permission checks, music playback, logging, and external APIs.
+Refer to the feature and persistence sections below for the current service overview.
 
 ---
 
-## Core Functionality
+## How the Bot Works
 
-### Source Files
+The bot's implementation is private, so this repository does not provide an installable copy or a complete source-code listing.
+At a high level, Discord events and prefix commands are handled by the bot and a central command router;
+command modules use shared permission, rate-limit, and database services.
 
-- `main.py` - Entry point
-- `bot.py` - Main bot initialization and event handling
-- `command_router.py` - Command routing system
+### Data and persistence
 
-### Command Modules
+- **MariaDB:** Operational configuration, access lists, warnings and audit events, reaction-role mappings, active reminders, polls and votes, and monitoring data.
+- **Read-only JSON files:** Static game content only; they are not used for operational state.
+- **In-memory state:** Music playback, active games, temporary cooldown/flood counters, and other runtime-only state. This state normally ends when the bot process stops.
+- **Environment configuration:** Credentials and API keys are supplied to the private runtime and are not published in this repository.
 
-- `calculator.py` - Advanced text-based calculator with equation solving.
-- `game_commands.py` - Game commands - !portal, !stronghold, !potion etc.
-- `minigames.py` - Text-based minigames - RPS, Hangman, Quiz, Scrabble etc.
-- `moderation_commands.py` - Discord moderation - Kick, Ban, Timeout etc.
-- `music_commands.py` - Music commands / voice channel controls - !join / leave !play etc.
-- `player.py` - Plays the music and houses the code to search for the song
-- `public_commands.py` - Public commands - Help, Info, Serverinfo etc.
-- `sciencecific_commands.py` - Science commands - Exoplanets, Sun activity etc.
-- `system_commands.py` - Admin controls, logging configuration and system commands.
-- `utility_commands.py` - Utility tools - Weather, Time, Reminder etc.
-
-### Support Modules
-
-- `game-commands_core.py` - Advanced logic and calculations
-- `logging_setup.py` - Advanced logging with rotation.
-- `rate_limiter.py` - Handles per user and global cooldowns and rate limits
-- `status_cycle.py` - Cycles through pre-defined status messages in set intervalls
-- `utils.py` - Helper functions for loading / writing data and authorization.
+Active reminders, polls, and emergency settings are restored after a restart. Detailed internal architecture documentation is not included in this public repository.
 
 ---
 
@@ -229,7 +205,8 @@ Helpful tools for everyday use.
 - **City Info** - Geographic and timezone information (`!city <name>`)
 - **Time** - Local time for any location (`!time <city>`)
 - **Reminders** - Set one-time or scheduled reminders (`!reminder`, `!scheduled-reminder`)
-- **Polls** - Create interactive polls (`!poll`)
+- **Reminder management** - View and delete reminders (`!reminders`); active reminders are stored in MariaDB and restored after a restart
+- **Polls** - Create interactive polls (`!poll`) and delete them (`!deletepoll`); active polls and votes are stored in MariaDB and restored after a restart
 - **Cat Facts** - Random cat facts (`!catfact`)
 - **Dog Facts** - Random dog facts (`!dogfact`)
 - **Calculator** - Advanced math calculator with equation solving (`!calc`)
@@ -245,7 +222,9 @@ Comprehensive server management features.
 - **Timeout System** - Temporary muting (`!timeout`, `!untimeout`)
 - **Message Management** - Bulk message cleanup (`!purge`)
 - **Slowmode Control** - Enable/disable and configure slowmode (`!slowmode`)
+- **Warnings** - `!warn` with configurable follow-up action and optional role; warning history and audit events are stored in MariaDB
 - **Reaction Roles** - Auto-assign roles via reactions
+- **Flood Protection** - Per-server thresholds, time windows, and mitigation modes
 - **Permission System** - Global and server-specific whitelists
 - **Blacklist System** - Global enforcement of Terms of Service
 - **Logging Controls** - Configurable command and operational logging
@@ -268,23 +247,23 @@ Explore the cosmos with data from NASA APIs.
 
 Advanced bot capabilities for stability and security.
 
-- **Advanced Logging** - Automatic log rotation with 14-day retention
+- **Operational Logging** - Security and stability logs cannot be disabled; old log files are subject to a 14-day cleanup attempt
 - **Rate Limiting** - Per-user and per-command cooldowns
 - **Emergency System** - Lockdown and cooldown modes for abuse protection
 - **Status Rotation** - Automatic rotating status messages
+- **Runtime Monitoring** - Telemetry for uptime, latency, errors, and other runtime metrics
 - **Multi-API Integration** - NASA, OpenWeatherMap, Dictionary, and more
 
 ---
 
 ### 📡 External Features
 
-Advanced Broadcast System for announcing updates, problems, or important news.
+An optional, separately operated tool for announcing updates, problems, or important news.
 
-- **Shared Files** - Broadcast System uses the same server config files as the bot.
-- **Completely Optional** - By setting or not setting the update-channel via the `!update-channel` command you can control if you get the updates.
-- **Dry-Run and Confirmation** - The tool prompts for confirmation of sending and previews the text so that mishaps are prevented.
-- **Supports reading files** - The owner can type text into the console or specify a file to read from.
-- **Isolated from bot** - This tool is executed inside another environment with no connection to the bot (Read-only)
+- **Opt-in** - Server administrators configure an announcement channel with `!update-channel`; only enabled servers with a configured channel are targeted.
+- **Operator-triggered** - The bot owner runs the broadcast utility separately; announcements are not sent automatically.
+- **MariaDB configuration** - The enabled state and announcement channel are stored in the guild settings.
+- **Local reports** - The tool writes JSON reports containing the announcement preview, target IDs, and send results.
 
 ---
 
@@ -292,24 +271,27 @@ Advanced Broadcast System for announcing updates, problems, or important news.
 
 ### Core Packages
 
-- **Python 3.13.14** - Python runtime version
-- **Discord.py 2.7.1** - Discord API Wrapper
-- **PyNaCl 1.6.2** - Voice support
-- **Davey 0.1.5** - Audio & Video end-to-end encryption
-- **aiohttp 3.13.5** - HTTP/WebSocket client
-- **asyncio 4.0.0** - Async operations
-- **python-dotenv 1.2.2** - Environment variables
-- **sympy 1.14.0** - Advanced math & calculator
-- **DateTime 6.0** - Time-based utilities
-- **yt-dlp 2026.3.17** - YouTube music streaming
+The current dependency manifest supports Python **3.11.2 through 3.13.5**. Key direct dependencies include:
+
+- **discord.py[voice] 2.7.1** - Discord API and voice support
+- **aiomysql 0.3.2** and **PyMySQL 1.2.3** - MariaDB access
+- **Flask 3.1.3** - Monitoring dashboard
+- **rich 15.0.0** - Console monitoring
+- **yt-dlp 2026.10.26** - Music search and playback
+- **sympy 1.14.0** - Calculator and equation solving
+- **python-dotenv 1.2.4** - Environment configuration
+- **psutil 7.2.2** - Process and system monitoring
+
+For the authoritative list, see [`requirements.txt`](./requirements.txt).
 
 ### Runtime Environment
 
-- **Linux infrastructure** - Runs on a dedicated linux infrastructure.
+- **Linux infrastructure** - Production runs on a self-managed Raspberry Pi in Germany.
 - **Python venv** - Isolated dependency environment
 - **FFMPEG** - Audio encoding/decoding
-- **JSON** - Data storage (configs, quiz data)
-- **Logging with rotation** - Auto log management
+- **MariaDB** - Persistent operational data and configuration
+- **Read-only JSON** - Static game content
+- **Logging and monitoring** - Operational logs and database-backed telemetry
 
 ---
 
@@ -330,7 +312,7 @@ Advanced Broadcast System for announcing updates, problems, or important news.
 
 ## 📖 Legal & Compliance
 
-The bot operates under strict [Terms of Service](./TERMS_OF_SERVICE.md) that cover:
+The bot's [Terms of Service](./Legal/TERMS_OF_SERVICE.md) cover:
 - Usage rights and limitations
 - Acceptable use policies
 - Logging and monitoring practices
@@ -338,51 +320,52 @@ The bot operates under strict [Terms of Service](./TERMS_OF_SERVICE.md) that cov
 - **Broadcast System (optional announcements)**
 - Data retention and deletion rights
 
-**Current Version:** 1.8 (Last Updated: June 24, 2026)
+**Current document version:** 2.0 (Last updated: November 1, 2026)
 
 ### Privacy Policy
 
-Your data is protected under our [Privacy Policy](./PRIVACY_POLICY.md) compliant with **DSGVO/GDPR**:
+The [Privacy Policy](./Legal/PRIVACY_POLICY.md) (document version 2.1, last updated November 1, 2026) describes:
 - What data is collected and why
 - How data is stored and protected
 - Your rights regarding your data
 - Blacklist data handling
 - Complete data categories with retention periods
 
-**Current Version:** 1.7 (Last Updated: June 24, 2026)
-
 ### Data Protection
 
-- **Server Location:** Germany
-- **Compliance:** DSGVO/GDPR Article 13 & 14, German Data Protection Laws
-- **Retention:** Command logs deleted after 14 days automatically
-- **Blacklist:** Indefinite until appeal/removal
+- **Production hosting:** Self-managed Raspberry Pi at the controller's home in Germany
+- **Database:** MariaDB; records have different retention behavior depending on the feature
+- **Logs:** The application attempts to delete log files older than 14 days; this does not apply to database records, backups, or other copies
+- **Backups:** The legal notice currently states that production database and log files are not backed up
+- **Access requests:** Contact the controller; there is no self-service data export or universal deletion schedule
 - **Contact:** dennisplischke755@gmail.com
+
+The Privacy Policy describes current processing and retention behavior; it is not a legal opinion or a blanket guarantee of compliance.
 
 ---
 
 ## 🌟 Why Choose MCLP Bot?
 
-### 🔒 Privacy First
-- **DSGVO/GDPR Compliant** - Full European data protection standards
-- **Transparent Data Handling** - Clear documentation of what data is collected and why
-- **User Rights Respected** - Easy data access and deletion requests
-- **Germany-Based** - Server located in Germany 🇩🇪
+### 🔒 Transparent Data Handling
+- **Documented Practices** - The Privacy Policy describes data categories, storage, and retention behavior
+- **Feature-Specific Retention** - Persistent database records are distinguished from temporary in-memory state
+- **Contact for Requests** - Data access and deletion requests can be sent to the controller
+- **Germany-Based Hosting** - Production runs on a self-managed Raspberry Pi in Germany
 
-### 🚀 Performance & Reliability
-- **Dedicated Hardware** - Running on Raspberry Pi 5 with 8GB RAM
-- **99%+ Uptime** - Stable and reliable service
-- **Rate Limiting** - Fair usage protection for all users
-- **Error Handling** - Graceful recovery from issues
+### 🚀 Operations
+- **Self-Managed Hosting** - The production bot runs on a Raspberry Pi
+- **MariaDB Persistence** - Selected operational features are restored after restarts
+- **Rate Limiting** - Per-user and command-level controls help limit abuse
+- **Runtime Monitoring** - Telemetry tracks service health and errors
 
 ### 🛡️ Security Focused
 - **Blacklist System** - Automated enforcement against abuse
 - **Permission Hierarchy** - Sophisticated authorization system
 - **Emergency Lockdown** - Protection against attacks and spam
-- **Regular Updates** - Continuous security improvements
+- **Operational Controls** - Emergency lockdown, cooldown, and per-server flood-protection settings
 
 ### 🎨 Feature Rich
-- **50+ Commands** - Comprehensive command library
+- **Broad Feature Set** - Music, games, utilities, moderation, astronomy, and administration
 - **Multiple APIs** - Integration with NASA, OpenWeather, YouTube, and more
 - **Active Development** - Regular feature additions and improvements
 - **Community Driven** - Responsive to user feedback
@@ -391,33 +374,62 @@ Your data is protected under our [Privacy Policy](./PRIVACY_POLICY.md) compliant
 
 ## 🔧 Technical Requirements
 
-**For hosting (informational - bot is privately hosted):**
+**For hosting (informational only; the bot is not available for self-hosting):**
 
 This bot requires the following to operate:
 
-- **Python 3.11.2 - 3.13.14** - Python runtime
-- **Discord.py 2.6.4** - Discord API wrapper
+- **Python 3.11.2 - 3.13.5** - Supported runtime range in the dependency manifest
+- **discord.py[voice] 2.7.1** - Discord API wrapper and voice support
 - **FFMPEG** - Audio encoding/decoding for music features
+- **MariaDB** - Required for operational configuration and persistent features
 - **Various Python packages** - See [`requirements.txt`](./requirements.txt)
 
 ### Hardware Specifications (Current Setup)
-- **Platform:** Raspberry Pi 5 B
-- **CPU:** Quad-Core 64-Bit 2.4 GHz
-- **RAM:** 8 GB LPDDR4X
-- **Storage:** SSD for fast I/O
-- **Network:** Stable internet connection
+- **Platform:** Self-managed Raspberry Pi
+- **Location:** Germany
+- **Database:** MariaDB
 
 ### Software Stack
 - **OS:** Linux (Raspberry Pi OS / Debian-based)
 - **Environment:** Python venv for isolated dependencies
-- **Database:** JSON files for configuration storage
-- **Logging:** Automatic rotation with 14-day retention
+- **Database:** MariaDB for operational state; read-only JSON files for static game content
+- **Logging:** Log-file cleanup attempts to remove files older than 14 days; this is not a general data-retention period
 
 **Note:** The bot is privately hosted and not available for self-hosting. This information is provided for transparency about the technical infrastructure.
 
 ---
 
 ## 📜 Changelog
+
+### Historical development notes
+
+The entries below describe earlier development milestones and are not the current feature or version list.
+
+### Version 2.0 - Migration from JSON-Based atomic read / write to SQL-Databse
+
+- Migrated all Production Data to an SQL-Database
+- Completely reworked data access across all command modules
+- Deleted all old JSON write code and only kept JSON read code
+- Changed the reading logic of the Bot-Dashboard to now read directly from DB
+- Addes several error handeling and edgde-case checks
+- Added new `!purge` command to quickly delete many messages from a channel
+- Updated legal documents and `/privacy` command
+- Updated Readme and Code-Snippets.
+- Repaired `!apod` command. Due to changes of NASA deactivating the old endpoint and moving to a new one.
+- Updated the Broadcast-Tool to use the DB to read if servers have set up the announcement channel and enabled it
+- Rephrased warning and error messages, added comments and docstrings
+
+### Version 1.9 - Code hardening and stability & Feature updates
+
+- Fixed some erros in the telemetry and dashboard modules and updated shown data for better insights
+- Recalibrated penalities for the health score on the dashboard
+- Added many docstrings and somments for readability and explaination
+- The `!poll` command got a huge update. Now enableing for finite voates and timeed polls
+- Fixed the `!untimeout` command not finding the wanted person in some cases
+- Removed some deprecated code and package imports
+- Fixed uptime-tracking of the bot and now counting / tracking downtime from reconnects & internet / connection outages
+- Updated color embeds of the !weather command and made colors consistent across all command modules
+- Repaired `!sun` command. Due to changes to data provided from the endpoint.
 
 ### Version 1.8 - Code efficiency refactoring & Feature expansion
 
@@ -566,16 +578,16 @@ For details, see [Contributing Guidelines](./CONTRIBUTING.md) and [Security Poli
 
 ## 📈 Project Status
 
-- **Current Version:** 1.7
-- **Status:** Active Development ✅
-- **Uptime:** 99%+ 
-- **Last Updated:** June 24, 2026
+- **Service:** Privately operated; bot source code is not included in this repository
+- **Availability:** The bot is not available for public invitation or self-hosting
+- **Legal documents:** Terms of Service 2.0 and Privacy Policy 2.1, both updated November 1, 2026
+- **README last updated:** November 1, 2026
 
 ---
 
 <div align="center">
 
-### 💙 Thank you for your interest in MCLP Discord Bot!
+### 💙 Thank you for your interest in MCLP Discord Bot
 
 [![Join Discord](https://img.shields.io/badge/Join-MCLP%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/tssKYweM3h)
 
@@ -583,7 +595,7 @@ For details, see [Contributing Guidelines](./CONTRIBUTING.md) and [Security Poli
 
 ---
 
-*This is a private, exclusive bot operated by Dennis Plischke.*  
+*This is a privately operated bot; its source code is not published here.*  
 *For inquiries, please join the MCLP Discord server or send an email.*
 
 </div>
