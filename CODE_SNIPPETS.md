@@ -576,6 +576,9 @@ def is_safe_expression(expression: str) -> tuple[bool, str]:
     if "\x00" in expression:
         return False, "Expression contains null bytes"
 
+    # And similar checks
+    ...
+
     # Check forbidden patterns and suspicious escape sequences.
     ...
 
