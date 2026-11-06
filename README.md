@@ -320,11 +320,11 @@ The bot's [Terms of Service](./Legal/TERMS_OF_SERVICE.md) cover:
 - **Broadcast System (optional announcements)**
 - Data retention and deletion rights
 
-**Current document version:** 2.0 (Last updated: November 1, 2026)
+**Current document version:** 2.1 (Last updated: November 6, 2026)
 
 ### Privacy Policy
 
-The [Privacy Policy](./Legal/PRIVACY_POLICY.md) (document version 2.1, last updated November 1, 2026) describes:
+The [Privacy Policy](./Legal/PRIVACY_POLICY.md) (document version 2.2, last updated November 6, 2026) describes:
 - What data is collected and why
 - How data is stored and protected
 - Your rights regarding your data
@@ -336,7 +336,7 @@ The [Privacy Policy](./Legal/PRIVACY_POLICY.md) (document version 2.1, last upda
 - **Production hosting:** Self-managed Raspberry Pi at the controller's home in Germany
 - **Database:** MariaDB; records have different retention behavior depending on the feature
 - **Logs:** The application attempts to delete log files older than 14 days; this does not apply to database records, backups, or other copies
-- **Backups:** The legal notice currently states that production database and log files are not backed up
+- **Backups:** The production database is backed up locally (compressed, SHA256 checksums, 14 most recent kept); log files are not. Deleted records can remain in backups until rotated out
 - **Access requests:** Contact the controller; there is no self-service data export or universal deletion schedule
 - **Contact:** dennisplischke755@gmail.com
 
@@ -580,8 +580,8 @@ For details, see [Contributing Guidelines](./CONTRIBUTING.md) and [Security Poli
 
 - **Service:** Privately operated; bot source code is not included in this repository
 - **Availability:** The bot is not available for public invitation or self-hosting
-- **Legal documents:** Terms of Service 2.0 and Privacy Policy 2.1, both updated November 1, 2026
-- **README last updated:** November 1, 2026
+- **Legal documents:** Terms of Service 2.1 and Privacy Policy 2.2, both updated November 6, 2026
+- **README last updated:** November 6, 2026
 
 ---
 

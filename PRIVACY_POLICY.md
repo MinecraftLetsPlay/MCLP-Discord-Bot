@@ -1,8 +1,8 @@
 # Privacy Policy - MCLP Discord Bot
 
-**Last Updated:** November 1, 2026  
-**Effective Date:** November 1, 2026  
-**Version:** 2.1 - Clarified production hosting, access, backups, providers, and retention
+**Last Updated:** November 6, 2026  
+**Effective Date:** November 6, 2026  
+**Version:** 2.2 - Documented production database backups, their retention, and access
 
 ## 1. Data Controller
 
@@ -262,9 +262,7 @@ advertising.
 ## 5. Legal Basis for Data Processing (DSGVO Article 6)
 
 The controller must identify and document the legal basis applicable to each
-processing purpose. The legal bases below are provisional considerations and
-have not yet been legally reviewed. The controller must confirm them before
-treating this notice as final.
+processing purpose.
 
 ### Article 6(1)(b) DSGVO - Performance of a Contract
 
@@ -315,8 +313,9 @@ Dennis Plischke and Robin Stiller. The Bot connects with credentials supplied
 through environment configuration. Its application account is intended to
 have data read/write privileges but not schema-administration privileges.
 Remote server access uses the encrypted Cloudflare Tunnel described above.
-No database or log backups are currently made. Encryption at rest is not
-claimed by this notice.
+Backups of the production database are made as described in Section 5.4;
+log files are not backed up. Encryption at rest is not claimed by this notice,
+including for backup files.
 
 Data is not used for advertising or sold. Data is sent to external services when required for a requested feature; see Section 6. Those services process requests under their own terms and privacy notices.
 
@@ -337,11 +336,39 @@ The application does not apply one universal 14-day deletion period. Current beh
 | Reminders | Active rows remain until cancellation or task completion; recurring reminders remain active and their next-run time is updated. Both can be deleted using `!reminders`. |
 | Polls, options and votes | Active records are restored after restart and deleted when the poll ends or is deleted. There is no poll history after deletion. |
 | Music queues, rate-limit windows, flood counters, active minigames | Runtime memory only; normally lost when the process stops. |
+| Production database backups | Full compressed dumps. The 14 most recent are kept; older ones are deleted automatically. See Section 5.4. |
 | Static game JSON files | Application content, not user records; read-only and not written by the Bot. |
 
-No production database or log backups are currently made. If backups are
-introduced, they may retain records beyond deletion from the live database and
-their retention should be documented.
+Records deleted from the live database can remain in existing backups until
+those backups are replaced under the retention rule in Section 5.4.
+Application log files are not included in backups.
+
+### 5.4 Database backups
+
+The production MariaDB database is backed up by a script on the production
+server. A backup is a full dump of the database and therefore contains all
+data described in Section 3 that is stored in the database, including
+moderation warning reasons, reminder and poll text, configuration, and
+telemetry.
+
+- **Creation:** automatically by a systemd timer on the production server
+  (5 minutes after each server boot, then every 14 days), or manually by an
+  authorized operator through the `/backups` command (restricted to the global
+  operator whitelist)
+- **Format and integrity:** each backup is a compressed archive with a SHA256 checksum file; backup creation and checksum results are recorded in a backup log
+- **Location:** a fixed directory on the production server's local storage; backups are not stored in the Discord server or sent to third parties
+- **Access:** the files are readable only by the server user account that runs the Bot; human access is limited to Dennis Plischke and Robin Stiller
+- **Retention:** the 14 most recent backups are kept (at the current 14-day
+  interval this covers roughly six months, longer if the schedule is not met);
+  older backups and their checksum files are deleted automatically. Backup log
+  entries contain only the file name, size, checksum or an error message and
+  are not automatically deleted
+- **Copies:** there is currently no automated transfer of backups to another
+  device. If an operator copies backups to another device, those copies are
+  not covered by the automatic deletion above and must be removed by the
+  operator
+- **Encryption:** backup files are not encrypted
+- **Legal basis:** legitimate interest in restoring the service after data loss or hardware failure (Article 6(1)(f) DSGVO), subject to the controller's review as described in Section 5
 
 ---
 
@@ -620,6 +647,7 @@ by law.
 - **v1.8** → Added warning moderation (`!warn`) data handling, per-guild flood-protection data handling, and clarified in-memory `!last` track state retention (August 8, 2026)
 - **v2.0** → Updated storage to MariaDB, documented durable reminders, polls/votes, reaction-role mappings, current telemetry and database retention behavior (November 1, 2026)
 - **v2.1** → Added production/development separation, hosting/access details, no-backup status, active providers, and privacy contact details (November 1, 2026)
+- **v2.2** → Documented production database backups: content, location, access, retention (14 backups), and effect on deletion requests (November 6, 2026)
 
 ---
 
@@ -690,7 +718,7 @@ a reduced subset; the local console view is more detailed.
 
 ---
 
-**Version:** 2.1
+**Version:** 2.2
 **Status:** Active  
 **Language:** English (German equivalent available upon request)  
-**Last Updated:** November 1, 2026
+**Last Updated:** November 6, 2026

@@ -1,8 +1,8 @@
 # Terms of Service - MCLP Discord Bot
 
-**Last Updated:** November 1, 2026  
-**Effective Date:** November 1, 2026  
-**Version:** 2.0 - Updated MariaDB persistence, active polls, reminders, reaction roles, hosting and access limits
+**Last Updated:** November 6, 2026
+**Effective Date:** November 6, 2026
+**Version:** 2.1 - Documented production database backups
 
 ---
 
@@ -296,8 +296,8 @@ all have automatic expiration. See the Privacy Policy for details.
 Production uses a MariaDB database on a self-managed Raspberry Pi in Germany.
 Database/server access is limited to Dennis Plischke and Robin Stiller
 and remote access uses an encrypted Cloudflare
-Tunnel. There are no database or log backups.
-Details are in the Privacy Policy.
+Tunnel. The production database is backed up locally on the server; log
+files are not backed up. Details are in the Privacy Policy.
 
 ---
 
@@ -765,9 +765,9 @@ configuration. Default values can change between releases.
 5. Contact owner if persistent
 
 **Data Loss?**
-1. Production database and log files are not currently backed up
+1. The production database is backed up locally (the 14 most recent backups are kept); log files are not backed up
 2. Contact the operator with the affected guild and feature details
-3. Recovery may not be possible if the live record is lost
+3. Recovery is not guaranteed; it depends on whether the record existed when the most recent backup was made
 
 **Security Incident?**
 1. Change any exposed API keys immediately
@@ -776,7 +776,7 @@ configuration. Default values can change between releases.
 
 ---
 
-**Version:** 2.0
+**Version:** 2.1
 **Status:** Active  
 **Language:** English (German translation available upon request)  
-**Last Updated:** November 1, 2026
+**Last Updated:** November 6, 2026
