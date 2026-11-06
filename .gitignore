@@ -54,6 +54,7 @@ Thumbs.db
 # Project specific
 config/
 data/
+html/
 per_guild/
 *.json
 !package.json
